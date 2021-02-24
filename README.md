@@ -1,28 +1,55 @@
-# A starter webpack project for React
+# Space Saver
 
-This is a starter project that uses webpack to transpile and bundle ES6 React code. To use, consider these steps:
+## Code of Conduct
 
-* Fork this repo
-* Rename your repo according to the app you're building
+Safe space
+Everybody’s voice is heard
+Constant communication 
 
-```sh
-git clone https://github.com/[your-account]/[your-app].git
-cd [your-app] && npm i
-```
+Expectations of hours:
+Weekdays: 8.30am - 5pm 
+weekend: 9am -2pm
 
-To start the development server with a watcher that rebuilds your code, run `npm run dev`. The assets built by webpack are placed in `server/public`. This folder is defined as a static folder in an Express.js server that can be started with `npm run server`.
+Conflict resolution: 
+Try and incorporate everybody's perspective/ consider perspectives 
+Daily standup & check in, giving kind feedback 
 
-Additional components should be placed in `client/components`.
+Agile roles & rituals: 
+Daily standups, impromptu standups, check-in & check-out , mid-day check-in 
 
-## Separate client/server
+Survival plan:
+Snacks, music, taking a decent lunch break to avoid burnout. 
 
-The boilerplate is also set up to host the client using `webpack-dev-server` with hot module reloading etc. To use this method, in one terminal run:
-```sh
-npm run client
-```
-and in the other:
-```sh
-npm run server
-```
-The client will be available on http://localhost:8080 and the server on http://localhost:3000. Note that you will still need to manage CORS between the two, as they are on different ports.
+Get Help?
+Time box when blocked 30 mins
+Ask a team a member if available or ask facilitators 
+
+When I’m stress I need:
+Pete: food, water, fresh air, break away from desk, a reset
+Clinton: quiet time, break away from desk, fresh air
+Peter: powers through but should take a break
+Anna: step away, talk it through with someone else, snack 
+
+
+Deployed: using heroku 
+
+Tech:
+Framer motion, animations 
+Geo location 
+
+Git flow:
+Main => Dev => Feature branches 
+Peer review before pushing to dev 
+Code review before pushing to main 
+
+Roles : 
+Clinton: Frontend lead & animation
+Pete: Vibes master & Product lead
+Anna: Git lead & styling 
+Peter: Backend lead
+
+Definition of done:
+Passing tests
+Peer reviewed 
+
 
