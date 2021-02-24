@@ -39,7 +39,8 @@
     ]
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "google-maps-react": "^2.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
