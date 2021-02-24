@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
 
 function MapContainer(props) {
-  const key = PUTKEYHERE
+  const key = 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
 
   const center = {
     lat: -36.84978,
