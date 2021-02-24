@@ -1,9 +1,9 @@
 import React from 'react'
-import GoogleMapReact from 'google-maps-react'
+import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
 
 function MapContainer (props) {
-  const key = AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI
+  const key = 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
 
   const center = {
     lat: -36.84978,
@@ -18,7 +18,7 @@ function MapContainer (props) {
   }
 
   return (
-    <div className='map'>
+    <div className='map' style={{ height: '450px', width: '500px' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key }}
         defaultCenter={center}

@@ -1,9 +1,15 @@
 import React from 'react'
 
+import MapContainer from './MapContainer'
+import NavBar from './NavBar'
+import AddressBar from './AddressBar'
+
 function Home () {
   return (
     <div>
-      <h1>This is a Home Page!</h1>
+      <NavBar />
+      <AddressBar />
+      <MapContainer />
     </div>
   )
 }
