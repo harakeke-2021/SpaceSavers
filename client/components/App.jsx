@@ -1,9 +1,8 @@
 import React from 'react'
+import MapContainer from './MapContainer'
 
-const App = () => {
-  return (
-    <h1>React development has begun!</h1>
-  )
+function App() {
+  return <MapContainer />
 }
 
 export default App
