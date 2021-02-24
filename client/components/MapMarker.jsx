@@ -28,7 +28,7 @@ function MapMarker(props) {
 
   return (
     <div
-      className={hover ? 'marker marker-hover' : 'marker'}
+      // className={hover ? 'marker marker-hover' : 'marker'}
       style={hover ? style2 : style}
       onClick={(e) => {
         e.preventDefault()
