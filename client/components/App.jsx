@@ -1,8 +1,14 @@
 import React from 'react'
-import MapContainer from './MapContainer'
+import { Route } from 'react-router-dom'
 
-function App() {
-  return <MapContainer />
+import Home from './Home'
+
+const App = () => {
+  return (
+    <div>
+      <Route path='/' component={Home} />
+    </div>
+  )
 }
 
 export default App

@@ -39,10 +39,12 @@
     ]
   },
   "dependencies": {
+
     "@googlemaps/google-maps-services-js": "^3.1.16",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "google-map-react": "^2.1.9"
+
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -60,6 +62,8 @@
     "npm-run-all": "^4.1.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "superagent": "^6.1.0",
     "webpack": "^5.17.0",
     "webpack-cli": "^4.4.0",
     "webpack-dev-server": "^3.11.2"
