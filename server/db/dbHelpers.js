@@ -6,6 +6,7 @@ module.exports = {
   setUnoccupied,
   getParkById,
   getUserById,
+  getParksByOwnerId,
   addPark,
   editPark
 }
@@ -60,12 +61,12 @@ function getParkById (parkId, db = connection) {
     .select(
       'id',
       'name',
-      'owner_id as ownerID',
+      'owner_id as ownerId',
       'address',
       'latlng',
       'price',
       'occupied',
-      'occupant_id as occupantID'
+      'occupant_id as occupantId'
     )
     .then(result => {
       const park = result[0]
@@ -80,6 +81,23 @@ function getParkById (parkId, db = connection) {
         occupantId: park.occupantId
       }
     }
+    )
+}
+
+// GET PARK BY OWNER ID
+
+function getParksByOwnerId (ownerId, db = connection) {
+  return db('parks')
+    .where('owner_id', ownerId)
+    .select(
+      'id',
+      'name',
+      'owner_id as ownerId',
+      'address',
+      'latlng',
+      'price',
+      'occupied',
+      'occupant_id as occupantId'
     )
 }
 
