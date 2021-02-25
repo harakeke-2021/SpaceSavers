@@ -1,6 +1,7 @@
 const express = require('express')
 
 const router = express.Router()
+require('dotenv').config()
 const { Client } = require('@googlemaps/google-maps-services-js')
 
 module.exports = router
@@ -11,7 +12,7 @@ router.get('/', (req, res) => {
     .geocode({
       params: {
         address: '17a walter street, auckland',
-        key: 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
+        key: process.env.GEOCODE_API_KEY
       },
       timeout: 1000 // milliseconds
     })
