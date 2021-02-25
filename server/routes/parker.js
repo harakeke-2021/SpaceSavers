@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-  return db.getAllParks
+  return db.getAllParks()
     .then(parks => {
       res.json({ parks })
       return null

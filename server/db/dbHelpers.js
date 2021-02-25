@@ -1,10 +1,21 @@
 const connection = require('./connection')
 
-module.exports = { getAllParks, setOccupied, setUnoccupied, getParkById, getAllUsers }
+module.exports = {
+  getAllParks,
+  setOccupied,
+  setUnoccupied,
+  getParkById,
+  getUserById,
+  addPark
+}
+
+// GET ALL PARKS
 
 function getAllParks (db = connection) {
   return db('parks').select()
 }
+
+// SET OCCUPIED
 
 function setOccupied (userId, parkId, db = connection) {
   return db('parks')
@@ -12,20 +23,35 @@ function setOccupied (userId, parkId, db = connection) {
     .update({ occupied: true, occupant_id: userId })
 }
 
+// SET UNOCCUPIED
+
 function setUnoccupied (parkId, db = connection) {
   return db('parks')
     .where('id', parkId)
     .update({ occupied: false, occupant_id: null })
 }
 
-function getAllUsers(db = connection) {
+// GET USER BY ID
+
+function getUserById (userId, db = connection) {
   return db('users')
-    .select()
+    .where('id', userId)
+    .select(
+      'id',
+      'name',
+      'email'
+    )
+    .then(result => {
+      const user = result[0]
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      }
+    })
 }
 
-function getUserById(userId, db = connection) {
-  return 
-}
+// GET PARK BY ID
 
 function getParkById (parkId, db = connection) {
   return db('parks')
@@ -55,3 +81,20 @@ function getParkById (parkId, db = connection) {
     }
     )
 }
+
+// ADD PARK
+
+function addPark (newPark, ownerId, latlng, db = connection) {
+  return db('parks')
+    .insert({
+      name: newPark.name,
+      owner_id: ownerId,
+      address: newPark.address,
+      latlng,
+      price: newPark.price,
+      occupied: false,
+      occupant_id: null
+    })
+}
+
+// EDIT PARK
