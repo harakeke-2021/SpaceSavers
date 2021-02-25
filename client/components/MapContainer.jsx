@@ -24,6 +24,11 @@ function MapContainer (props) {
     map.setOptions(options)
   }
 
+  const test = {
+    lat: -36.8647183,
+    lng: 174.7760362
+  }
+
   return (
     <div className='map' style={{ height: '450px', width: '500px' }}>
       <GoogleMapReact
@@ -34,6 +39,8 @@ function MapContainer (props) {
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
         <MapMarker lat={center.lat} lng={center.lng}></MapMarker>
+        <MapMarker lat={test.lat} lng={test.lng}></MapMarker>
+
       </GoogleMapReact>
 
       <ListResults />

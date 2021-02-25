@@ -48,6 +48,7 @@
     "express": "^4.17.1",
     "google-map-react": "^2.1.9",
     "knex": "^0.21.18",
+    "mathjs": "^9.2.0",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
