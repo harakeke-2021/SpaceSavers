@@ -1,7 +1,4 @@
-const { log10Dependencies, atan2 } = require('mathjs')
 const math = require('mathjs')
-
-const test = math.sin(math.unit(90, 'deg'))
 
 const R = 6373
 
