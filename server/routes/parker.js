@@ -5,6 +5,8 @@ const router = express.Router()
 const { Client } = require('@googlemaps/google-maps-services-js')
 require('dotenv').config()
 
+const db = require('../db/dbHelpers')
+
 module.exports = router
 
 router.post('/', (req, res) => {
@@ -25,5 +27,20 @@ router.post('/', (req, res) => {
     })
     .catch((e) => {
       console.log(e.message)
+    })
+})
+
+router.get('/', (req, res) => {
+  return db.getAllParks
+    .then(parks => {
+      return res.json({ parks })
+    })
+    .catch((err) => {
+      console.log(err.message)
+      res.status(500).json({
+        error: {
+          title: 'Unable to retrieve parks'
+        }
+      })
     })
 })
