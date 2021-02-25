@@ -6,7 +6,7 @@ import AddressBar from './AddressBar'
 
 function Home () {
   const [searchArea, setSearchArea] = useState('')
-  console.log(searchArea)
+  // console.log(searchArea)
   return (
     <div>
       <NavBar />
