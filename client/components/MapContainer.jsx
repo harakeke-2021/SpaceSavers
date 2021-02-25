@@ -24,10 +24,22 @@ function MapContainer (props) {
     map.setOptions(options)
   }
 
-  const test = {
+  const test = [{
     lat: -36.8647183,
     lng: 174.7760362
-  }
+  }, {
+    lat: -36.84829,
+    lng: 174.76224
+  }, {
+    lat: -36.84852065618249,
+    lng: 174.7647278136159
+  }, {
+    lat: -36.85341636476441,
+    lng: 174.766453585174
+  }, {
+    lat: -36.852166078918216,
+    lng: 174.76905365409488
+  }]
 
   return (
     <div className='map' style={{ height: '450px', width: '500px' }}>
@@ -38,8 +50,11 @@ function MapContainer (props) {
         hoverDistance={40}
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
+
         <MapMarker lat={center.lat} lng={center.lng}></MapMarker>
-        <MapMarker lat={test.lat} lng={test.lng}></MapMarker>
+        {test.map(marker => {
+          return <MapMarker key={marker.lat} lat={marker.lat} lng={marker.lng}></MapMarker>
+        })}
 
       </GoogleMapReact>
 
