@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
     .geocode({
       params: {
         address,
-        key: 'AIzaSyBqa2IKG4slDBmNm9fVsFrSaoVF6xdb8nU'
+        key: process.env.GEOCODE_API_KEY
       },
       timeout: 1000 // milliseconds
     })
