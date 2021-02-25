@@ -22,4 +22,31 @@ function setUnoccupied (parkId, db = connection) {
 
 // function getUserById() {}
 
-function getParkById () {}
+function getParkById (parkId, db = connection) {
+  return db('parks')
+    .where('id', parkId)
+    .select(
+      'id',
+      'name',
+      'owner_id as ownerID',
+      'address',
+      'latlng',
+      'price',
+      'occupied',
+      'occupant_id as occupantID'
+    )
+    .then(result => {
+      const park = result[0]
+      return {
+        id: park.id,
+        name: park.name,
+        ownerId: park.ownerId,
+        address: park.address,
+        latlng: park.latlng,
+        price: park.price,
+        occupied: park.occupied,
+        occupantId: park.occupantId
+      }
+    }
+    )
+}
