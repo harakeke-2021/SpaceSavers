@@ -3,8 +3,8 @@ import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
 
 import { getGeoCode } from '../API/mapsHelper'
-
 import ListResults from './ListResults'
+import request from 'superagent'
 
 function MapContainer (props) {
   const { searchArea } = props
@@ -13,6 +13,11 @@ function MapContainer (props) {
     lng: 0
   })
   const [map, setMap] = useState()
+
+  const [parkings, setParkings] = useState({})
+  useEffect(() => {
+    getAllParking()
+  }, [])
 
   useEffect(() => {
     // !searchArea ? default view : send address to api to get lat lng
@@ -59,6 +64,17 @@ function MapContainer (props) {
     lng: 174.76905365409488
   }]
 
+  function getAllParking () {
+    request.get('/api/v1/parker')
+      .then((res) => {
+        setParkings(res.body)
+        return null
+      })
+      .catch(err => console.error(err))
+  }
+
+  console.log(parkings)
+
   return (
     <div className='map' style={{ height: '450px', width: '500px' }}>
       <GoogleMapReact
@@ -75,7 +91,6 @@ function MapContainer (props) {
         })}
 
       </GoogleMapReact>
-
       <ListResults />
 
     </div>
