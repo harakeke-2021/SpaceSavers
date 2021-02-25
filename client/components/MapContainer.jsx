@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
 
-
+import { getGeoCode } from '../API/api'
 
 function MapContainer (props) {
   const { searchArea } = props
@@ -11,7 +11,6 @@ function MapContainer (props) {
     // then map.setCenter({ lat: -36.8499, lng: 174.7586 })
   }, [searchArea])
   const key = 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
-
 
   const center = {
     lat: -36.84978,
@@ -23,7 +22,6 @@ function MapContainer (props) {
     console.log('maps', maps)
     const options = { disableDoubleClickZoom: true }
     map.setOptions(options)
-    
   }
 
   return (
