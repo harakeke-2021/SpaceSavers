@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import getAllParking from './addressBarHelper'
+
 function AddressBar (props) {
   const { setSearchArea } = props
   const [address, setAddress] = useState('')
@@ -10,6 +12,7 @@ function AddressBar (props) {
 
   function handleClick () {
     setSearchArea(address)
+    getAllParking()
   }
 
   return (

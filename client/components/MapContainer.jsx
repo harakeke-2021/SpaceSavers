@@ -4,7 +4,7 @@ import MapMarker from './MapMarker'
 
 import { getGeoCode } from '../API/mapsHelper'
 import ListResults from './ListResults'
-import request from 'superagent'
+import getAllParking from './addressBarHelper'
 
 function MapContainer (props) {
   const { searchArea } = props
@@ -63,15 +63,6 @@ function MapContainer (props) {
     lat: -36.852166078918216,
     lng: 174.76905365409488
   }]
-
-  function getAllParking () {
-    request.get('/api/v1/parker')
-      .then((res) => {
-        setParkings(res.body)
-        return null
-      })
-      .catch(err => console.error(err))
-  }
 
   console.log(parkings)
 
