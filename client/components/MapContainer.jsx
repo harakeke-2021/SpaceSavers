@@ -4,6 +4,8 @@ import MapMarker from './MapMarker'
 
 import { getGeoCode } from '../API/mapsHelper'
 
+import ListResults from './ListResults'
+
 function MapContainer (props) {
   const { searchArea } = props
   const [center, setCenter] = useState({
@@ -51,7 +53,11 @@ function MapContainer (props) {
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
         <MapMarker lat={center.lat} lng={center.lng}></MapMarker>
       </GoogleMapReact>
+
+      <ListResults />
+
     </div>
+
   )
 }
 
