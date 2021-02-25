@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
 
+import ListResults from './ListResults'
+
 function MapContainer (props) {
   const { searchArea } = props
   useEffect(() => {
@@ -20,7 +22,6 @@ function MapContainer (props) {
     console.log('maps', maps)
     const options = { disableDoubleClickZoom: true }
     map.setOptions(options)
-    
   }
 
   return (
@@ -34,7 +35,11 @@ function MapContainer (props) {
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
         <MapMarker lat={center.lat} lng={center.lng}></MapMarker>
       </GoogleMapReact>
+
+      <ListResults />
+
     </div>
+
   )
 }
 
