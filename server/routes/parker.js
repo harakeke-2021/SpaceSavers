@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 
 const router = express.Router()
+require('dotenv').config()
 const { Client } = require('@googlemaps/google-maps-services-js')
 require('dotenv').config()
 
