@@ -41,8 +41,7 @@
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.1.16",
     "express": "^4.17.1",
-    "google-map-react": "^2.1.9",
-    "google-maps-react": "^2.0.6"
+    "google-map-react": "^2.1.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

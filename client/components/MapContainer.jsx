@@ -13,7 +13,7 @@ function MapContainer (props) {
   function handleApiLoaded (map, maps) {
     console.log('map', map)
     console.log('maps', maps)
-    const options = { gestureHandling: 'none' }
+    const options = { disableDoubleClickZoom: true }
     map.setOptions(options)
   }
 

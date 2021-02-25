@@ -9,8 +9,8 @@ function AddressBar () {
 
   return (
     <div>
-      <label htmlFor='name'>Address</label>
-      <input type='text' />
+      <label htmlFor='name'></label>
+      <input type='text' placeholder='Where do you want to park?'/>
       <button>Find Parking</button>
     </div>
   )
