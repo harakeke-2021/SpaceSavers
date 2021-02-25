@@ -8,11 +8,40 @@ module.exports = {
   },
   mode: 'development',
   module: {
-    rules: [{
-      test: /\.jsx?$/,
-      loader: 'babel-loader',
-      exclude: /node_modules/
-    }]
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  'precss',
+                  'autoprefixer',
+                  'tailwindcss'
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
   },
   resolve: {
     extensions: ['.js', '.jsx']
