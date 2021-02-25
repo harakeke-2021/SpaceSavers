@@ -6,7 +6,8 @@ module.exports = {
   setUnoccupied,
   getParkById,
   getUserById,
-  addPark
+  addPark,
+  editPark
 }
 
 // GET ALL PARKS
@@ -98,3 +99,11 @@ function addPark (newPark, ownerId, latlng, db = connection) {
 }
 
 // EDIT PARK
+
+function editPark (updatePark, db = connection) {
+  return db('parks')
+    .update({
+      name: updatePark.name,
+      price: updatePark.price
+    })
+}
