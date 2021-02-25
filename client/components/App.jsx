@@ -3,12 +3,14 @@ import { Route } from 'react-router-dom'
 
 import Home from './Home'
 import Header from './Header'
+import Owner from './Owner'
 
 const App = () => {
   return (
     <div>
       <Route path='/' component={Header} />
       <Route exact path='/' component={Home} />
+      <Route path='/owner' component={Owner} />
     </div>
   )
 }
