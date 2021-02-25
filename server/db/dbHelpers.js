@@ -1,6 +1,6 @@
 const connection = require('./connection')
 
-module.exports = { getAllParks, setOccupied, setUnoccupied, getParkById }
+module.exports = { getAllParks, setOccupied, setUnoccupied, getParkById, getAllUsers }
 
 function getAllParks (db = connection) {
   return db('parks').select()
@@ -18,9 +18,14 @@ function setUnoccupied (parkId, db = connection) {
     .update({ occupied: false, occupant_id: null })
 }
 
-// function getAllUsers() {}
+function getAllUsers(db = connection) {
+  return db('users')
+    .select()
+}
 
-// function getUserById() {}
+function getUserById(userId, db = connection) {
+  return 
+}
 
 function getParkById (parkId, db = connection) {
   return db('parks')
