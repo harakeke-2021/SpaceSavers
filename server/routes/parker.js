@@ -4,7 +4,6 @@ const express = require('express')
 const router = express.Router()
 require('dotenv').config()
 const { Client } = require('@googlemaps/google-maps-services-js')
-require('dotenv').config()
 
 const db = require('../db/dbHelpers')
 
@@ -32,8 +31,9 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-  return db.getAllParks()
-    .then(parks => {
+  return db
+    .getAllParks()
+    .then((parks) => {
       res.json({ parks })
       return null
     })
@@ -50,8 +50,9 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const id = req.params.id
 
-  return db.getParkById(id)
-    .then(park => {
+  return db
+    .getParkById(id)
+    .then((park) => {
       res.json({ park })
       return null
     })
