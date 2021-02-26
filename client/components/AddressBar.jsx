@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 
-import getAllParking from './addressBarHelper'
+import getAllParking from '../api/addressBarHelper'
 
-function AddressBar (props) {
+function AddressBar(props) {
   const { setSearchArea } = props
   const [address, setAddress] = useState('')
 
-  function handleChange (e) {
+  function handleChange(e) {
     setAddress(e.target.value)
   }
 
-  function handleClick () {
+  function handleClick() {
     setSearchArea(address)
     getAllParking()
   }
@@ -18,7 +18,11 @@ function AddressBar (props) {
   return (
     <div>
       <label htmlFor='name'></label>
-      <input type='text' onChange={handleChange}placeholder='Where do you want to park?'/>
+      <input
+        type='text'
+        onChange={handleChange}
+        placeholder='Where do you want to park?'
+      />
       <button onClick={handleClick}>Find Parking</button>
     </div>
   )
