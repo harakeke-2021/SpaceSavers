@@ -93,27 +93,27 @@ function getParkById (parkId, db = connection) {
 // CREATE USER
 
 function createUser (newUser, db = connection) {
-  const { username, email, password } = newUser
+  const { name, email, password } = newUser
 
-  return userExists(username, db)
+  return userExists(name, db)
     .then(exists => {
       if (exists) {
-        return Promise.reject(new Error('User exists'))
+        throw new Error('User exists')
       }
       return null
     })
     .then(() => generateHash(password))
     .then(passwordHash => {
-      return db('users').insert({ username, email, hash: passwordHash })
+      return db('users').insert({ name, email, hash: passwordHash })
     })
 }
 
 // USER EXISTS
 
-function userExists (username, db = connection) {
+function userExists (name, db = connection) {
   return db('users')
     .count('id as n')
-    .where('username', username)
+    .where('name', name)
     .then(count => {
       return count[0].n > 0
     })
@@ -121,10 +121,10 @@ function userExists (username, db = connection) {
 
 // GET USER BY NAME
 
-function getUserByName (username, db = connection) {
+function getUserByName (name, db = connection) {
   return db('users')
     .select()
-    .where('username', username)
+    .where('name', name)
     .first()
 }
 
