@@ -4,7 +4,6 @@ import MapMarker from './MapMarker'
 
 import { getGeoCode } from '../API/mapsHelper'
 import ListResults from './ListResults'
-import getAllParking from '../API/addressBarHelper'
 
 function MapContainer (props) {
   const { searchArea } = props
@@ -13,11 +12,6 @@ function MapContainer (props) {
     lng: 0
   })
   const [map, setMap] = useState()
-
-  const [parkings, setParkings] = useState({})
-  useEffect(() => {
-    getAllParking()
-  }, [])
 
   useEffect(() => {
     // !searchArea ? default view : send address to api to get lat lng
@@ -63,8 +57,6 @@ function MapContainer (props) {
     lat: -36.852166078918216,
     lng: 174.76905365409488
   }]
-
-  console.log(parkings)
 
   return (
     <div className='map' style={{ height: '450px', width: '500px' }}>
