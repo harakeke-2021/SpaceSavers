@@ -70,7 +70,6 @@
     "postcss": "^8.2.6",
     "postcss-import": "^14.0.0",
     "postcss-loader": "^5.0.0",
-    "postcss-nested": "^5.0.3",
     "precss": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

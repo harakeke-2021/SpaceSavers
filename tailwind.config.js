@@ -1,10 +1,11 @@
 module.exports = {
-  purge: [],
+  purge: [], // purges unused classes
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      // font family
-      // colors
+      fontFamily: {
+        'sans-serif': ['Work Sans']
+      }
     }
   },
   variants: {
