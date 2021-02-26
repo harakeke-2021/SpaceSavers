@@ -101,13 +101,16 @@ function getParksByOwnerId(ownerId, db = connection) {
 
 // ADD PARK
 
-function addPark(newPark, ownerId, lat, lng, db = connection) {
+function addPark(newPark, ownerId = 1, db = connection) {
+  console.warn(
+    '!!!!!!!!!!!!!!!!!!!!!!!!!!!ownerId is 1 as a default for testing purposes'
+  )
   return db('parks').insert({
     name: newPark.name,
     owner_id: ownerId,
     address: newPark.address,
-    lat,
-    lng,
+    lat: newPark.lat,
+    lng: newPark.lng,
     price: newPark.price,
     occupied: false,
     occupant_id: null
