@@ -41,8 +41,8 @@ export default function Register (props) {
   return (
     <>
       <h2>Register</h2>
-      <div style={{'color: red; cursor: pointer;'}} onClick={hideError}>
-      { error && `Error: ${error}` }
+      <div onClick={hideError}>
+        { error && `Error: ${error}` }
       </div>
       <form>
         <label htmlFor="username">Choose a Username:</label>
