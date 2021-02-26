@@ -9,7 +9,7 @@ function ListResults (props) {
     <div>
       <ul>
         {parks.map(park => {
-          return <li key ={park.address}>{park.address} {park.price}</li>
+          return <li key ={park.address}>{park.address}, Price: ${park.price}</li>
         })}
       </ul>
     </div>

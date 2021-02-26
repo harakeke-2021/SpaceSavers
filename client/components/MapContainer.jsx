@@ -4,7 +4,7 @@ import MapMarker from './MapMarker'
 
 import { getGeoCode } from '../API/mapsHelper'
 import ListResults from './ListResults'
-import getAllParking from './addressBarHelper'
+import getAllParking from '../API/addressBarHelper'
 
 function MapContainer (props) {
   const { searchArea } = props
