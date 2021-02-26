@@ -80,11 +80,10 @@ function MapContainer (props) {
         <MapMarker lat={center.lat} lng={center.lng}></MapMarker>
         {parks.map(park => {
           return (
-
             <MapMarker
-              key={park.latlng.lat}
-              lat={park.latlng.lat}
-              lng={park.latlng.lng}></MapMarker>
+              key={park.lat}
+              lat={park.lat}
+              lng={park.lng}></MapMarker>
           )
         })}
       </GoogleMapReact>
