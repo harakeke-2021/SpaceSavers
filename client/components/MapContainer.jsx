@@ -5,7 +5,7 @@ import MapMarker from './MapMarker'
 import { getGeoCode } from '../API/mapsHelper'
 import ListResults from './ListResults'
 
-function MapContainer(props) {
+function MapContainer (props) {
   const { searchArea } = props
   const [center, setCenter] = useState({
     lat: 0,
@@ -35,7 +35,7 @@ function MapContainer(props) {
 
   const key = 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
 
-  function handleApiLoaded(map, maps) {
+  function handleApiLoaded (map, maps) {
     console.log('map', map)
     console.log('maps', maps)
     setMap(map)
@@ -67,7 +67,7 @@ function MapContainer(props) {
   ]
 
   return (
-    <div className='map' style={{ height: '450px', width: '500px' }}>
+    <div className='map w-3/4 h-96 object-center container'>
       <GoogleMapReact
         bootstrapURLKeys={{ key }}
         defaultCenter={center}
@@ -75,13 +75,14 @@ function MapContainer(props) {
         hoverDistance={40}
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        <MapMarker lat={center.lat} lng={center.lng}></MapMarker>
+        {/* <MapMarker lat={center.lat} lng={center.lng}></MapMarker> */}
         {test.map((marker) => {
           return (
             <MapMarker
               key={marker.lat}
               lat={marker.lat}
-              lng={marker.lng}></MapMarker>
+              lng={marker.lng}
+            />
           )
         })}
       </GoogleMapReact>
