@@ -1,15 +1,21 @@
 const connection = require('./connection')
 
+const { generateHash } = require('authenticare/server')
+const { null } = require('mathjs')
+
 module.exports = {
   getAllParks,
   setOccupied,
   setUnoccupied,
   getParkById,
   createUser,
+  userExists,
   getUserById,
+  getUserByName,
   getParksByOwnerId,
   addPark,
-  editPark
+  editPark,
+  deletePark
 }
 
 // GET ALL PARKS
@@ -88,8 +94,39 @@ function getParkById (parkId, db = connection) {
 // CREATE USER
 
 function createUser (newUser, db = connection) {
+  const { username, email, password } = newUser
+
+  return userExists(username, db)
+    .then(exists => {
+      if (exists) {
+        return Promise.reject(new Error('User exists'))
+      }
+      return null
+    })
+    .then(() => generateHash(password))
+    .then(passwordHash => {
+      return db('users').insert({ username, email, hash: passwordHash })
+    })
+}
+
+// USER EXISTS
+
+function userExists (username, db = connection) {
   return db('users')
-    .insert(newUser)
+    .count('id as n')
+    .where('username', username)
+    .then(count => {
+      return count[0].n > 0
+    })
+}
+
+// GET USER BY NAME
+
+function getUserByName (username, db = connection) {
+  return db('users')
+    .select()
+    .where('username', username)
+    .first()
 }
 
 // GET PARK BY OWNER ID
@@ -132,4 +169,12 @@ function editPark (updatePark, db = connection) {
       name: updatePark.name,
       price: updatePark.price
     })
+}
+
+// DELETE PARK
+
+function deletePark (parkId, db = connection) {
+  return db('parks')
+    .where('id', parkId)
+    .delete()
 }
