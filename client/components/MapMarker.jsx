@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import MarkerHover from './MarkerHover'
 
-function MapMarker(props) {
-  // console.log(props)
+import Pin from './Pin'
+
+function MapMarker (props) {
   const K_SIZE = 40
   const hover = props.$hover
   if (hover) {
@@ -10,13 +11,13 @@ function MapMarker(props) {
   }
   const style = {
     position: 'absolute',
-    borderRadius: '50%',
-    backgroundColor: 'black',
+    // borderRadius: '50%',
+    // backgroundColor: 'black',
     width: K_SIZE,
     height: K_SIZE,
     left: -K_SIZE / 2,
-    top: -K_SIZE / 2,
-    textAlign: 'center'
+    top: -K_SIZE / 2
+    // textAlign: 'center'
   }
   const style2 = {
     ...style,
@@ -28,14 +29,16 @@ function MapMarker(props) {
   }
 
   return (
-    <div
-      // className={hover ? 'marker marker-hover' : 'marker'}
-      style={hover ? style2 : style}
-      onClick={(e) => {
+    <div>
+      {/* // className={hover ? 'marker marker-hover' : 'marker'} */}
+
+      <Pin style={style}/>
+      {/* onClick={(e) => {
         e.preventDefault()
         console.log('clicked!!!!')
-      }}>
-      {hover ? <MarkerHover offset={K_SIZE / 2} /> : ''}
+      }}
+      {hover ? <MarkerHover offset={K_SIZE / 2} /> : ''} */}
+
     </div>
   )
 }
