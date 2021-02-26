@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import MarkerHover from './MarkerHover'
 
 function MapMarker(props) {
   // console.log(props)
@@ -32,8 +33,10 @@ function MapMarker(props) {
       style={hover ? style2 : style}
       onClick={(e) => {
         e.preventDefault()
-        console.log('hovering!!!')
-      }}></div>
+        console.log('clicked!!!!')
+      }}>
+      {hover ? <MarkerHover offset={K_SIZE / 2} /> : ''}
+    </div>
   )
 }
 

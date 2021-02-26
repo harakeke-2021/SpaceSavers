@@ -13,7 +13,8 @@ exports.seed = function (knex) {
           occupied: false,
           occupant_id: null,
           address: '12 Morgan Place, Newmarket, Auckland',
-          latlng: JSON.stringify({ lat: -36.8646253, lng: 174.7672811 })
+          lat: -36.8646253,
+          lng: 174.7672811
         },
         {
           id: 2,
@@ -23,7 +24,8 @@ exports.seed = function (knex) {
           occupied: false,
           occupant_id: null,
           address: 'Victoria Street West, Auckland Central, Auckland',
-          latlng: JSON.stringify({ lat: -36.8484437, lng: 174.7600023 })
+          lat: -36.8484437,
+          lng: 174.7600023
         },
         {
           id: 3,
@@ -33,7 +35,8 @@ exports.seed = function (knex) {
           occupied: false,
           occupant_id: null,
           address: '12 Grafton Road, Auckland Central, Auckland',
-          latlng: JSON.stringify({ lat: -36.853105, lng: 174.7693262 })
+          lat: -36.853105,
+          lng: 174.7693262
         }
       ])
     })

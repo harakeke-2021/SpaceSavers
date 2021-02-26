@@ -10,6 +10,7 @@ export function getOwnerBalance (consume = requestor) {
 
 
 
+
 // POTENTIAL REFACTOR WITH CONSUME
 
 export function addPark (park, url = rootURL) {
@@ -20,3 +21,9 @@ export function addPark (park, url = rootURL) {
     .then(res => res.body.parks)
     .catch(err => console.error(err))
 }
+
+
+export function getParksByOwnerIdApi(id, consume = requestor) {
+  return consume(`/owner/${id}`, 'get')
+}
+

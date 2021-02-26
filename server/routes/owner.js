@@ -9,6 +9,7 @@ module.exports = router
 
 router.get('/:id', getTokenDecoder(), async (req, res) => {
   const ownerId = req.params.id
+
   try {
     const parks = await db.getParksByOwnerId(ownerId)
     res.json({ parks })
@@ -20,8 +21,7 @@ router.get('/:id', getTokenDecoder(), async (req, res) => {
       }
     })
   }
-}
-)
+})
 
 // POST /api/v1/owner
 
@@ -52,4 +52,22 @@ router.delete('/:id', getTokenDecoder(), async (req, res) => {
     }
     res.status(500).send(err.message)
   }
+})
+
+router.post('/addpark', (req, res) => {
+  const newPark = req.body
+  return db
+    .addPark(newPark)
+    .then((result) => {
+      res.send(result)
+      return null
+    })
+    .catch((err) => {
+      console.log(err.message)
+      res.status(500).json({
+        error: {
+          title: 'Unable to add park'
+        }
+      })
+    })
 })

@@ -73,12 +73,13 @@ function getParkById (parkId, db = connection) {
       'name',
       'owner_id as ownerId',
       'address',
-      'latlng',
+      'lat',
+      'lng',
       'price',
       'occupied',
       'occupant_id as occupantId'
     )
-    .then(result => {
+    .then((result) => {
       const park = result[0]
       return {
         id: park.id,
@@ -86,13 +87,13 @@ function getParkById (parkId, db = connection) {
         name: park.name,
         ownerId: park.ownerId,
         address: park.address,
-        latlng: park.latlng,
+        lat: park.lat,
+        lng: park.lng,
         price: park.price,
         occupied: park.occupied,
         occupantId: park.occupantId
       }
-    }
-    )
+    })
 }
 
 // CREATE USER
@@ -144,7 +145,8 @@ function getParksByOwnerId (ownerId, db = connection) {
       'name',
       'owner_id as ownerId',
       'address',
-      'latlng',
+      'lat',
+      'lng',
       'price',
       'occupied',
       'occupant_id as occupantId'

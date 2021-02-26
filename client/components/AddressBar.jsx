@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 
-import getAllParking from '../api/addressBarHelper'
+import getAllParking from '../API/addressBarHelper'
 
-function AddressBar(props) {
+function AddressBar (props) {
   const { setSearchArea } = props
   const [address, setAddress] = useState('')
 
-  function handleChange(e) {
+  function handleChange (e) {
     setAddress(e.target.value)
   }
 
-  function handleClick() {
+  function handleClick () {
     setSearchArea(address)
     getAllParking()
   }
