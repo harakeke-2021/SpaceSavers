@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
+import { connect } from 'react-redux'
 
 import { getGeoCode } from '../API/mapsHelper'
 import ListResults from './ListResults'
@@ -12,6 +13,7 @@ function MapContainer (props) {
     lng: 0
   })
   const [map, setMap] = useState()
+  const { parks } = props
 
   useEffect(() => {
     // !searchArea ? default view : send address to api to get lat lng
@@ -75,7 +77,6 @@ function MapContainer (props) {
         hoverDistance={40}
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        {/* <MapMarker lat={center.lat} lng={center.lng}></MapMarker> */}
         {test.map((marker) => {
           return (
             <MapMarker
@@ -91,4 +92,6 @@ function MapContainer (props) {
   )
 }
 
-export default MapContainer
+const mapStateToProps = (state) => ({ parks: state.parks })
+
+export default connect(mapStateToProps)(MapContainer)
