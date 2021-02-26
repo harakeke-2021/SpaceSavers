@@ -5,7 +5,7 @@ const router = express.Router()
 
 module.exports = router
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', getTokenDecoder(), async (req, res) => {
   const ownerId = req.params.id
   try {
     const parks = await db.getParksByOwnerId(ownerId)
