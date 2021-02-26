@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import { getOwnerBalance } from '../api/ownerHelper'
+import { connect } from 'react-redux'
+import { updateOwnerBalance } from '../actions/owner'
 
 function OwnerDashboard(props) {
-  const [balance, setBalance] = useState(0)
+  // const [balance, setBalance] = useState(0)
+  let { owner } = props
 
   useEffect(() => {
-    getOwnerBalance()
-      .then((res) => {
-        setBalance(res.body.balance)
-        return null
-      })
-      .catch((err) => console.log(err.message))
+    console.log('effect running')
+    updateOwnerBalance(props.dispatch)
   }, [])
 
   return (
     <div className='owner-dashboard'>
       <div>dashboard component</div>
-      <div>Account Balance: ${balance} </div>
+      <div>Account Balance: ${owner.balance} </div>
     </div>
   )
 }
 
-export default OwnerDashboard
+function mapStateToProps(state) {
+  return {
+    owner: state.owner
+  }
+}
+
+export default connect(mapStateToProps)(OwnerDashboard)
