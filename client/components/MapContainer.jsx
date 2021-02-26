@@ -69,7 +69,7 @@ function MapContainer (props) {
   ]
 
   return (
-    <div className='map w-3/4 h-96 object-center container'>
+    <div className="map w-full h-screen">
       <GoogleMapReact
         bootstrapURLKeys={{ key }}
         defaultCenter={center}
