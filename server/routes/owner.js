@@ -8,7 +8,7 @@ router.get('/:id', (req, res) => {
   const ownerId = req.params.id
   return db.getParksByOwnerId(ownerId)
     .then(parks => {
-      res.json(parks)
+      res.json({ parks })
       return null
     })
     .catch((err) => {
