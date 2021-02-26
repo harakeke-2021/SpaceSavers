@@ -147,22 +147,27 @@ function getParksByOwnerId (ownerId, db = connection) {
 
 // ADD PARK
 
-function addPark (newPark, ownerId, latlng, db = connection) {
+async function addPark (newPark, ownerId, latlng, user, db = connection) {
+  const park = {
+    name: newPark.name,
+    owner_id: ownerId,
+    address: newPark.address,
+    latlng,
+    price: newPark.price,
+    occupied: false,
+    occupant_id: null
+  }
+
+  park.added_by_user = user.id
+
   return db('parks')
-    .insert({
-      name: newPark.name,
-      owner_id: ownerId,
-      address: newPark.address,
-      latlng,
-      price: newPark.price,
-      occupied: false,
-      occupant_id: null
-    })
+    .insert(park)
+    .then(() => db)
 }
 
 // EDIT PARK
 
-function editPark (updatePark, db = connection) {
+async function editPark (updatePark, db = connection) {
   return db('parks')
     .update({
       name: updatePark.name,
@@ -172,7 +177,7 @@ function editPark (updatePark, db = connection) {
 
 // DELETE PARK
 
-function deletePark (parkId, db = connection) {
+async function deletePark (parkId, db = connection) {
   return db('parks')
     .where('id', parkId)
     .delete()

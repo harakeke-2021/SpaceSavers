@@ -5,6 +5,8 @@ const router = express.Router()
 
 module.exports = router
 
+// GET /api/v1/owner
+
 router.get('/:id', getTokenDecoder(), async (req, res) => {
   const ownerId = req.params.id
   try {
@@ -21,4 +23,16 @@ router.get('/:id', getTokenDecoder(), async (req, res) => {
 }
 )
 
+// POST /api/v1/owner
 
+router.post('/', getTokenDecoder(), async (req, res) => {
+  const newPark = req.body
+  const user = req.user
+
+  try {
+    const parks = await db.addPark(newPark, user)
+    res.json({ parks })
+  } catch (err) {
+    res.status(500).send(err.message)
+  }
+})

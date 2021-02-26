@@ -8,6 +8,10 @@ export function getOwnerBalance (consume = requestor) {
   return consume('/owner/balance', 'get')
 }
 
+
+
+// POTENTIAL REFACTOR WITH CONSUME
+
 export function addPark (park, url = rootURL) {
   return request.post(url)
     .set({'Accept': 'application/json'})
