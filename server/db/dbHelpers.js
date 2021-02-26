@@ -46,6 +46,7 @@ function getUserById (userId, db = connection) {
     .where('id', userId)
     .select(
       'id',
+      'username',
       'name',
       'email'
     )
@@ -53,6 +54,7 @@ function getUserById (userId, db = connection) {
       const user = result[0]
       return {
         id: user.id,
+        username: user.username,
         name: user.name,
         email: user.email
       }
@@ -66,6 +68,7 @@ function getParkById (parkId, db = connection) {
     .where('id', parkId)
     .select(
       'id',
+      'username',
       'name',
       'owner_id as ownerId',
       'address',
@@ -78,6 +81,7 @@ function getParkById (parkId, db = connection) {
       const park = result[0]
       return {
         id: park.id,
+        username: park.username,
         name: park.name,
         ownerId: park.ownerId,
         address: park.address,
@@ -93,9 +97,9 @@ function getParkById (parkId, db = connection) {
 // CREATE USER
 
 function createUser (newUser, db = connection) {
-  const { name, email, password } = newUser
+  const { username, name, email, password } = newUser
 
-  return userExists(name, db)
+  return userExists(username, db)
     .then(exists => {
       if (exists) {
         throw new Error('User exists')
@@ -104,16 +108,16 @@ function createUser (newUser, db = connection) {
     })
     .then(() => generateHash(password))
     .then(passwordHash => {
-      return db('users').insert({ name, email, hash: passwordHash })
+      return db('users').insert({ username, name, email, hash: passwordHash })
     })
 }
 
 // USER EXISTS
 
-function userExists (name, db = connection) {
+function userExists (username, db = connection) {
   return db('users')
     .count('id as n')
-    .where('name', name)
+    .where('username', username)
     .then(count => {
       return count[0].n > 0
     })
@@ -121,10 +125,10 @@ function userExists (name, db = connection) {
 
 // GET USER BY NAME
 
-function getUserByName (name, db = connection) {
+function getUserByName (username, db = connection) {
   return db('users')
-    .select()
-    .where('name', name)
+    .select('username', 'name', 'email', 'id', 'hash')
+    .where('username', username)
     .first()
 }
 
@@ -135,6 +139,7 @@ function getParksByOwnerId (ownerId, db = connection) {
     .where('owner_id', ownerId)
     .select(
       'id',
+      'username',
       'name',
       'owner_id as ownerId',
       'address',
@@ -149,6 +154,7 @@ function getParksByOwnerId (ownerId, db = connection) {
 
 async function addPark (newPark, ownerId, latlng, user, db = connection) {
   const park = {
+    username: newPark.username,
     name: newPark.name,
     owner_id: ownerId,
     address: newPark.address,
