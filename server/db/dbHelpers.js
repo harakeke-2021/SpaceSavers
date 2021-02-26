@@ -5,6 +5,7 @@ module.exports = {
   setOccupied,
   setUnoccupied,
   getParkById,
+  createUser,
   getUserById,
   getParksByOwnerId,
   addPark,
@@ -82,6 +83,13 @@ function getParkById (parkId, db = connection) {
       }
     }
     )
+}
+
+// CREATE USER
+
+function createUser (newUser, db = connection) {
+  return db('users')
+    .insert(newUser)
 }
 
 // GET PARK BY OWNER ID

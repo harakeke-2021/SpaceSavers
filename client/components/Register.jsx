@@ -5,6 +5,7 @@ export default function Register (props) {
   const [error, setError] = useState('')
   const [form, setForm] = useState({
     username: '',
+    email: '',
     password: ''
   })
 
@@ -43,11 +44,14 @@ export default function Register (props) {
         { error && `Error: ${error}` }
         </div>
       <form>
-        <label>Choose a Username:</label>
-        <input type="text" onChange={handleChange}/>
+        <label htmlFor="username">Choose a Username:</label>
+        <input id="username" name="username" type="text" onChange={handleChange}/>
 
-        <label>Choose a Password:</label>
-        <input type="text" onChange={handleChange}/>
+        <label htmlFor="email">Enter Your Email:</label>
+        <input id="email" name="email" type="text" onChange={handleChange}/>
+
+        <label htmlFor="password">Choose a Password:</label>
+        <input id="password" name="password" type="text" onChange={handleChange}/>
 
         <button onSubmit={handleSubmit}>Register</button>
       </form>
