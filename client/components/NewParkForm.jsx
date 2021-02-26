@@ -16,6 +16,10 @@ function NewParkForm(props) {
     addPark(form, props.dispatch)
   }
 
+  const tempstyle = {
+    border: 'black solid '
+  }
+
   return (
     <div className='new-park-form'>
       <button onClick={closeForm}>close</button>
