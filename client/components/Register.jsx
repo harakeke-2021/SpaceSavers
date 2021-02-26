@@ -40,20 +40,21 @@ export default function Register (props) {
 
   return (
     <>
-        <div style={{'color: red; cursor: pointer;'}} onClick={hideError}>
-        { error && `Error: ${error}` }
-        </div>
+      <h2>Register</h2>
+      <div style={{'color: red; cursor: pointer;'}} onClick={hideError}>
+      { error && `Error: ${error}` }
+      </div>
       <form>
         <label htmlFor="username">Choose a Username:</label>
-        <input id="username" name="username" type="text" onChange={handleChange}/>
+        <input id="username" name="username" type="text" value={form.username} onChange={handleChange}/>
 
         <label htmlFor="email">Enter Your Email:</label>
-        <input id="email" name="email" type="text" onChange={handleChange}/>
+        <input id="email" name="email" type="text" value={form.email} onChange={handleChange}/>
 
         <label htmlFor="password">Choose a Password:</label>
-        <input id="password" name="password" type="text" onChange={handleChange}/>
+        <input id="password" name="password" type="text" value={form.password} onChange={handleChange}/>
 
-        <button onSubmit={handleSubmit}>Register</button>
+        <button type="button" onSubmit={handleSubmit}>Register</button>
       </form>
     </>
   )
