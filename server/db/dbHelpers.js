@@ -1,7 +1,6 @@
 const connection = require('./connection')
 
 const { generateHash } = require('authenticare/server')
-const { null } = require('mathjs')
 
 module.exports = {
   getAllParks,

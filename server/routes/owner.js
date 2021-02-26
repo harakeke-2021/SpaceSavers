@@ -1,22 +1,22 @@
 const express = require('express')
 const db = require('../db/dbHelpers')
+const { getTokenDecoder } = require('authenticare/server')
 const router = express.Router()
 
 module.exports = router
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const ownerId = req.params.id
-  return db.getParksByOwnerId(ownerId)
-    .then(parks => {
-      res.json({ parks })
-      return null
+  try {
+    const parks = await db.getParksByOwnerId(ownerId)
+    res.json({ parks })
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({
+      error: {
+        title: 'Unable to retrieve parks'
+      }
     })
-    .catch((err) => {
-      console.log(err.message)
-      res.status(500).json({
-        error: {
-          title: 'Unable to retrieve parks'
-        }
-      })
-    })
-})
+  }
+}
+)
