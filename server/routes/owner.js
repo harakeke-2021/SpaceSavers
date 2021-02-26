@@ -36,3 +36,20 @@ router.post('/', getTokenDecoder(), async (req, res) => {
     res.status(500).send(err.message)
   }
 })
+
+router.delete('/:id', getTokenDecoder(), async (req, res) => {
+  const id = Number(req.params.id)
+  const user = req.user
+
+  try {
+    const parks = await db.deletePark(id, user)
+    res.json({ parks })
+  } catch (err) {
+    if (err.message === 'Unauthorized') {
+      return res.status(403).send(
+        'Unauthorized: Only the user who added the park may delete it'
+      )
+    }
+    res.status(500).send(err.message)
+  }
+})

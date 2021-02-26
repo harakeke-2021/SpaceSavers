@@ -1,6 +1,7 @@
 const connection = require('./connection')
 
 const { generateHash } = require('authenticare/server')
+const { first } = require('./connection')
 
 module.exports = {
   getAllParks,
@@ -14,7 +15,8 @@ module.exports = {
   getParksByOwnerId,
   addPark,
   editPark,
-  deletePark
+  deletePark,
+  authorizeUpdate
 }
 
 // GET ALL PARKS
@@ -183,8 +185,23 @@ async function editPark (updatePark, db = connection) {
 
 // DELETE PARK
 
-async function deletePark (parkId, db = connection) {
+async function deletePark (parkId, user, db = connection) {
   return db('parks')
     .where('id', parkId)
-    .delete()
+    .first()
+    .then(park => authorizeUpdate(park, user))
+    .then(() => {
+      return db('parks')
+        .where('id', parkId)
+        .delete()
+    }
+    )
+}
+
+// AUTHORIZE FUNCTION
+
+function authorizeUpdate (park, user) {
+  if (park.added_by_user !== user.id) {
+    throw new Error('Unauthorized')
+  }
 }

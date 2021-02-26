@@ -18,7 +18,7 @@ export default function SignIn (props) {
 
   function handleSubmit (e) {
     e.preventDefault()
-    console.log('hello')
+
     const { username, password } = form
     signIn({ username, password }, { baseUrl })
       .then(() => {

@@ -26,7 +26,7 @@ export default function Register (props) {
 
   function handleSubmit (e) {
     e.preventDefault()
-    console.log('hello')
+
     const { username, name, email, password } = form
     register({ username, name, email, password }, { baseUrl })
       .then((token) => {
