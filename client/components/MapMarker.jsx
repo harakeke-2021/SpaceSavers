@@ -1,38 +1,51 @@
 import React, { useState } from 'react'
 import MarkerHover from './MarkerHover'
 
-import Pin from './Pin'
-
 function MapMarker (props) {
   const K_SIZE = 40
   const hover = props.$hover
   if (hover) {
     console.log('hovering!')
   }
-  const style = {
+
+  const style1 = {
     position: 'absolute',
-    // borderRadius: '50%',
-    // backgroundColor: 'black',
     width: K_SIZE,
     height: K_SIZE,
     left: -K_SIZE / 2,
     top: -K_SIZE / 2
-    // textAlign: 'center'
   }
+
   const style2 = {
-    ...style,
+    position: 'absolute',
     width: K_SIZE * 1.5,
     height: K_SIZE * 1.5,
     left: (-K_SIZE * 1.5) / 2,
-    top: (-K_SIZE * 1.5) / 2,
-    backgroundColor: 'yellow'
+    top: (-K_SIZE * 1.5) / 2
+  }
+
+  const [style, setStyle] = useState(style1)
+
+  function mouseEnter (e) {
+    setStyle(style2)
+  }
+
+  function mouseLeave (e) {
+    setStyle(style1)
+  }
+
+  function onClick (e) {
+
   }
 
   return (
     <div>
       {/* // className={hover ? 'marker marker-hover' : 'marker'} */}
 
-      <Pin style={style}/>
+      <div className='testing'>
+        <img style={style} onClick={onClick} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} src='./images/pin.png' />
+      </div>
+
       {/* onClick={(e) => {
         e.preventDefault()
         console.log('clicked!!!!')
