@@ -16,3 +16,7 @@ const c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 const d = R * c
 
 console.log(d)
+
+function calculateAbsoluteDistance (lon1, lon2, lat1, lat2) {
+
+}
