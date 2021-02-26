@@ -4,7 +4,7 @@ import { baseApiUrl as baseUrl } from '../config'
 
 export default function SignIn (props) {
   const [form, setForm] = useState({
-    name: '',
+    username: '',
     password: ''
   })
 
@@ -18,8 +18,9 @@ export default function SignIn (props) {
 
   function handleSubmit (e) {
     e.preventDefault()
-    const { name, password } = form
-    signIn({ name, password }, { baseUrl })
+    console.log('hello')
+    const { username, password } = form
+    signIn({ username, password }, { baseUrl })
       .then(() => {
         if (isAuthenticated()) {
           props.history.push('/')
@@ -33,13 +34,13 @@ export default function SignIn (props) {
     <>
       <h2>Sign In</h2>
       <form>
-        <label htmlFor="name">Name:</label>
-        <input id="name" name="name" type="text" value={form.name} onChange={handleChange}/>
+        <label htmlFor="username">Username:</label>
+        <input id="username" name="username" type="text" value={form.username} onChange={handleChange}/>
 
         <label htmlFor="password">Password:</label>
         <input id="password" name="password" type="password" value={form.password} onChange={handleChange}/>
 
-        <button type ="button" onSubmit={handleSubmit} >Sign In</button>
+        <button type ="button" onClick={handleSubmit} >Sign In</button>
       </form>
     </>
   )
