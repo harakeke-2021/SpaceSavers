@@ -3,58 +3,75 @@ import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
 import { connect } from 'react-redux'
 
-import { getGeoCode } from '../API/mapsHelper'
+import { getGeoCode } from '../api/mapsHelper'
+import { updateUserPosition } from '../actions/user'
 import ListResults from './ListResults'
 
 function MapContainer (props) {
-  const { searchArea } = props
-  const [center, setCenter] = useState({
-    lat: 0,
-    lng: 0
-  })
+  const defaultCenter = { lat: 0, lng: 0 }
+  const userPosition = props.user.position
+  const { searchArea, parks } = props
+  const [center, setCenter] = useState(defaultCenter)
+
   const [map, setMap] = useState()
-  const { parks } = props
 
-  useEffect(() => {
-    // !searchArea ? default view : send address to api to get lat lng
-    // then map.setCenter({ lat: -36.8499, lng: 174.7586 })
+  function getUserPosition (resetMap = true) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const newUserPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
+      updateUserPosition(newUserPosition, props.dispatch)
+      if (resetMap && map) {
+        console.log('centering on user pos')
+        map.setCenter(userPosition)
+      }
+    })
+  }
 
+  // function centerOn (latlng) {
+
+  // }
+
+  function centerOnUserPosition () {
+    if (map && userPosition) { map.setCenter(userPosition) }
+  }
+
+  function search (latlng) {
     getGeoCode({ address: searchArea })
       .then((res) => {
         const { location } = res.body
-
-        setCenter({
-          lat: location.lat,
-          lng: location.lng
-        })
         map.setCenter({ lat: location.lat, lng: location.lng })
         return null
       })
       .catch((e) => {
         console.log(e.message)
       })
+  }
+
+  useEffect(() => {
+    if (!userPosition) {
+      getUserPosition()
+    }
+    search()
   }, [searchArea])
 
   const key = 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
 
   function handleApiLoaded (map, maps) {
-    console.log('map', map)
-    console.log('maps', maps)
     setMap(map)
+    console.log('map loaded')
     const options = { disableDoubleClickZoom: true }
     map.setOptions(options)
   }
 
   return (
     <div className='map' style={{ height: '450px', width: '500px' }}>
+      <button onClick={centerOnUserPosition}></button>
       <GoogleMapReact
         bootstrapURLKeys={{ key }}
-        defaultCenter={center}
+        defaultCenter={defaultCenter}
         defaultZoom={15}
         hoverDistance={40}
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        <MapMarker lat={center.lat} lng={center.lng}></MapMarker>
         {parks.map(park => {
           return (
             <MapMarker
@@ -69,6 +86,6 @@ function MapContainer (props) {
   )
 }
 
-const mapStateToProps = (state) => ({ parks: state.parks })
+const mapStateToProps = (state) => ({ parks: state.parks, user: state.user })
 
 export default connect(mapStateToProps)(MapContainer)
