@@ -3,10 +3,6 @@ import MarkerHover from './MarkerHover'
 
 function MapMarker (props) {
   const K_SIZE = 40
-  const hover = props.$hover
-  if (hover) {
-    console.log('hovering!')
-  }
 
   const style1 = {
     position: 'absolute',
@@ -18,10 +14,10 @@ function MapMarker (props) {
 
   const style2 = {
     position: 'absolute',
-    width: K_SIZE * 1.5,
-    height: K_SIZE * 1.5,
-    left: (-K_SIZE * 1.5) / 2,
-    top: (-K_SIZE * 1.5) / 2
+    width: K_SIZE * 1.125,
+    height: K_SIZE * 1.125,
+    left: (-K_SIZE * 1.125) / 2,
+    top: (-K_SIZE * 1.125) / 2
   }
 
   const [style, setStyle] = useState(style1)
@@ -40,17 +36,10 @@ function MapMarker (props) {
 
   return (
     <div>
-      {/* // className={hover ? 'marker marker-hover' : 'marker'} */}
 
       <div className='testing'>
         <img style={style} onClick={onClick} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} src='./images/pin.png' />
       </div>
-
-      {/* onClick={(e) => {
-        e.preventDefault()
-        console.log('clicked!!!!')
-      }}
-      {hover ? <MarkerHover offset={K_SIZE / 2} /> : ''} */}
 
     </div>
   )
