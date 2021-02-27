@@ -103,23 +103,27 @@ function getParksByOwnerId (ownerId, db = connection) {
 // ADD PARK
 
 function addPark (newPark, ownerId, db = connection) {
-  return db('parks').insert({
-    name: newPark.name,
-    owner_id: ownerId,
-    address: newPark.address,
-    lat: newPark.lat,
-    lng: newPark.lng,
-    price: newPark.price,
-    occupied: false,
-    occupant_id: null
-  })
+  return db('parks')
+    .insert({
+      name: newPark.name,
+      owner_id: ownerId,
+      address: newPark.address,
+      lat: newPark.lat,
+      lng: newPark.lng,
+      price: newPark.price,
+      occupied: false,
+      occupant_id: null
+    })
 }
 
 // EDIT PARK
 
-function editPark (updatePark, db = connection) {
-  return db('parks').update({
-    name: updatePark.name,
-    price: updatePark.price
-  })
+function editPark (updatePark, id, db = connection) {
+  return db('parks')
+    .where('id', id)
+    .update({
+      name: updatePark.name,
+      price: updatePark.price
+    })
+    .then(() => getParkById(id, db))
 }
