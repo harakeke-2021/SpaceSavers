@@ -4,7 +4,7 @@ import { getParksByOwnerId } from '../actions/owner'
 import NewPark from './NewPark'
 import OwnerPark from './OwnerPark'
 
-function OwnerParks(props) {
+function OwnerParks (props) {
   const { parks } = props.owner
   useEffect(() => {
     getParksByOwnerId(1, props.dispatch)
@@ -20,7 +20,7 @@ function OwnerParks(props) {
   )
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     owner: state.owner
   }
