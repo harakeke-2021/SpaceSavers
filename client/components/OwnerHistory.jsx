@@ -4,11 +4,9 @@ import { getHistoryByOwnerId } from '../actions/owner'
 
 function OwnerHistory (props) {
   const { history } = props.owner
-  console.log(history)
   useEffect(() => {
     getHistoryByOwnerId(2)
   }, [])
-  console.log(history)
   return (<div>
     {history.map((transaction) => {
       return <div key={transaction.historyId}>{transaction.parkName}</div>
