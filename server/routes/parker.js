@@ -16,6 +16,7 @@ router.post('/', (req, res) => {
     .geocode({
       params: {
         address,
+        region: 'nz',
         key: process.env.GEOCODE_API_KEY
       },
       timeout: 1000 // milliseconds

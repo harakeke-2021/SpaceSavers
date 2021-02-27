@@ -15,11 +15,11 @@ function MapContainer (props) {
 
   const [map, setMap] = useState()
 
-  function getUserPosition (resetMap = true) {
+  function getUserPosition (options) {
     navigator.geolocation.getCurrentPosition((position) => {
       const newUserPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
       updateUserPosition(newUserPosition, props.dispatch)
-      if (resetMap && map) {
+      if (options?.center && map) {
         console.log('centering on user pos')
         map.setCenter(userPosition)
       }
@@ -58,13 +58,16 @@ function MapContainer (props) {
   function handleApiLoaded (map, maps) {
     setMap(map)
     console.log('map loaded')
-    const options = { disableDoubleClickZoom: true }
+    const options = {
+      disableDoubleClickZoom: true,
+      clickableIcons: false
+    }
     map.setOptions(options)
   }
 
   return (
     <div className='map' style={{ height: '450px', width: '500px' }}>
-      <button onClick={centerOnUserPosition}></button>
+      <button onClick={centerOnUserPosition}>Use my location</button>
       <GoogleMapReact
         bootstrapURLKeys={{ key }}
         defaultCenter={defaultCenter}
