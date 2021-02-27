@@ -2,13 +2,13 @@ import {
   getParksByOwnerIdApi,
   getOwnerBalance,
   addParkApi
-} from '../api/ownerHelper'
+} from '../API/ownerHelper'
 
 export const GET_BALANCE = 'GET_BALANCE'
 export const GET_PARKS_BY_OWNER_ID = 'GET_PARKS_BY_OWNER_ID'
 export const ADD_PARK = 'ADD_PARK'
 
-export function updateOwnerBalance(dispatch) {
+export function updateOwnerBalance (dispatch) {
   getOwnerBalance().then((result) => {
     const balance = result.body.balance
     dispatch({
@@ -19,7 +19,7 @@ export function updateOwnerBalance(dispatch) {
   })
 }
 
-export function getParksByOwnerId(id = 1, dispatch) {
+export function getParksByOwnerId (id = 1, dispatch) {
   getParksByOwnerIdApi(1).then((result) => {
     const parks = result.body
     console.log('actions', parks)
@@ -30,7 +30,7 @@ export function getParksByOwnerId(id = 1, dispatch) {
   })
 }
 
-export function addPark(park, dispatch) {
+export function addPark (park, dispatch) {
   addParkApi(park)
     .then((result) => {
       console.log(result)
