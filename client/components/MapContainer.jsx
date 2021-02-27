@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
 import { connect } from 'react-redux'
 
-import { getGeoCode } from '../api/mapsHelper'
+import { getGeoCode } from '../API/mapsHelper'
 import { updateUserPosition } from '../actions/user'
 import ListResults from './ListResults'
 

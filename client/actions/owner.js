@@ -2,7 +2,7 @@ import {
   getParksByOwnerIdApi,
   getOwnerBalance,
   addParkApi
-} from '../api/ownerHelper'
+} from '../API/ownerHelper'
 
 export const GET_BALANCE = 'GET_BALANCE'
 export const GET_PARKS_BY_OWNER_ID = 'GET_PARKS_BY_OWNER_ID'

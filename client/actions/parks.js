@@ -1,4 +1,4 @@
-import { getAllParksApi } from '../api/addressBarHelper'
+import { getAllParksApi } from '../API/addressBarHelper'
 import { dispatch } from '../store'
 
 export const GET_ALL_PARKS = 'GET_ALL_PARKS'
