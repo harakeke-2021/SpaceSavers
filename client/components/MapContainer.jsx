@@ -45,29 +45,6 @@ function MapContainer (props) {
     map.setOptions(options)
   }
 
-  const test = [
-    {
-      lat: -36.8647183,
-      lng: 174.7760362
-    },
-    {
-      lat: -36.84829,
-      lng: 174.76224
-    },
-    {
-      lat: -36.84852065618249,
-      lng: 174.7647278136159
-    },
-    {
-      lat: -36.85341636476441,
-      lng: 174.766453585174
-    },
-    {
-      lat: -36.852166078918216,
-      lng: 174.76905365409488
-    }
-  ]
-
   return (
     <div className="map w-full h-screen">
       <GoogleMapReact

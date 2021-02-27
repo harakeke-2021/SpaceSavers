@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { addPark } from '../actions/owner'
 
 function NewParkForm(props) {
   const [form, setForm] = useState({})
@@ -11,11 +13,15 @@ function NewParkForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log('submitting', form)
+    addPark(form, props.dispatch)
+  }
+
+  const tempstyle = {
+    border: 'black solid '
   }
 
   return (
-    <>
+    <div className='new-park-form'>
       <button onClick={closeForm}>close</button>
       <form onSubmit={handleSubmit}>
         <label name='parkName'></label>
@@ -39,8 +45,14 @@ function NewParkForm(props) {
           onChange={(e) => handleChange(e, 'price')}></input>
         <button>Submit</button>
       </form>
-    </>
+    </div>
   )
 }
 
-export default NewParkForm
+function mapStateToProps(state) {
+  return {
+    owner: state.owner
+  }
+}
+
+export default connect(mapStateToProps)(NewParkForm)
