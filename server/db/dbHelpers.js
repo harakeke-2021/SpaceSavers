@@ -10,7 +10,9 @@ module.exports = {
   addPark,
   editPark,
   startPark,
-  endPark
+  endPark,
+  getHistoryByParkerId,
+  getHistoryByOwnerId
 }
 
 // GET ALL PARKS
@@ -143,4 +145,39 @@ function endPark (parkId, userId, db = connection) {
       user_id: userId
     })
     .update({ end_time: Date.now(), finished: true })
+}
+
+function getHistoryByParkerId (userId, db = connection) {
+  return db('park_history')
+    .where({ user_id: userId })
+    .join('parks', 'park_history.id', 'parks.id')
+    .select(
+      'park_history.id as historyId',
+      'park_history.park_id as parkId',
+      'park_history.user_id as parkerId',
+      'park_history.start_time as startTime',
+      'park_history.end_time as endTime',
+      'park_history.cost as cost',
+      'park_history.finished as finished',
+      'parks.name as parkName',
+      'parks.address as parkAddress'
+    )
+}
+
+function getHistoryByOwnerId (ownerId, db = connection) {
+  return db('park_history')
+    .join('parks', 'park_history.id', 'parks.id')
+    // .where('parks.owner_id', ownerId)
+    .select(
+      'park_history.id as historyId',
+      'park_history.park_id as parkId',
+      'park_history.user_id as parkerId',
+      'park_history.start_time as startTime',
+      'park_history.end_time as endTime',
+      'park_history.cost as cost',
+      'park_history.finished as finished',
+      'parks.name as parkName',
+      'parks.address as parkAddress',
+      'parks.owner_id as ownerId'
+    )
 }

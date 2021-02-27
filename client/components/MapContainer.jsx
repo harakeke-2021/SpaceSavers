@@ -17,7 +17,10 @@ function MapContainer (props) {
 
   function getUserPosition (options) {
     navigator.geolocation.getCurrentPosition((position) => {
-      const newUserPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
+      const newUserPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
       updateUserPosition(newUserPosition, props.dispatch)
       if (options?.center && map) {
         console.log('centering on user pos')
@@ -31,7 +34,9 @@ function MapContainer (props) {
   // }
 
   function centerOnUserPosition () {
-    if (map && userPosition) { map.setCenter(userPosition) }
+    if (map && userPosition) {
+      map.setCenter(userPosition)
+    }
   }
 
   function search (latlng) {
@@ -75,12 +80,9 @@ function MapContainer (props) {
         hoverDistance={40}
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        {parks.map(park => {
+        {parks.map((park) => {
           return (
-            <MapMarker
-              key={park.lat}
-              lat={park.lat}
-              lng={park.lng}></MapMarker>
+            <MapMarker key={park.lat} lat={park.lat} lng={park.lng}></MapMarker>
           )
         })}
       </GoogleMapReact>

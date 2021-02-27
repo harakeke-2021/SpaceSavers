@@ -39,3 +39,8 @@ router.post('/addpark', (req, res) => {
       })
     })
 })
+
+router.get('/history/:ownerId', (req, res) => {
+  return db.getHistoryByOwnerId(Number(req.params.ownerId))
+    .then((result) => res.json(result))
+})
