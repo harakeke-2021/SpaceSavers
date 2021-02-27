@@ -8,18 +8,20 @@ module.exports = {
   getUserById,
   getParksByOwnerId,
   addPark,
-  editPark
+  editPark,
+  startPark,
+  endPark
 }
 
 // GET ALL PARKS
 
-function getAllParks(db = connection) {
+function getAllParks (db = connection) {
   return db('parks').select()
 }
 
 // SET OCCUPIED
 
-function setOccupied(userId, parkId, db = connection) {
+function setOccupied (parkId, userId, db = connection) {
   return db('parks')
     .where('id', parkId)
     .update({ occupied: true, occupant_id: userId })
@@ -27,7 +29,7 @@ function setOccupied(userId, parkId, db = connection) {
 
 // SET UNOCCUPIED
 
-function setUnoccupied(parkId, db = connection) {
+function setUnoccupied (parkId, db = connection) {
   return db('parks')
     .where('id', parkId)
     .update({ occupied: false, occupant_id: null })
@@ -35,7 +37,7 @@ function setUnoccupied(parkId, db = connection) {
 
 // GET USER BY ID
 
-function getUserById(userId, db = connection) {
+function getUserById (userId, db = connection) {
   return db('users')
     .where('id', userId)
     .select('id', 'name', 'email')
@@ -51,7 +53,7 @@ function getUserById(userId, db = connection) {
 
 // GET PARK BY ID
 
-function getParkById(parkId, db = connection) {
+function getParkById (parkId, db = connection) {
   return db('parks')
     .where('id', parkId)
     .select(
@@ -83,7 +85,7 @@ function getParkById(parkId, db = connection) {
 
 // GET PARK BY OWNER ID
 
-function getParksByOwnerId(ownerId, db = connection) {
+function getParksByOwnerId (ownerId, db = connection) {
   return db('parks')
     .where('owner_id', ownerId)
     .select(
@@ -101,7 +103,7 @@ function getParksByOwnerId(ownerId, db = connection) {
 
 // ADD PARK
 
-function addPark(newPark, ownerId = 1, db = connection) {
+function addPark (newPark, ownerId = 1, db = connection) {
   console.warn(
     '!!!!!!!!!!!!!!!!!!!!!!!!!!!ownerId is 1 as a default for testing purposes'
   )
@@ -119,9 +121,26 @@ function addPark(newPark, ownerId = 1, db = connection) {
 
 // EDIT PARK
 
-function editPark(updatePark, db = connection) {
+function editPark (updatePark, db = connection) {
   return db('parks').update({
     name: updatePark.name,
     price: updatePark.price
   })
+}
+
+function startPark (parkId, userId, db = connection) {
+  return db('park_history').insert({
+    park_id: parkId,
+    user_id: userId,
+    start_time: Date.now()
+  })
+}
+
+function endPark (parkId, userId, db = connection) {
+  return db('park_history')
+    .where({
+      park_id: parkId,
+      user_id: userId
+    })
+    .update({ end_time: Date.now(), finished: true })
 }
