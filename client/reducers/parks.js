@@ -1,8 +1,8 @@
-import { SET_ALL_PARKS } from '../actions/parks'
+import { GET_ALL_PARKS } from '../actions/parks'
 
-export default function parks(state = [], action) {
+export default function parks (state = [], action) {
   switch (action.type) {
-    case SET_ALL_PARKS:
+    case GET_ALL_PARKS:
       return action.parks
     default:
       return state
