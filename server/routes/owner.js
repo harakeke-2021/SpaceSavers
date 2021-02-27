@@ -25,7 +25,7 @@ router.get('/:id', getTokenDecoder(), async (req, res) => {
 
 // POST /api/v1/owner
 
-router.post('/', getTokenDecoder(), async (req, res) => {
+router.post('/addpark', getTokenDecoder(), async (req, res) => {
   const newPark = req.body
   const user = req.user
 
@@ -37,6 +37,7 @@ router.post('/', getTokenDecoder(), async (req, res) => {
   }
 })
 
+// DELETE /api/v1/owner
 router.delete('/:id', getTokenDecoder(), async (req, res) => {
   const id = Number(req.params.id)
   const user = req.user
@@ -52,22 +53,4 @@ router.delete('/:id', getTokenDecoder(), async (req, res) => {
     }
     res.status(500).send(err.message)
   }
-})
-
-router.post('/addpark', (req, res) => {
-  const newPark = req.body
-  return db
-    .addPark(newPark)
-    .then((result) => {
-      res.send(result)
-      return null
-    })
-    .catch((err) => {
-      console.log(err.message)
-      res.status(500).json({
-        error: {
-          title: 'Unable to add park'
-        }
-      })
-    })
 })

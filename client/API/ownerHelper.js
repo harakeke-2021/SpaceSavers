@@ -10,7 +10,6 @@ export function getOwnerBalance (consume = requestor) {
 
 
 
-
 // POTENTIAL REFACTOR WITH CONSUME
 
 export function addPark (park, url = rootURL) {
