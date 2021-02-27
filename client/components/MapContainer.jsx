@@ -7,13 +7,12 @@ import { getGeoCode } from '../API/mapsHelper'
 import ListResults from './ListResults'
 
 function MapContainer (props) {
-  const { searchArea } = props
+  const { searchArea, parks } = props
   const [center, setCenter] = useState({
     lat: 0,
     lng: 0
   })
   const [map, setMap] = useState()
-  const { parks } = props
 
   useEffect(() => {
     // !searchArea ? default view : send address to api to get lat lng
@@ -54,7 +53,7 @@ function MapContainer (props) {
         hoverDistance={40}
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        {test.map((marker) => {
+        {parks.map((marker) => {
           return (
             <MapMarker
               key={marker.lat}
