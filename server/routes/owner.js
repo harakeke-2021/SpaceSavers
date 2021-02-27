@@ -5,7 +5,8 @@ const router = express.Router()
 module.exports = router
 
 router.get('/:id', (req, res) => {
-  const ownerId = req.params.id
+  const ownerId = Number(req.params.id)
+
   return db
     .getParksByOwnerId(ownerId)
     .then((parks) => {
@@ -27,7 +28,7 @@ router.post('/addpark', (req, res) => {
   return db
     .addPark(newPark)
     .then((result) => {
-      res.send(result)
+      res.status(201).json(result)
       return null
     })
     .catch((err) => {

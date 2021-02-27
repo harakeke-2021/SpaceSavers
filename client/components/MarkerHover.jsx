@@ -1,6 +1,6 @@
 import React from 'react'
 
-function MarkerHover(props) {
+function MarkerHover (props) {
   const { offset } = props
   const style = {
     height: '25px',
@@ -10,7 +10,7 @@ function MarkerHover(props) {
     left: 20,
     top: -20
   }
-  return <div clasName='markerrrr' style={style}></div>
+  return <div className='markerrrr' style={style}></div>
 }
 
 export default MarkerHover

@@ -16,6 +16,7 @@ router.post('/', (req, res) => {
     .geocode({
       params: {
         address,
+        region: 'nz',
         key: process.env.GEOCODE_API_KEY
       },
       timeout: 1000 // milliseconds
@@ -48,8 +49,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-  const id = req.params.id
-
+  const id = Number(req.params.id)
   return db
     .getParkById(id)
     .then((park) => {
