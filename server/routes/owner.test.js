@@ -106,7 +106,7 @@ describe('POST api/v1/owner/addpark', () => {
 
   it('responds with 500 and correct error object on DB error', () => {
     db.addPark.mockImplementation(() => Promise.reject(
-      new Error('mock addEvent error')
+      new Error('mock addPark error')
     ))
     return request(server)
       .post('/api/v1/owner/addPark')
