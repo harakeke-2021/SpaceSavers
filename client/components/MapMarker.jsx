@@ -21,6 +21,7 @@ function MapMarker (props) {
   }
 
   const [style, setStyle] = useState(style1)
+  const [toggle, setToggle] = useState(false)
 
   function mouseEnter (e) {
     setStyle(style2)
@@ -31,7 +32,8 @@ function MapMarker (props) {
   }
 
   function onClick (e) {
-
+    setToggle(!toggle)
+    console.log()
   }
 
   return (
@@ -39,8 +41,8 @@ function MapMarker (props) {
 
       <div className='testing'>
         <img style={style} onClick={onClick} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} src='./images/pin.png' />
+        {toggle === true ? <MarkerHover /> : null}
       </div>
-
     </div>
   )
 }

@@ -54,7 +54,6 @@ function MapContainer (props) {
         hoverDistance={40}
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        <MapMarker lat={center.lat} lng={center.lng}></MapMarker>
         {parks.map(park => {
           return (
             <MapMarker
