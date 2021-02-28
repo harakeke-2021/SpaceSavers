@@ -7,7 +7,7 @@ function Home () {
   const [searchArea, setSearchArea] = useState('')
   return (
     <div className="px-32 py-20">
-      <div classNmae="pt-32 pb-36">
+      <div className="pt-32 pb-36">
         <h1 className="p-5 text-center text-blue-600 text-6xl font-black uppercase">
           Insert TAGLINE HERE
         </h1>
