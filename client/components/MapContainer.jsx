@@ -68,13 +68,12 @@ function MapContainer (props) {
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
         {parks.map((park) => {
           return (
-            <MapMarker
+            park.occupied === 0 ? <MapMarker
               key={park.lat}
               lat={park.lat}
               lng={park.lng}
               price={park.price}
-              address={park.address}>
-            </MapMarker>
+              name={park.name}/> : null
           )
         })}
       </GoogleMapReact>
