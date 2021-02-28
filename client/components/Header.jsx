@@ -8,7 +8,7 @@ function Header () {
       <div className="col-start-2 col-span-6">
         <h1 className=" text-white text-3xl p-5 font-black uppercase">Space Saver</h1>
       </div>
-      <div className="col-span-2 col-start-10">
+      <div className="col-span-3 col-start-9">
         <NavBar/>
       </div>
 
