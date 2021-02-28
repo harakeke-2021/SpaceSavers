@@ -25,9 +25,9 @@ function MapMarker (props) {
 
   useEffect(() => {
     if (toggle) {
-      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('click', handleClickOutside)
     } else {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('click', handleClickOutside)
     }
   }, [toggle])
 
