@@ -59,7 +59,10 @@ function MapContainer (props) {
             <MapMarker
               key={park.lat}
               lat={park.lat}
-              lng={park.lng}></MapMarker>
+              lng={park.lng}
+              price={park.price}
+              address={park.address}>
+            </MapMarker>
           )
         })}
       </GoogleMapReact>

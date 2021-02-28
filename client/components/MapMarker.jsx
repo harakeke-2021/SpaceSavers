@@ -33,7 +33,6 @@ function MapMarker (props) {
 
   function onClick (e) {
     setToggle(!toggle)
-    console.log()
   }
 
   return (
@@ -41,7 +40,7 @@ function MapMarker (props) {
 
       <div className='testing'>
         <img style={style} onClick={onClick} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} src='./images/pin.png' />
-        {toggle === true ? <MarkerHover /> : null}
+        {toggle === true ? <MarkerHover price={props.price} address={props.address}/> : null}
       </div>
     </div>
   )
