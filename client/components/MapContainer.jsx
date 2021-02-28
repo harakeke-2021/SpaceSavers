@@ -58,7 +58,6 @@ function MapContainer (props) {
 
   return (
     <>
-
       <button onClick={() => centerOnUserPosition()} className='flex m-2'>
         <img src='/images/gps.png' alt='gps symbol' className='w-5 h-5 flex-auto'/>
             Use My Location
@@ -74,13 +73,13 @@ function MapContainer (props) {
           onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
           {parks.map((park) => {
             return (
-              <MapMarker
+              park.occupied === 0 ? <MapMarker
                 key={park.lat}
                 lat={park.lat}
                 lng={park.lng}
                 price={park.price}
-                address={park.address}>
-              </MapMarker>
+                address={park.address}/>
+                : null
             )
           })}
         </GoogleMapReact>
