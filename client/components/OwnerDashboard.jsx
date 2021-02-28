@@ -4,6 +4,7 @@ import { updateOwnerBalance } from '../actions/owner'
 import { IfAuthenticated } from './Authenticated'
 
 function OwnerDashboard (props) {
+  // const [balance, setBalance] = useState(0)
   const { owner } = props
 
   useEffect(() => {

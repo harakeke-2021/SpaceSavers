@@ -66,9 +66,15 @@ function MapContainer (props) {
         hoverDistance={40}
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        {parks.map((park) => {
+        {parks.map(park => {
           return (
-            <MapMarker key={park.lat} lat={park.lat} lng={park.lng}></MapMarker>
+            <MapMarker
+              key={park.lat}
+              lat={park.lat}
+              lng={park.lng}
+              price={park.price}
+              address={park.address}>
+            </MapMarker>
           )
         })}
       </GoogleMapReact>

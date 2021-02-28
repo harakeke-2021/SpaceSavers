@@ -1,16 +1,26 @@
 import React from 'react'
 
 function MarkerHover (props) {
-  const { offset } = props
   const style = {
-    height: '25px',
-    width: '25px',
     position: 'relative',
-    backgroundColor: 'blue',
-    left: 20,
-    top: -20
+    left: '-87.5px',
+    top: '30px',
+    border: '1.5px solid black',
+    borderRadius: '7.5px',
+    width: '175px',
+    height: '185px',
+    backgroundColor: '#FFFFFF',
+    textAlign: 'center',
+    boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)'
   }
-  return <div className='markerrrr' style={style}></div>
+
+  return (
+    <div style={style}>
+      <h1>This is a test render</h1>
+      <p>The price of this parking is {props.price}</p>
+      <p>Address: {props.address}</p>
+    </div>
+  )
 }
 
 export default MarkerHover

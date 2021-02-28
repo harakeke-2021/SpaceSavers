@@ -19,4 +19,9 @@ export function getAllParks (parks) {
 
 export function getHistoryByParkerId () {
   // p
+export function setParks (parks) {
+  return {
+    type: SET_ALL_PARKS,
+    parks
+  }
 }
