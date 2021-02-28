@@ -11,39 +11,34 @@ function MapContainer (props) {
   const defaultCenter = { lat: 0, lng: 0 }
   const userPosition = props.user.position
   const { searchArea, parks } = props
-  const [center, setCenter] = useState(defaultCenter)
 
   const [map, setMap] = useState()
 
-  function getUserPosition (options) {
-    navigator.geolocation.getCurrentPosition((position) => {
+  function getUserPosition (map) {
+    navigator.geolocation.getCurrentPosition((position, err) => {
       const newUserPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       }
       updateUserPosition(newUserPosition, props.dispatch)
-      if (options?.center && map) {
-        console.log('centering on user pos')
-        map.setCenter(userPosition)
-      }
+      centerOnUserPosition(newUserPosition, map)
+      return null
     })
   }
 
-  // function centerOn (latlng) {
-
-  // }
-
-  function centerOnUserPosition () {
-    if (map && userPosition) {
-      map.setCenter(userPosition)
+  function centerOnUserPosition (userPosition, mapApi = map) {
+    if (mapApi && userPosition) {
+      mapApi.setCenter(userPosition)
     }
   }
 
-  function search (latlng) {
+  function search () {
     getGeoCode({ address: searchArea })
       .then((res) => {
         const { location } = res.body
         map.setCenter({ lat: location.lat, lng: location.lng })
+        console.log('test')
+        console.log(map)
         return null
       })
       .catch((e) => {
@@ -52,22 +47,19 @@ function MapContainer (props) {
   }
 
   useEffect(() => {
-    if (!userPosition) {
-      getUserPosition()
-    }
-    search()
+    if (searchArea) search()
   }, [searchArea])
 
   const key = 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
 
   function handleApiLoaded (map, maps) {
     setMap(map)
-    console.log('map loaded')
     const options = {
       disableDoubleClickZoom: true,
       clickableIcons: false
     }
     map.setOptions(options)
+    getUserPosition(map)
   }
 
   return (
