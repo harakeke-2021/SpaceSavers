@@ -15,7 +15,8 @@ module.exports = {
   addPark,
   editPark,
   deletePark,
-  authorizeUpdate
+  authorizeUpdate,
+  getBalance
 }
 
 // GET ALL PARKS
@@ -202,6 +203,13 @@ async function deletePark (parkId, user, db = connection) {
         .delete()
     }
     )
+}
+
+// GET ACCOUNT BALANCE
+
+async function getBalance (db = connection) {
+  return db('users')
+    .select('balance')
 }
 
 // AUTHORIZE FUNCTION

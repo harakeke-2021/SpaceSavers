@@ -56,3 +56,17 @@ router.delete('/:id', getTokenDecoder(), async (req, res) => {
     res.status(500).send(err.message)
   }
 })
+
+router.get('/', getTokenDecoder(), async (req, res) => {
+  try {
+    const balance = await db.getBalance()
+    res.json({ balance })
+  } catch (err) {
+    if (err.message === 'Unauthorized') {
+      return res.status(403).send(
+        'Unauthorized: Cannot get balance'
+      )
+    }
+    res.status(500).send(err.message)
+  }
+})
