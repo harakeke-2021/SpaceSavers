@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getParksByOwnerId } from '../actions/owner'
 import NewPark from './NewPark'
 import OwnerPark from './OwnerPark'
+// import { IfAuthenticated } from './Authenticated'
 
 function OwnerParks (props) {
   const { parks } = props.owner

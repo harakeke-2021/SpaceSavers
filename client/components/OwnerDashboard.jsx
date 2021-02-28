@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { updateOwnerBalance } from '../actions/owner'
+import { IfAuthenticated } from './Authenticated'
 
-function OwnerDashboard(props) {
+function OwnerDashboard (props) {
   // const [balance, setBalance] = useState(0)
-  let { owner } = props
+  const { owner } = props
 
   useEffect(() => {
     console.log('effect running')
@@ -12,14 +13,16 @@ function OwnerDashboard(props) {
   }, [])
 
   return (
-    <div className='owner-dashboard'>
-      <div>dashboard component</div>
-      <div>Account Balance: ${owner.balance} </div>
-    </div>
+    <IfAuthenticated>
+      <div className='owner-dashboard'>
+        <div>dashboard component</div>
+        <div>Account Balance: ${owner.balance} </div>
+      </div>
+    </IfAuthenticated>
   )
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     owner: state.owner
   }

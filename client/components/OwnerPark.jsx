@@ -1,6 +1,6 @@
 import React from 'react'
-
-function OwnerPark(props) {
+import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
+function OwnerPark (props) {
   const { name, address, price, occupied } = props.park
 
   const style = {
@@ -10,12 +10,18 @@ function OwnerPark(props) {
     border: 'solid black 2px'
   }
   return (
-    <div className='owner-park' style={style}>
-      <div>{`name: ${name}`}</div>
-      <div>{`address: ${address}`}</div>
-      <div>{`price: ${price}`}</div>
-      <div>{`occupied: ${occupied ? 'Yes' : 'No'}`}</div>
-    </div>
+    <>
+      <IfAuthenticated>
+        <div className='owner-park' style={style}>
+          <div>{`name: ${name}`}</div>
+          <div>{`address: ${address}`}</div>
+          <div>{`price: ${price}`}</div>
+          <div>{`occupied: ${occupied ? 'Yes' : 'No'}`}</div>
+        </div>
+      </IfAuthenticated>
+      <IfNotAuthenticated>
+      </IfNotAuthenticated>
+    </>
   )
 }
 

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import NewParkPlaceholder from './NewParkPlaceholder'
 import NewParkForm from './NewParkForm'
+import { IfAuthenticated } from './Authenticated'
 
-function NewPark() {
+function NewPark () {
   const [showForm, setShowForm] = useState(false)
   return (
     // <div
@@ -10,11 +11,14 @@ function NewPark() {
     //     setShowForm(true)
     //   }}
     //   className='owner-parks'>
-    showForm ? (
-      <NewParkForm closeForm={() => setShowForm(false)} />
-    ) : (
-      <NewParkPlaceholder showForm={() => setShowForm(true)} />
-    )
+    <IfAuthenticated>
+      {
+        showForm ? (
+          <NewParkForm closeForm={() => setShowForm(false)} />
+        ) : (
+          <NewParkPlaceholder showForm={() => setShowForm(true)} />
+        )}
+    </IfAuthenticated>
     // </div>
   )
 }
