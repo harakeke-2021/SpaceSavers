@@ -8,7 +8,7 @@ import OwnerPark from './OwnerPark'
 function OwnerParks (props) {
   const { parks } = props.owner
   useEffect(() => {
-    getParksByOwnerId(1, props.dispatch)
+    getParksByOwnerId()
   }, [])
   return (
     <div className="bg-gray-300 m-10">

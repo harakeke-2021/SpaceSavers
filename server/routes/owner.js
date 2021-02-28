@@ -8,10 +8,10 @@ module.exports = router
 // GET /api/v1/owner
 
 router.get('/parks', getTokenDecoder(), async (req, res) => {
-  const user = req.user.username
+  const user = req.user
 
   try {
-    const parks = await db.getParksByOwnerUsername(user)
+    const parks = await db.getParksByOwnerId(user.id)
     res.json({ parks })
   } catch (err) {
     console.log(err.message)
@@ -57,9 +57,10 @@ router.delete('/:id', getTokenDecoder(), async (req, res) => {
   }
 })
 
-router.get('/', getTokenDecoder(), async (req, res) => {
+router.get('/balance', getTokenDecoder(), async (req, res) => {
+  const user = req.user
   try {
-    const balance = await db.getBalance()
+    const balance = await db.getOwnerBalance(user.id)
     res.json({ balance })
   } catch (err) {
     if (err.message === 'Unauthorized') {

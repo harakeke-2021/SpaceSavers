@@ -11,12 +11,12 @@ module.exports = {
   userExists,
   getUserById,
   getUserByName,
-  getParksByOwnerUsername,
+  getParksByOwnerId,
   addPark,
   editPark,
   deletePark,
   authorizeUpdate,
-  getBalance,
+  getOwnerBalance,
   startPark,
   endPark,
   getHistoryByParkerId,
@@ -141,12 +141,11 @@ function getUserByName (username, db = connection) {
 
 // GET PARK BY OWNER ID
 
-function getParksByOwnerUsername (username, db = connection) {
+function getParksByOwnerId (ownerId, db = connection) {
   return db('parks')
-    .where('username', username)
+    .where('owner_id', ownerId)
     .select(
       'id',
-      'username',
       'name',
       'owner_id as ownerId',
       'address',
@@ -156,7 +155,6 @@ function getParksByOwnerUsername (username, db = connection) {
       'occupied',
       'occupant_id as occupantId'
     )
-    .then(res => res)
 }
 
 // ADD PARK
@@ -212,9 +210,13 @@ async function deletePark (parkId, user, db = connection) {
 
 // GET ACCOUNT BALANCE
 
-async function getBalance (db = connection) {
+async function getOwnerBalance (id, db = connection) {
   return db('users')
+    .first({ id })
     .select('balance')
+    .then(result => {
+      return result.balance
+    })
 }
 
 // AUTHORIZE FUNCTION
