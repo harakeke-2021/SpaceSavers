@@ -4,41 +4,35 @@ import MapMarker from './MapMarker'
 import { connect } from 'react-redux'
 
 import { getGeoCode } from '../api/mapsHelper'
-import { updateUserPosition } from '../actions/user'
+// import { updateUserPosition } from '../actions/user'
 import ListResults from './ListResults'
 
 function MapContainer (props) {
   const defaultCenter = { lat: 0, lng: 0 }
-  const userPosition = props.user.position
+  // const userPosition = props.user.position
   const { searchArea, parks } = props
-
   const [map, setMap] = useState()
 
-  function getUserPosition (map) {
-    navigator.geolocation.getCurrentPosition((position, err) => {
-      const newUserPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      }
-      updateUserPosition(newUserPosition, props.dispatch)
-      centerOnUserPosition(newUserPosition, map)
-      return null
-    })
-  }
-
-  function centerOnUserPosition (userPosition, mapApi = map) {
-    if (mapApi && userPosition) {
-      mapApi.setCenter(userPosition)
+  function centerOnUserPosition (mapApi = map) {
+    if (mapApi && 'geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const newUserPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+          mapApi.setCenter(newUserPosition)
+        },
+        (err) => console.log('Error:', err.message)
+      )
     }
   }
 
-  function search () {
+  function handleSearch () {
     getGeoCode({ address: searchArea })
       .then((res) => {
         const { location } = res.body
         map.setCenter({ lat: location.lat, lng: location.lng })
-        console.log('test')
-        console.log(map)
         return null
       })
       .catch((e) => {
@@ -47,7 +41,7 @@ function MapContainer (props) {
   }
 
   useEffect(() => {
-    if (searchArea) search()
+    if (searchArea) handleSearch()
   }, [searchArea])
 
   const key = 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
@@ -59,12 +53,12 @@ function MapContainer (props) {
       clickableIcons: false
     }
     map.setOptions(options)
-    getUserPosition(map)
+    centerOnUserPosition(map)
   }
 
   return (
     <div className='map' style={{ height: '450px', width: '500px' }}>
-      <button onClick={centerOnUserPosition}>Use my location</button>
+      <button onClick={() => centerOnUserPosition()}>Use my location</button>
       <GoogleMapReact
         bootstrapURLKeys={{ key }}
         defaultCenter={defaultCenter}
