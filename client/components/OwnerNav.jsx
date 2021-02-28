@@ -14,6 +14,9 @@ function OwnerNav (props) {
         <Link to={'/owner/parks'} className='owner-nav button'>
         Parks
         </Link>
+        <Link to='/owner/history' className='owner-nav button'>
+        History
+        </Link>
       </div>
     </IfAuthenticated>
   )

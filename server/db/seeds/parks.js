@@ -31,7 +31,7 @@ exports.seed = function (knex) {
           id: 3,
           name: 'UoA - OGG Building',
           price: 30.0,
-          owner_id: 3,
+          owner_id: 1,
           occupied: false,
           occupant_id: null,
           address: '12 Grafton Road, Auckland Central, Auckland',

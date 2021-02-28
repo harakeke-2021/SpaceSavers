@@ -2,6 +2,7 @@ import { getAllParksApi } from '../api/addressBarHelper'
 import { dispatch } from '../store'
 
 export const GET_ALL_PARKS = 'GET_ALL_PARKS'
+export const GET_PARKER_HISTORY = 'GET_PARKER_HISTORY'
 
 export function getAllParks (parks) {
   getAllParksApi()
@@ -14,4 +15,8 @@ export function getAllParks (parks) {
       return null
     })
     .catch(err => console.error(err))
+}
+
+export function getHistoryByParkerId () {
+  // p
 }

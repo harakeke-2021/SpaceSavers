@@ -9,8 +9,6 @@ export function getOwnerBalance (consume = requestor) {
   return consume('/owner/balance', 'get')
 }
 
-
-
 // POTENTIAL REFACTOR WITH CONSUME
 
 export function addParkApi (park, url = rootURL) {
@@ -22,7 +20,6 @@ export function addParkApi (park, url = rootURL) {
     .catch(err => console.error(err))
 }
 
-
 export function getParksByOwnerIdApi(id, url = rootURL) {
   return request.get(`${url}/${id}`)
     .set(acceptJsonHeader)
@@ -32,3 +29,6 @@ export function getParksByOwnerIdApi(id, url = rootURL) {
     .catch(err => console.error(err))
 }
 
+export function getHistoryByOwnerIdApi (id, consume = requestor) {
+  return consume(`/owner/history/${id}`, 'get')
+}

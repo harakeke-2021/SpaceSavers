@@ -6,6 +6,7 @@ import Header from './Header'
 import Owner from './Owner'
 import Register from './Register'
 import SignIn from './SignIn'
+import Parker from './Parker'
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Route path='/owner' component={Owner} />
       <Route path='/register' component={Register} />
       <Route path='/signin' component={SignIn} />
+      <Route path='/parker' component={Parker} />
     </div>
   )
 }

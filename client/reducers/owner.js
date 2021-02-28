@@ -1,6 +1,6 @@
-import { GET_BALANCE, GET_PARKS_BY_OWNER_ID, ADD_PARK} from '../actions/owner'
+import { GET_BALANCE, GET_PARKS_BY_OWNER_ID, ADD_PARK, GET_OWNER_HISTORY } from '../actions/owner'
 
-const initialState = { id: null, name: '', balance: 0, parks: [] }
+const initialState = { id: null, name: '', balance: 0, parks: [], history: [] }
 
 export default function owner (state = initialState, action) {
   switch (action.type) {
@@ -19,7 +19,11 @@ export default function owner (state = initialState, action) {
       return {
         ...state
       }
-
+    case GET_OWNER_HISTORY:
+      return {
+        ...state,
+        history: action.history
+      }
     default:
       return state
   }

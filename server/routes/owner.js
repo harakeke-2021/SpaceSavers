@@ -70,3 +70,10 @@ router.get('/', getTokenDecoder(), async (req, res) => {
     res.status(500).send(err.message)
   }
 })
+
+// won't need ownerid as url param once authenticare integrated
+router.get('/history/:ownerId', (req, res) => {
+  return db
+    .getHistoryByOwnerId(Number(req.params.ownerId))
+    .then((result) => res.json(result))
+})
