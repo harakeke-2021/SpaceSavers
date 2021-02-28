@@ -13,7 +13,7 @@ export function getOwnerBalance (consume = requestor) {
 
 // POTENTIAL REFACTOR WITH CONSUME
 
-export function addPark (park, url = rootURL) {
+export function addParkApi (park, url = rootURL) {
   return request.post(url)
     .set(acceptJsonHeader)
     .set({ 'Authorization': `Bearer ${getEncodedToken}` })

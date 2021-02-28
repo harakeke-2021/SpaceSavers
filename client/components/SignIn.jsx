@@ -23,7 +23,7 @@ export default function SignIn (props) {
     signIn({ username, password }, { baseUrl })
       .then(() => {
         if (isAuthenticated()) {
-          props.history.push(`/owner/${username}`)
+          props.history.push('/')
         }
         return null
       })
