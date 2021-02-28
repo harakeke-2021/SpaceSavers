@@ -14,7 +14,7 @@ function MapContainer (props) {
   const [map, setMap] = useState()
 
   function centerOnUserPosition (mapApi = map) {
-    if (mapApi && 'geolocation' in navigator) {
+    if (mapApi && navigator?.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const newUserPosition = {
