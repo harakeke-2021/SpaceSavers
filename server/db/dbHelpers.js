@@ -11,7 +11,7 @@ module.exports = {
   userExists,
   getUserById,
   getUserByName,
-  getParksByOwnerId,
+  getParksByOwnerUsername,
   addPark,
   editPark,
   deletePark,
@@ -136,9 +136,9 @@ function getUserByName (username, db = connection) {
 
 // GET PARK BY OWNER ID
 
-function getParksByOwnerId (ownerId, db = connection) {
+function getParksByOwnerUsername (username, db = connection) {
   return db('parks')
-    .where('owner_id', ownerId)
+    .where('username', username)
     .select(
       'id',
       'username',
@@ -155,7 +155,6 @@ function getParksByOwnerId (ownerId, db = connection) {
 }
 
 // ADD PARK
-
 
 async function addPark (newPark, ownerId, latlng, user, db = connection) {
   const park = {
@@ -174,17 +173,19 @@ async function addPark (newPark, ownerId, latlng, user, db = connection) {
   return db('parks')
     .insert(park)
     .then(() => db)
-
 }
 
 // EDIT PARK
 
-
-async function editPark (updatePark, db = connection) {
+async function editPark (updatePark, user, db = connection) {
   return db('parks')
-    .update({
-      name: updatePark.name,
-      price: updatePark.price
+    .where('id', updatePark.id)
+    .first()
+    .then(park => authorizeUpdate(park, user))
+    .then(() => {
+      return db('parks')
+        .where('id', updatePark.id)
+        .update(updatePark)
     })
 }
 
@@ -209,5 +210,4 @@ function authorizeUpdate (park, user) {
   if (park.added_by_user !== user.id) {
     throw new Error('Unauthorized')
   }
-
 }
