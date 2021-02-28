@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom'
 
 function NavBar () {
   return (
-    <ul className="grid grid-cols-2 text-base text-center text-white pt-4 lg:pt-0">
-      <li className="grid-start-1 p-4 border-b-2 border-transparent gap-x-3 hover:border-white">
-        <Link to='/login'>Log in </Link>
-      </li>
-      <li className="grid-start-2 lg:p-4 py-3 px-0 block border-b-2 border-transparent hover:border-blue-400">
-        <Link to='/register'>Register </Link>
-      </li>
-    </ul>
+    <div className="grid grid-cols-2 text-center text-white">
+      {/* <h4 className="grid-start-1 p-4 py-3 px-0 border-b-2 border-transparent gap-x-3 hover:border-white"> */}
+      <Link to='/login' className="grid-start-1 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">
+        Log in
+      </Link>
+      {/* <h4 className="bg-blue-100 object-center grid-start-2 m-2 border-b-2  border-transparent gap-x-3 hover:border-white"> */}
+      <Link to='/register' className="grid-start-2 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">
+        Register
+      </Link>
+    </div>
   )
 }
 

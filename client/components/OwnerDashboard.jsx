@@ -14,16 +14,21 @@ function OwnerDashboard (props) {
   }, [])
 
   return (
-    <div>
-      <div className="grid grid-cols-12">
-        <p className="col-start-4 col-span-2 text-center">
+    <div className="bg-gray-100">
+      <div>
+        <h2 className="text-4xl uppercase text-center p-10">
+          Owner Dashboard
+        </h2>
+        <div className="grid grid-cols-12 bg-gray-300">
+          <p className="col-start-4 col-span-2 text-center">
           Account Balance: ${owner.balance}
-        </p>
-        <Link to='/owner/history' className="col-start-8 col-span-2 text-center">
+          </p>
+          <Link to='/owner/history' className="col-start-8 col-span-2 text-center">
           History
-        </Link>
+          </Link>
+        </div>
+        <OwnerParks />
       </div>
-      <OwnerParks />
     </div>
   )
 }

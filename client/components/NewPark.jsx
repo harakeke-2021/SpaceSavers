@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import NewParkPlaceholder from './NewParkPlaceholder'
+import NewParkButton from './NewParkButton'
 import NewParkForm from './NewParkForm'
 
-function NewPark() {
+function NewPark () {
   const [showForm, setShowForm] = useState(false)
   return (
     // <div
@@ -13,7 +13,7 @@ function NewPark() {
     showForm ? (
       <NewParkForm closeForm={() => setShowForm(false)} />
     ) : (
-      <NewParkPlaceholder showForm={() => setShowForm(true)} />
+      <NewParkButton showForm={() => setShowForm(true)} />
     )
     // </div>
   )
