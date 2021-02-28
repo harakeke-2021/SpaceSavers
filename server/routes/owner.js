@@ -7,11 +7,11 @@ module.exports = router
 
 // GET /api/v1/owner
 
-router.get('/:username', getTokenDecoder(), async (req, res) => {
-  const username = req.params.username
+router.get('/parks', getTokenDecoder(), async (req, res) => {
+  const user = req.user.username
 
   try {
-    const parks = await db.getParksByOwnerUsername(username)
+    const parks = await db.getParksByOwnerUsername(user)
     res.json({ parks })
   } catch (err) {
     console.log(err.message)
@@ -26,7 +26,7 @@ router.get('/:username', getTokenDecoder(), async (req, res) => {
 
 // POST /api/v1/owner
 
-router.post('/:username/addpark', getTokenDecoder(), async (req, res) => {
+router.post('/addpark', getTokenDecoder(), async (req, res) => {
   const newPark = req.body
 
   const user = req.user
@@ -40,7 +40,7 @@ router.post('/:username/addpark', getTokenDecoder(), async (req, res) => {
 })
 
 // DELETE /api/v1/owner
-router.delete('/:username/:id', getTokenDecoder(), async (req, res) => {
+router.delete('/:id', getTokenDecoder(), async (req, res) => {
   const id = Number(req.params.id)
   const user = req.user
 
