@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import MarkerHover from './MarkerHover'
 
 function MapMarker (props) {
@@ -21,6 +21,24 @@ function MapMarker (props) {
   }
 
   const [style, setStyle] = useState(style1)
+  const [toggle, setToggle] = useState(false)
+
+  useEffect(() => {
+    if (toggle) {
+      document.addEventListener('click', handleClickOutside)
+    } else {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [toggle])
+
+  const node = useRef()
+
+  function handleClickOutside (e) {
+    if (node.current && node.current.contains(e.target)) {
+      return
+    }
+    setToggle(!toggle)
+  }
 
   function mouseEnter (e) {
     setStyle(style2)
@@ -31,16 +49,15 @@ function MapMarker (props) {
   }
 
   function onClick (e) {
-
+    setToggle(!toggle)
   }
 
   return (
     <div>
-
-      <div className='testing'>
+      <div ref={node}>
         <img style={style} onClick={onClick} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} src='./images/pin.png' />
+        {toggle === true ? <MarkerHover price={props.price} address={props.address}/> : null}
       </div>
-
     </div>
   )
 }

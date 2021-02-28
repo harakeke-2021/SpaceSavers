@@ -1,4 +1,4 @@
-const path = require('path')
+// const path = require('path')
 const express = require('express')
 
 const router = express.Router()
@@ -61,6 +61,61 @@ router.get('/:id', (req, res) => {
       res.status(500).json({
         error: {
           title: 'Unable to retrieve park'
+        }
+      })
+    })
+})
+
+router.post('/parking/start', (req, res) => {
+  // const parkerId = from authenticare once setup, won't need userId from
+  const { parkId, userId } = req.body
+  db.startPark(parkId, userId)
+    .then((result) => {
+      res.send(`${result} parking started`)
+      return null
+    })
+    .catch((err) => {
+      console.log(err.message)
+      res.status(500).json({
+        error: {
+          title: 'Unable to start park'
+        }
+      })
+    })
+})
+
+// won't need parker id as url param once authenticare integrated
+router.post('/parking/end', (req, res) => {
+  // const parkerId = from authenticare
+  const { parkId, userId } = req.body
+  db.endPark(parkId, userId)
+    .then((result) => {
+      res.send(`${result} parking ended`)
+      return null
+    })
+    .catch((err) => {
+      console.log(err.message)
+      res.status(500).json({
+        error: {
+          title:
+            'Could not find parking history with Park ID' +
+            parkId +
+            'and User ID' +
+            userId
+        }
+      })
+    })
+})
+
+router.get('/history/:parkerId', (req, res) => {
+  db.getHistoryByParkerId(Number(req.params.parkerId))
+    .then(result => [result].flat())
+    .then((result) => res.json(result))
+    .catch((err) => {
+      console.log(err.message)
+      res.status(500).json({
+        error: {
+          title: 'Unable to get History'
         }
       })
     })

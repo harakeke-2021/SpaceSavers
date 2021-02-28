@@ -1,10 +1,12 @@
 import React from 'react'
-
+import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 function OwnerPark (props) {
   const { name, address, price, occupied } = props.park
 
   return (
-    <ul className="text-center object-center grid-span-3 w-72 h-72 m-10 hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-blue-400"
+    <>
+      <IfAuthenticated>
+        <ul className="text-center object-center grid-span-3 w-72 h-72 m-10 hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-blue-400"
     // "w-72 h-72 m-20 border-4 rounded-md border-black capitalize"
     >
       <li>
@@ -15,6 +17,10 @@ function OwnerPark (props) {
       <li className="">{`$ ${price}`}</li>
       <li className="">{`${occupied ? 'Occupied' : 'Unoccupied'}`}</li>
     </ul>
+      </IfAuthenticated>
+      <IfNotAuthenticated>
+      </IfNotAuthenticated>
+    </>
   )
 }
 

@@ -1,16 +1,24 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { IfAuthenticated } from './Authenticated'
 
-function OwnerNav() {
+function OwnerNav (props) {
+  // const { username } = props.owner
+
   return (
-    <div className='owner-nav'>
-      <Link to='/owner' className='owner-nav button'>
+    <IfAuthenticated>
+      <div className='owner-nav'>
+        <Link to={'/owner'} className='owner-nav button'>
         Dashboard
-      </Link>
-      <Link to='/owner/parks' className='owner-nav button'>
+        </Link>
+        <Link to={'/owner/parks'} className='owner-nav button'>
         Parks
-      </Link>
-    </div>
+        </Link>
+        <Link to='/owner/history' className='owner-nav button'>
+        History
+        </Link>
+      </div>
+    </IfAuthenticated>
   )
 }
 

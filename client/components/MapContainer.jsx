@@ -3,38 +3,32 @@ import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
 import { connect } from 'react-redux'
 
-import { getGeoCode } from '../API/mapsHelper'
-import { updateUserPosition } from '../actions/user'
+import { getGeoCode } from '../api/mapsHelper'
+// import { updateUserPosition } from '../actions/user'
 import ListResults from './ListResults'
 
 function MapContainer (props) {
   const defaultCenter = { lat: 0, lng: 0 }
-  const userPosition = props.user.position
+  // const userPosition = props.user.position
   const { searchArea, parks } = props
-  const [center, setCenter] = useState(defaultCenter)
-
   const [map, setMap] = useState()
 
-  function getUserPosition (options) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const newUserPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
-      updateUserPosition(newUserPosition, props.dispatch)
-      if (options?.center && map) {
-        console.log('centering on user pos')
-        map.setCenter(userPosition)
-      }
-    })
+  function centerOnUserPosition (mapApi = map) {
+    if (mapApi && navigator?.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const newUserPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+          mapApi.setCenter(newUserPosition)
+        },
+        (err) => console.log('Error:', err.message)
+      )
+    }
   }
 
-  // function centerOn (latlng) {
-
-  // }
-
-  function centerOnUserPosition () {
-    if (map && userPosition) { map.setCenter(userPosition) }
-  }
-
-  function search (latlng) {
+  function handleSearch () {
     getGeoCode({ address: searchArea })
       .then((res) => {
         const { location } = res.body
@@ -47,27 +41,24 @@ function MapContainer (props) {
   }
 
   useEffect(() => {
-    if (!userPosition) {
-      getUserPosition()
-    }
-    search()
+    if (searchArea) handleSearch()
   }, [searchArea])
 
   const key = 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
 
   function handleApiLoaded (map, maps) {
     setMap(map)
-    console.log('map loaded')
     const options = {
       disableDoubleClickZoom: true,
       clickableIcons: false
     }
     map.setOptions(options)
+    centerOnUserPosition(map)
   }
 
   return (
     <div className='map w-full h-screen'>
-      <button onClick={centerOnUserPosition}>Use my location</button>
+      <button onClick={() => centerOnUserPosition()}>Use my location</button>
       <GoogleMapReact
         bootstrapURLKeys={{ key }}
         defaultCenter={defaultCenter}
@@ -75,13 +66,15 @@ function MapContainer (props) {
         hoverDistance={40}
         yesIWantToUseGoogleMapApiInternals={true}
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        {parks.map((marker) => {
+        {parks.map((park) => {
           return (
             <MapMarker
-              key={marker.lat}
-              lat={marker.lat}
-              lng={marker.lng}
-            />
+              key={park.lat}
+              lat={park.lat}
+              lng={park.lng}
+              price={park.price}
+              address={park.address}>
+            </MapMarker>
           )
         })}
       </GoogleMapReact>
