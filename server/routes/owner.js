@@ -40,7 +40,9 @@ router.post('/addpark', (req, res) => {
     })
 })
 
+// won't need ownerid as url param once authenticare integrated
 router.get('/history/:ownerId', (req, res) => {
-  return db.getHistoryByOwnerId(Number(req.params.ownerId))
+  return db
+    .getHistoryByOwnerId(Number(req.params.ownerId))
     .then((result) => res.json(result))
 })

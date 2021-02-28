@@ -5,11 +5,11 @@ import { getHistoryByOwnerId } from '../actions/owner'
 function OwnerHistory (props) {
   const { history } = props.owner
   useEffect(() => {
-    getHistoryByOwnerId(2)
+    getHistoryByOwnerId(3)
   }, [])
   return (<div>
     {history.map((transaction) => {
-      return <div key={transaction.historyId}>{transaction.parkName}</div>
+      return <div key={transaction.id}>{transaction.parkName}: {transaction.cost}</div>
     })}
   </div>)
 }
