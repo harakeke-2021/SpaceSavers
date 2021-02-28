@@ -110,6 +110,7 @@ router.post('/parking/end', (req, res) => {
 
 router.get('/history/:parkerId', (req, res) => {
   db.getHistoryByParkerId(Number(req.params.parkerId))
+    .then(result => [result].flat())
     .then((result) => res.json(result))
     .catch((err) => {
       console.log(err.message)

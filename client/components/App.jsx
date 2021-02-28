@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import Home from './Home'
 import Header from './Header'
 import Owner from './Owner'
+import Parker from './Parker'
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Route path='/' component={Header} />
       <Route exact path='/' component={Home} />
       <Route path='/owner' component={Owner} />
+      <Route path='/parker' component={Parker} />
     </div>
   )
 }
