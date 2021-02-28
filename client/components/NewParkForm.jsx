@@ -20,13 +20,13 @@ function NewParkForm (props) {
 
   return (
     
-    <div className="w-72 h-72 m-10 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-400 py-4"
-    // "w-72 h-72 m-10 border-4 rounded-md border-black"
+    <div className='w-72 h-72 m-10 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-500 py-4'
+    // 'w-72 h-72 m-10 border-4 rounded-md border-black'
     >
-      <div className="p-5">
-        <button className="" onClick={closeForm}>
-          <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+      <div className='p-5'>
+        <button className='' onClick={closeForm}>
+          <svg className='h-6 w-6 text-black' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6'/>
           </svg>
         </button>
         <form onSubmit={handleSubmit}>
@@ -37,7 +37,7 @@ function NewParkForm (props) {
             value={form?.name || ''}
             onChange={(e) => handleChange(e, 'name')}
             // placeholder='Name'
-            className="w-full bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0"
+            className='w-full border-transparent focus:border-blue-500 focus:bg-white focus:ring-0'
           />
 
           <label name='address'>Address</label>
@@ -46,8 +46,8 @@ function NewParkForm (props) {
             key='address'
             value={form?.address || ''}
             onChange={(e) => handleChange(e, 'address')}
-            // placeholder="Address"
-            className="w-full bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0"
+            // placeholder='Address'
+            className='w-full border-transparent focus:border-blue-500 focus:bg-white focus:ring-0'
           />
 
           <label name='price'>Price per hour</label>
@@ -58,11 +58,11 @@ function NewParkForm (props) {
             key='price'
             value={form?.price || 0}
             onChange={(e) => handleChange(e, 'price')}
-            // placeholder="Price per hour"
-            className="w-full bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0"
+            // placeholder='Price per hour'
+            className='w-full border-transparent focus:border-blue-500 focus:bg-white focus:ring-0'
           />
           <div>
-            <button className="w-full">
+            <button className='w-full'>
           Add Park
             </button>
           </div>

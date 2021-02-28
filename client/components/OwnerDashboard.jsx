@@ -15,16 +15,16 @@ function OwnerDashboard (props) {
 
   return (
     <IfAuthenticated>
-      <div className="bg-gray-100">
+      <div>
         <div>
-          <h2 className="text-4xl uppercase text-center p-10">
-          Owner Dashboard
+          <h2 className='pt-20 pb-10 text-center text-blue-600 text-4xl font-black uppercase'>
+         Dashboard
           </h2>
-          <div className="grid grid-cols-12 bg-gray-300">
-            <p className="col-start-4 col-span-2 text-center">
+          <div className='grid grid-cols-12 text-center'>
+            <p className='col-start-4 col-span-2 border-b-2 border-transparent hover:border-blue-600 p-2 mt-3 mb-2'>
           Account Balance: ${owner.balance}
             </p>
-            <Link to='/owner/history' className="col-start-8 col-span-2 text-center">
+            <Link to='/owner/history' className='col-start-8 col-span-1 border-b-2 border-transparent hover:border-blue-600 p-2 mt-3 mb-2'>
           History
             </Link>
           </div>
