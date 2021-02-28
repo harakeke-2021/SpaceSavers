@@ -72,8 +72,8 @@ function MapContainer (props) {
               key={park.lat}
               lat={park.lat}
               lng={park.lng}
-              price={park.price}
-              name={park.name}/> : null
+              obj={park}
+            /> : null
           )
         })}
       </GoogleMapReact>
