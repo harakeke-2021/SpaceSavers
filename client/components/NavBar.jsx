@@ -9,9 +9,9 @@ function NavBar () {
     <div className="grid grid-cols-3 text-center text-white">
       <Link to='/' className="grid-start-1 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">Home</Link>
       <IfAuthenticated>
-        <OwnerNav/> 
+        <OwnerNav/>
         {/* move owner nav in here */}
-        <Link to='#' onClick={logOff} className="grid-start-2 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">Log Off</Link>
+        <Link to='/' onClick={logOff} className="grid-start-2 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">Log Off</Link>
       </IfAuthenticated>
       <IfNotAuthenticated>
         <Link to='/signin' className="grid-start-2 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">Sign In</Link>

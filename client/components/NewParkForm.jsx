@@ -19,7 +19,7 @@ function NewParkForm (props) {
   }
 
   return (
-    
+
     <div className="w-72 h-72 m-10 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-400 py-4"
     // "w-72 h-72 m-10 border-4 rounded-md border-black"
     >

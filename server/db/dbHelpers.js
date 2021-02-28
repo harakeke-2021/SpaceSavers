@@ -161,11 +161,10 @@ function getParksByOwnerUsername (username, db = connection) {
 
 // ADD PARK
 
-async function addPark (newPark, ownerId, lat, lng, user, db = connection) {
+async function addPark (newPark, lat, lng, user, db = connection) {
   const park = {
-    username: newPark.username,
+    username: user.username,
     name: newPark.name,
-    owner_id: ownerId,
     address: newPark.address,
     lat,
     lng,

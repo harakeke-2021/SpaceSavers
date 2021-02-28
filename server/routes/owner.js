@@ -7,7 +7,7 @@ module.exports = router
 
 // GET /api/v1/owner
 
-router.get('/parks', getTokenDecoder(), async (req, res) => {
+router.get('/', getTokenDecoder(), async (req, res) => {
   const user = req.user.username
 
   try {
@@ -26,7 +26,7 @@ router.get('/parks', getTokenDecoder(), async (req, res) => {
 
 // POST /api/v1/owner
 
-router.post('/addpark', getTokenDecoder(), async (req, res) => {
+router.post('/', getTokenDecoder(), async (req, res) => {
   const newPark = req.body
 
   const user = req.user
