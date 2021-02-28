@@ -151,9 +151,11 @@ function getParksByOwnerId (ownerId, db = connection) {
       'occupied',
       'occupant_id as occupantId'
     )
+    .then(res => res)
 }
 
 // ADD PARK
+
 
 async function addPark (newPark, ownerId, latlng, user, db = connection) {
   const park = {
@@ -172,9 +174,11 @@ async function addPark (newPark, ownerId, latlng, user, db = connection) {
   return db('parks')
     .insert(park)
     .then(() => db)
+
 }
 
 // EDIT PARK
+
 
 async function editPark (updatePark, db = connection) {
   return db('parks')
@@ -205,4 +209,5 @@ function authorizeUpdate (park, user) {
   if (park.added_by_user !== user.id) {
     throw new Error('Unauthorized')
   }
+
 }

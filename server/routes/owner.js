@@ -19,6 +19,7 @@ router.get('/:id', getTokenDecoder(), async (req, res) => {
       error: {
         title: 'Unable to retrieve parks'
       }
+
     })
   }
 })
@@ -27,6 +28,7 @@ router.get('/:id', getTokenDecoder(), async (req, res) => {
 
 router.post('/addpark', getTokenDecoder(), async (req, res) => {
   const newPark = req.body
+
   const user = req.user
 
   try {
