@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { addPark } from '../actions/owner'
 import { getGeoCode } from '../api/mapsHelper'
-import { addParkApi } from '../api/ownerHelper'
 
 function NewParkForm (props) {
   const [form, setForm] = useState({})
@@ -22,9 +21,7 @@ function NewParkForm (props) {
     }
     addPark(newForm, props.dispatch)
     setForm({})
-    addParkApi(newForm)
-      .then(closeForm())
-      .catch(err => { throw Error(err.message) })
+    closeForm()
   }
 
   useEffect(() => {
@@ -95,7 +92,7 @@ function NewParkForm (props) {
 
           <label name='lng'></label>
           <input
-            type="hidden"
+            type="text"
             value={geoCode.lng}
             key="lng"
           />

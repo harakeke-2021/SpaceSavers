@@ -28,11 +28,7 @@ router.get('/', getTokenDecoder(), async (req, res) => {
 
 router.post('/', getTokenDecoder(), async (req, res) => {
   const newPark = req.body
-
   const user = req.user
-
-  console.log(newPark)
-  console.log(user)
 
   try {
     const parks = await db.addPark(newPark, user)

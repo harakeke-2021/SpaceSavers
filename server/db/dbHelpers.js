@@ -12,6 +12,7 @@ module.exports = {
   getUserById,
   getUserByName,
   getParksByOwnerUsername,
+  getUserParksbyId,
   addPark,
   editPark,
   deletePark,
@@ -159,25 +160,46 @@ function getParksByOwnerUsername (username, db = connection) {
     .then(res => res)
 }
 
+// GET USER PARKS BY ID
+
+async function getUserParksbyId (id, db = connection) {
+  return db('users')
+    .join('parks', 'users.id', 'parks.owner_id')
+    .where('parks.owner_id', id)
+    .select(
+      'parks.id as id',
+      'username',
+      'parks.name as name',
+      'owner_id as ownerId',
+      'address',
+      'lat',
+      'lng',
+      'price',
+      'occupied',
+      'occupant_id as occupantId'
+    )
+    .then(res => console.log('res for getUserParksbyId', res))
+}
+
 // ADD PARK
 
 async function addPark (newPark, user, db = connection) {
   const park = {
-    username: user.username,
+    // username: user.username,
     name: newPark.name,
+    owner_id: user.id,
     address: newPark.address,
     lat: newPark.lat,
     lng: newPark.lng,
     price: newPark.price,
-    occupied: false,
-    occupant_id: null
+    occupied: false
   }
 
-  park.added_by_user = user.id
-
+  console.log('inside addPark dbHelper', park)
   return db('parks')
     .insert(park)
     .then(() => db)
+    .then(getUserParksbyId(user.id))
 }
 
 // EDIT PARK
