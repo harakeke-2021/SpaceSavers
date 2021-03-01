@@ -60,7 +60,7 @@ function NewParkForm (props) {
             className='w-full border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
           <div>
-            <button className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto my-2 p-1 rounded-lg'>
+            <button className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto my-2 p-1 rounded-lg hover:text-white'>
           Add Park
             </button>
           </div>

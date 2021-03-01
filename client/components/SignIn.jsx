@@ -53,13 +53,13 @@ export default function SignIn (props) {
           className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
         />
 
-        <button type ='button' onClick={handleSubmit} className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2'>
+        <button type ='button' onClick={handleSubmit} className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2 hover:text-white'>
           Sign In
         </button>
       </form>
 
       <div className='my-5'>
-        <Link to='/register' className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2 text-center'>
+        <Link to='/register' className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2 text-center hover:text-white'>
       Register
         </Link>
       </div>

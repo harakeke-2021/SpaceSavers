@@ -28,7 +28,7 @@ export default function Register (props) {
     e.preventDefault()
 
     const { username, name, email, password } = form
-    register({ username, name, email, password }, { baseUrl })
+    register({ username, name, email, password, isOwner }, { baseUrl })
       .then((token) => {
         if (isAuthenticated()) {
           props.history.push('/')
@@ -88,8 +88,33 @@ export default function Register (props) {
             placeholder='password'
             className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
           />
+          <div className="mt-4">
+            <span>Account Type</span>
+            <div className='mt-2'>
+              <label htmlFor='parker' className='inline-flex items-center'>
+                <input
+                  id='parker'
+                  type='radio'
+                  name='isOwner'
+                  value="false"
+                  className='form-radio'
+                />
+                <span className='ml-2'>Park</span>
+              </label>
+              <label htmlFor='owner' className='inline-flex items-center ml-6'>
+                <input
+                  id='owner'
+                  type='radio'
+                  name='isOwner'
+                  value="true"
+                  className='form-radio'
+                />
+                <span className='ml-2'>Host</span>
+              </label>
+            </div>
+          </div>
 
-          <button type='button' onClick={handleSubmit} className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2'>
+          <button type='button' onClick={handleSubmit} className='w-full hover:shadow-lg hover:bg-blue-500 hover:text-white block mx-auto mt-4 px-5 py-2 rounded-lg my-2'>
             Register
           </button>
         </form>
