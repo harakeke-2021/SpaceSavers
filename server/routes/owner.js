@@ -56,6 +56,24 @@ router.delete('/:id', getTokenDecoder(), async (req, res) => {
   }
 })
 
+// UPDATE PARK /api/v1/owner
+
+router.patch('/', getTokenDecoder(), async (req, res) => {
+  const newPark = req.body
+  const user = req.user
+  try {
+    const parks = await db.udpatePark(newPark, user)
+    res.json({ parks })
+  } catch (err) {
+    if (err.message === 'Unauthorized') {
+      return res.status(403).send(
+        'Unauthorized: Only the user who added the park may update it'
+      )
+    }
+    res.status(500).send(err.message)
+  }
+})
+
 router.get('/', getTokenDecoder(), async (req, res) => {
   try {
     const balance = await db.getBalance()

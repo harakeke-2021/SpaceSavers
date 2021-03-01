@@ -12,9 +12,8 @@ export function getOwnerBalance (consume = requestor) {
 // POTENTIAL REFACTOR WITH CONSUME
 
 export function addParkApi (park, url = rootURL) {
-  console.log('park', park)
   return request.post(url)
-  .set({ 'Accept': 'application/json' })
+  .set(acceptJsonHeader)
   .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
     .send(park)
     .then(res => {
@@ -36,6 +35,24 @@ export function getParksByOwnerIdApi (url = rootURL) {
 export function getHistoryByOwnerIdApi (id, consume = requestor) {
   return consume(`/owner/history/${id}`, 'get')
 }
+
+export function updateParkApi(park, url = rootURL) {
+  return request.patch(url)
+    .set(acceptJsonHeader)
+    .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
+    .send(park)
+    .then(res => res.body.parks)
+    .catch(logError)
+}
+
+export function deleteParkApi(id, url = rootURL) {
+  return request.patch(`/${url}/${id}`)
+    .set(acceptJsonHeader)
+    .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
+    .then(res => res.body.parks)
+    .catch(logError)
+}
+
 
 function logError (err) {
   if (err.message === 'Forbidden') {

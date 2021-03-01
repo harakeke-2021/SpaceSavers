@@ -14,7 +14,7 @@ module.exports = {
   getParksByOwnerUsername,
   getUserParksbyId,
   addPark,
-  editPark,
+  udpatePark,
   deletePark,
   authorizeUpdate,
   getBalance,
@@ -202,9 +202,9 @@ async function addPark (newPark, user, db = connection) {
     .then(getUserParksbyId(user.id))
 }
 
-// EDIT PARK
+// UPDATE PARK
 
-async function editPark (updatePark, user, db = connection) {
+async function udpatePark (updatePark, user, db = connection) {
   return db('parks')
     .where('id', updatePark.id)
     .first()
@@ -214,6 +214,8 @@ async function editPark (updatePark, user, db = connection) {
         .where('id', updatePark.id)
         .update(updatePark)
     })
+    .then(() => db)
+    .then(getUserParksbyId(user.id))
 }
 
 // DELETE PARK
@@ -229,6 +231,8 @@ async function deletePark (parkId, user, db = connection) {
         .delete()
     }
     )
+    .then(() => db)
+    .then(getUserParksbyId(user.id))
 }
 
 // GET ACCOUNT BALANCE
