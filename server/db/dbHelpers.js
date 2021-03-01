@@ -264,7 +264,7 @@ function getHistoryByParkerId (userId, db = connection) {
 function getHistoryByOwnerId (ownerId, db = connection) {
   return db('park_history')
     .join('parks', 'park_history.id', 'parks.id')
-    // .where('parks.owner_id', ownerId)
+    .where('parks.owner_id', ownerId)
     .select(
       'park_history.id as historyId',
       'park_history.park_id as parkId',

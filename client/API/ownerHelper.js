@@ -33,6 +33,12 @@ export function getParksByOwnerIdApi (url = rootURL) {
     .catch(err => console.error(err))
 }
 
-export function getHistoryByOwnerIdApi (id, consume = requestor) {
-  return consume(`/owner/history/${id}`, 'get')
+export function getHistoryByOwnerIdApi (url = rootURL) {
+  return request.get(`${url}/history`)
+    .set(acceptJsonHeader)
+    .set(getAuthorizationHeader())
+    .then(res => {
+      return res.body.history
+    })
+    .catch(err => console.error(err))
 }

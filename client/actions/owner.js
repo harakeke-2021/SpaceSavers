@@ -50,11 +50,12 @@ export function addPark (park, dispatch) {
     .catch((error) => console.log(error.message))
 }
 
-export function getHistoryByOwnerId (ownerId = 2) {
-  getHistoryByOwnerIdApi(ownerId).then(result => {
+export function getHistoryByOwnerId () {
+  getHistoryByOwnerIdApi().then(history => {
+    console.log(history)
     dispatch({
       type: GET_OWNER_HISTORY,
-      history: result.body
+      history
     })
     return null
   })

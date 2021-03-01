@@ -76,10 +76,9 @@ router.get('/balance', async (req, res) => {
   }
 })
 
-// won't need ownerid as url param once authenticare integrated
 router.get('/history', (req, res) => {
   const user = req.user
   return db
     .getHistoryByOwnerId(user.id)
-    .then((result) => res.json(result))
+    .then((history) => res.json({ history }))
 })
