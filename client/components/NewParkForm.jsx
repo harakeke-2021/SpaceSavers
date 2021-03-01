@@ -90,7 +90,7 @@ function NewParkForm (props) {
 
           <label name='lng'></label>
           <input
-            type="text"
+            type="hidden"
             value={geoCode.lng}
             key="lng"
           />
