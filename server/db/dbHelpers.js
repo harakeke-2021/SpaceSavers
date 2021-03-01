@@ -222,7 +222,7 @@ function startPark (parkId, userId, db = connection) {
   return db('park_history').insert({
     park_id: parkId,
     user_id: userId,
-    start_time: Date.now() / 1000,
+    start_time: Math.floor(Date.now() / 1000),
     finished: false
   })
 }
@@ -231,28 +231,30 @@ function endPark (historyId, userId, db = connection) {
   return calculateCost(historyId, userId).then(([endTime, cost]) => {
     console.log(endTime, cost)
     return db('park_history')
-      .first({
+      .where({
         id: historyId,
         user_id: userId
-      })
+      }).first()
       .update({ end_time: endTime, cost: cost, finished: true })
   })
 }
 
 function calculateCost (historyId, userId, db = connection) {
   return db('park_history')
-    .first({
-      id: historyId,
-      user_id: userId
-    })
     .join('parks', 'park_history.park_id', 'parks.id')
+    .where({
+      'park_history.id': historyId,
+      'park_history.user_id': userId
+    }).first()
     .select('park_history.start_time as startTime', 'parks.price as price')
-    .then(({ startTime, price }) => {
-      console.log(price)
-      const endTime = Date.now() / 1000
+    .then((res) => {
+      console.log(res)
+      const { startTime, price } = res
+      const endTime = Math.floor(Date.now() / 1000)
       const secondsElapsed = (endTime - startTime)
       const hours = secondsElapsed / (60 * 60)
-      console.log('hours', hours)
+      console.log('start', startTime, 'end', endTime)
+      console.log('seconds', secondsElapsed, 'hours', hours)
       console.log('start', startTime, 'end', endTime)
       const cost = hours * price
       return [endTime, cost]
