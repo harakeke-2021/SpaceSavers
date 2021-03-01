@@ -7,7 +7,12 @@ module.exports = router
 
 // GET /api/v1/owner
 
-router.get('/', getTokenDecoder(), async (req, res) => {
+router.use(getTokenDecoder(), (req, res, next) => {
+  next()
+})
+
+router.get('/', async (req, res) => {
+  console.log('sfddfs')
   const user = req.user
 
   try {
@@ -26,7 +31,7 @@ router.get('/', getTokenDecoder(), async (req, res) => {
 
 // POST /api/v1/owner
 
-router.post('/', getTokenDecoder(), async (req, res) => {
+router.post('/', async (req, res) => {
   const newPark = req.body
   const user = req.user
 
@@ -58,7 +63,7 @@ router.delete('/:id', async (req, res) => {
 
 // UPDATE PARK /api/v1/owner
 
-router.patch('/', getTokenDecoder(), async (req, res) => {
+router.patch('/', async (req, res) => {
   const newPark = req.body
   const user = req.user
   try {
@@ -74,21 +79,19 @@ router.patch('/', getTokenDecoder(), async (req, res) => {
   }
 })
 
-router.get('/', getTokenDecoder(), async (req, res) => {
-  router.get('/balance', async (req, res) => {
-    const user = req.user
-    try {
-      const balance = await db.getOwnerBalance(user.id)
-      res.json({ balance })
-    } catch (err) {
-      if (err.message === 'Unauthorized') {
-        return res.status(403).send(
-          'Unauthorized: Cannot get balance'
-        )
-      }
-      res.status(500).send(err.message)
+router.get('/balance', async (req, res) => {
+  const user = req.user
+  try {
+    const balance = await db.getOwnerBalance(user.id)
+    res.json({ balance })
+  } catch (err) {
+    if (err.message === 'Unauthorized') {
+      return res.status(403).send(
+        'Unauthorized: Cannot get balance'
+      )
     }
-  })
+    res.status(500).send(err.message)
+  }
 })
 
 router.get('/history', (req, res) => {
