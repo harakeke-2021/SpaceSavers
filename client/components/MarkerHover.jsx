@@ -1,6 +1,10 @@
 import React from 'react'
 
+import { startParking } from '../api/markerHoverHelper'
+
 function MarkerHover (props) {
+  const { id, address, price, name } = props
+
   const style = {
     position: 'relative',
     left: '-87.5px',
@@ -14,11 +18,18 @@ function MarkerHover (props) {
     boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)'
   }
 
+  function onClick () {
+    startParking(id)
+  }
+
   return (
     <div style={style}>
-      <h1>This is a test render</h1>
-      <p>The price of this parking is {props.price}</p>
-      <p>Address: {props.address}</p>
+      <h1>{name}</h1>
+      <p>The price of this parking is {price}</p>
+      <p>Address: {address}</p>
+      <div>
+        <button onClick={onClick} >Book Parking</button>
+      </div>
     </div>
   )
 }

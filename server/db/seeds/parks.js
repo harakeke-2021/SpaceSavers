@@ -37,7 +37,19 @@ exports.seed = function (knex) {
           address: '12 Grafton Road, Auckland Central, Auckland',
           lat: -36.853105,
           lng: 174.7693262
+        },
+        {
+          id: 4,
+          name: 'Albert Park',
+          price: 15.0,
+          owner_id: 2,
+          occupied: true,
+          occupant_id: 1,
+          address: '33-43 Princes Street, Auckland Central, Auckland',
+          lat: -36.850488045610895,
+          lng: 174.76786664060185
         }
+
       ])
     })
 }
