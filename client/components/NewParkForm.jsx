@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { addPark } from '../actions/owner'
+import { getGeoCode } from '../api/mapsHelper'
+import { addParkApi } from '../api/ownerHelper'
 
 function NewParkForm (props) {
   const [form, setForm] = useState({})
+  const [geoCode, setGeoCode] = useState({ lat: 0, lng: 0 })
   const { closeForm } = props
 
   function handleChange (e, field) {
@@ -13,10 +16,32 @@ function NewParkForm (props) {
 
   function handleSubmit (e) {
     e.preventDefault()
-    addPark(form, props.dispatch)
+    const newForm = {
+      ...form,
+      ...geoCode
+    }
+    addPark(newForm, props.dispatch)
     setForm({})
-    closeForm()
+    addParkApi(newForm)
+      .then(closeForm())
+      .catch(err => { throw Error(err.message) })
   }
+
+  useEffect(() => {
+    setForm({ ...form })
+    getGeoCode({ address: form.address })
+      .then((res) => {
+        const { location } = res.body
+        // console.log('location', location)
+        setGeoCode({ lat: location.lat, lng: location.lng })
+        // console.log('geocode', geoCode)
+        return null
+      })
+
+      .catch((e) => {
+        console.log(e.message)
+      })
+  }, [form.address])
 
   return (
 
@@ -61,6 +86,20 @@ function NewParkForm (props) {
             // placeholder="Price per hour"
             className="w-full bg-gray-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0"
           />
+          <label name='lat'></label>
+          <input
+            type="hidden"
+            value={geoCode.lat}
+            key="lat"
+          />
+
+          <label name='lng'></label>
+          <input
+            type="hidden"
+            value={geoCode.lng}
+            key="lng"
+          />
+
           <div>
             <button className="w-full">
           Add Park

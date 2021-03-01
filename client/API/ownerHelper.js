@@ -12,16 +12,19 @@ export function getOwnerBalance (consume = requestor) {
 // POTENTIAL REFACTOR WITH CONSUME
 
 export function addParkApi (park, url = rootURL) {
+  console.log(park)
   return request.post(url)
     .set(acceptJsonHeader)
     .set({ 'Authorization': `Bearer ${getEncodedToken}` })
     .send(park)
-    .then(res => res.body.parks)
+    .then(res =>{ 
+      console.log(res)
+      res.body.parks})
     .catch(err => console.error(err))
 }
 
-export function getParksByOwnerIdApi(id, url = rootURL) {
-  return request.get(`${url}/${id}`)
+export function getParksByOwnerIdApi(url = rootURL) {
+  return request.get(url)
     .set(acceptJsonHeader)
     .then(res => {
       return res.body.parks
