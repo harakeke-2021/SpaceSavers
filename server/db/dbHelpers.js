@@ -54,14 +54,15 @@ function setUnoccupied (parkId, db = connection) {
 function getUserById (userId, db = connection) {
   return db('users')
     .where('id', userId)
-    .select('id', 'username', 'name', 'email')
+    .select('id', 'username', 'name', 'email', 'registration')
     .then((result) => {
       const user = result[0]
       return {
         id: user.id,
         username: user.username,
         name: user.name,
-        email: user.email
+        email: user.email,
+        registration: user.registration
       }
     })
 }
@@ -133,7 +134,7 @@ function userExists (username, db = connection) {
 
 function getUserByName (username, db = connection) {
   return db('users')
-    .select('username', 'name', 'email', 'id', 'hash')
+    .select('username', 'name', 'email', 'id', 'hash', 'registration')
     .where('username', username)
     .first()
 }
@@ -241,6 +242,7 @@ async function getFullUser (userId, db = connection) {
       'name',
       'email',
       'balance',
+      'registration',
       'parks.id as parkId',
       'address',
       'parks.id as parkId',
