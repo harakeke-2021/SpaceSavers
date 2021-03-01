@@ -6,17 +6,19 @@ function OwnerPark (props) {
   return (
     <>
       <IfAuthenticated>
-        <ul className="text-center object-center grid-span-3 w-72 h-72 m-10 hover:bg-blue-500 hover:border-transparent hover:shadow-lg group block rounded-lg p-4 border border-blue-400"
-    // "w-72 h-72 m-20 border-4 rounded-md border-black capitalize"
-    >
-      <li>
-        <img src="./images/park.png" alt="carpark symbol" className="h-12"/>
-      </li>
-      <li className="text-xl">{name}</li>
-      <li className="">{address}</li>
-      <li className="">{`$ ${price}`}</li>
-      <li className="">{`${occupied ? 'Occupied' : 'Unoccupied'}`}</li>
-    </ul>
+        <ul className='text-center object-center grid-span-3 w-72 h-72 hover:bg-blue-500 hover:border-transparent hover:shadow-lg rounded-lg px-4 pt-10 border border-blue-500 block mx-auto hover:text-white'>
+          <li>
+            <img src='./images/park.png' alt='carpark symbol' className='h-14 block mx-auto my-2'/>
+          </li>
+          <li className='text-l capitalize'>{name}</li>
+          <li className='text-2xl capitalize'>{address}</li>
+          <li className='text-l'>{`$ ${price}`}/hr</li>
+          { occupied
+            ? <li className='text-l py-1'>Status: Occupied</li>
+            : <li className='text-l py-1'>Status: Unoccupied</li>
+          // <li className='text-l py-1'>Status: {`${occupied ? 'Occupied' : 'Unoccupied'}`}</li>
+          }
+        </ul>
       </IfAuthenticated>
       <IfNotAuthenticated>
       </IfNotAuthenticated>

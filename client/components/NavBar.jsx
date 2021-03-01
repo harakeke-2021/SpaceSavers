@@ -5,21 +5,21 @@ import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 
 function NavBar () {
   return (
-    <div className="grid grid-cols-3 text-center text-white">
-      <Link to='/' className="grid-start-1 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">
+    <div className='grid grid-cols-3 text-center text-white'>
+      <Link to='/' className='col-start-1 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2'>
         Home
       </Link>
       <IfAuthenticated>
-        <Link to={'/owner'} className="grid-start-3 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">
+        <Link to={'/owner'} className='col-start-2 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2'>
         Dashboard
         </Link>
-        <Link to='#' onClick={logOff} className="grid-start-3 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">
+        <Link to='#' onClick={logOff} className='col-start-3 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2'>
           Log Off
         </Link>
       </IfAuthenticated>
       <IfNotAuthenticated>
-        <Link to='/signin' className="grid-start-2 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">Sign In</Link>
-        <Link to='/register' className="grid-start-3 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2">Register </Link>
+        <Link to='/signin' className='col-start-2 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2'>Sign In</Link>
+        <Link to='/register' className='col-start-3 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2'>Register </Link>
       </IfNotAuthenticated>
     </div>
   )

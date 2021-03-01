@@ -57,28 +57,34 @@ function MapContainer (props) {
   }
 
   return (
-    <div className='map w-full h-screen'>
-      <button onClick={() => centerOnUserPosition()}>Use my location</button>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key }}
-        defaultCenter={defaultCenter}
-        defaultZoom={15}
-        hoverDistance={40}
-        yesIWantToUseGoogleMapApiInternals={true}
-        onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        {parks.map((park) => {
-          return (
-            park.occupied === 0 ? <MapMarker
-              key={park.lat}
-              lat={park.lat}
-              lng={park.lng}
-              obj={park}
-            /> : null
-          )
-        })}
-      </GoogleMapReact>
-      <ListResults />
-    </div>
+    <>
+      <button onClick={() => centerOnUserPosition()} className='flex m-2'>
+        {/* <img src='/images/gps.png' alt='gps symbol' className='w-5 h-5 flex-auto mx-2'/> */}
+        Use My Location
+      </button>
+
+      <div className='map w-full h-96'>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key }}
+          defaultCenter={defaultCenter}
+          defaultZoom={15}
+          hoverDistance={40}
+          yesIWantToUseGoogleMapApiInternals={true}
+          onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
+          {parks.map((park) => {
+            return (
+              park.occupied === 0 ? <MapMarker
+                key={park.lat}
+                lat={park.lat}
+                lng={park.lng}
+                obj={park}/>
+                : null
+            )
+          })}
+        </GoogleMapReact>
+        <ListResults />
+      </div>
+    </>
   )
 }
 
