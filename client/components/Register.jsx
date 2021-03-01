@@ -44,25 +44,56 @@ export default function Register (props) {
 
   return (
     <>
-      <h2>Register</h2>
       <div onClick={hideError}>
         { error && `Error: ${error}` }
       </div>
-      <form>
-        <label htmlFor="name">Enter your Name:</label>
-        <input id="name" name="name" type="text" value={form.name} onChange={handleChange}/>
+      <div className='w-96 m-10 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-light-blue-400'>
+        <form>
+          <input
+            id='name'
+            name='name'
+            type='text'
+            value={form.name}
+            onChange={handleChange}
+            placeholder='name'
+            className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
+          />
 
-        <label htmlFor="username">Enter your UserName:</label>
-        <input id="username" name="username" type="text" value={form.username} onChange={handleChange}/>
+          <input
+            id='username'
+            name='username'
+            type='text'
+            value={form.username}
+            onChange={handleChange}
+            placeholder='username'
+            className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
+          />
 
-        <label htmlFor="email">Enter Your Email:</label>
-        <input id="email" name="email" type="text" value={form.email} onChange={handleChange}/>
+          <input
+            id='email'
+            name='email'
+            type='text'
+            value={form.email}
+            onChange={handleChange}
+            placeholder='email'
+            className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
+          />
 
-        <label htmlFor="password">Choose a Password:</label>
-        <input id="password" name="password" type="password" value={form.password} onChange={handleChange}/>
+          <input
+            id='password'
+            name='password'
+            type='password'
+            value={form.password}
+            onChange={handleChange}
+            placeholder='password'
+            className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
+          />
 
-        <button type="button" onClick={handleSubmit}>Register</button>
-      </form>
+          <button type='button' onClick={handleSubmit} className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2'>
+            Register
+          </button>
+        </form>
+      </div>
     </>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { signIn, isAuthenticated } from 'authenticare/client'
 import { baseApiUrl as baseUrl } from '../config'
+import { Link } from 'react-router-dom'
 
 export default function SignIn (props) {
   const [form, setForm] = useState({
@@ -31,9 +32,8 @@ export default function SignIn (props) {
   }
 
   return (
-    <div className='w-96 m-10 shadow-lg rounded-lg  py-4 block m-auto p-5 my-20'>
-      <form className="border-">
-        {/* <label htmlFor='username'>Username:</label> */}
+    <div className='w-96 m-10 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-light-blue-400'>
+      <form>
         <input
           id='username'
           name='username'
@@ -43,7 +43,6 @@ export default function SignIn (props) {
           placeholder='username'
           className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 my-5 rounded-lg'/>
 
-        {/* <label htmlFor='password'>Password:</label> */}
         <input
           id='password'
           name='password'
@@ -59,6 +58,11 @@ export default function SignIn (props) {
         </button>
       </form>
 
+      <div className='my-5'>
+        <Link to='/register' className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2 text-center'>
+      Register
+        </Link>
+      </div>
     </div>
   )
 }
