@@ -1,6 +1,6 @@
 import requestor from '../consume'
 import { getAuthorizationHeader } from 'authenticare/client'
-import request from 'authenticare/client/request'
+import request from 'superagent'
 const acceptJsonHeader = { Accept: 'application/json' }
 
 export function startParking (parkId, consume = requestor) {
