@@ -12,7 +12,7 @@ function OwnerParks (props) {
   }, [])
   return (
     <div className='my-10'>
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-flow-row center-object'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-flow-row center-object gap-y-10'>
         {parks.map((park) => {
           return <OwnerPark key={park.id} park={park}/>
         })}
