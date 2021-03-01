@@ -1,6 +1,6 @@
 // const path = require('path')
 const express = require('express')
-
+const { getTokenDecoder } = require('authenticare/server')
 const router = express.Router()
 require('dotenv').config()
 const { Client } = require('@googlemaps/google-maps-services-js')
@@ -8,6 +8,10 @@ const { Client } = require('@googlemaps/google-maps-services-js')
 const db = require('../db/dbHelpers')
 
 module.exports = router
+
+router.use(getTokenDecoder(), (req, res, next) => {
+  next()
+})
 
 router.post('/', (req, res) => {
   const { address } = req.body
@@ -48,7 +52,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/park/:id', (req, res) => {
   const id = Number(req.params.id)
   return db
     .getParkById(id)
@@ -107,8 +111,10 @@ router.post('/parking/end', (req, res) => {
     })
 })
 
-router.get('/history/:parkerId', (req, res) => {
-  db.getHistoryByParkerId(Number(req.params.parkerId))
+router.get('/history', (req, res) => {
+  const user = req.user
+  console.log(user)
+  db.getHistoryByParkerId(user.id)
     .then(result => [result].flat())
     .then((result) => res.json(result))
     .catch((err) => {
