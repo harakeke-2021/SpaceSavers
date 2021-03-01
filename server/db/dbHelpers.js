@@ -292,7 +292,7 @@ function calculateCost (historyId, userId, db = connection) {
 function getHistoryByParkerId (userId, db = connection) {
   return db('park_history')
     .join('parks', 'park_history.park_id', 'parks.id')
-    .where({ user_id: userId })
+    .where({ 'park_history.user_id': userId, 'park_history.finished': true })
     .select(
       'park_history.id as historyId',
       'park_history.park_id as parkId',
@@ -309,7 +309,7 @@ function getHistoryByParkerId (userId, db = connection) {
 function getHistoryByOwnerId (ownerId, db = connection) {
   return db('park_history')
     .join('parks', 'park_history.park_id', 'parks.id')
-    .where({ owner_id: ownerId })
+    .where({ 'park_history.user_id': ownerId, 'park_history.finished': true })
     .select(
       'park_history.id as historyId',
       'park_history.park_id as parkId',
