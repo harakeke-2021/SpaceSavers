@@ -4,6 +4,7 @@ const express = require('express')
 const parkerRoutes = require('./routes/parker')
 const ownerRoutes = require('./routes/owner')
 const authRoutes = require('./routes/auth')
+const { getTokenDecoder } = require('authenticare/server')
 
 const server = express()
 

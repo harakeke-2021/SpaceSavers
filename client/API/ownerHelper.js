@@ -5,8 +5,10 @@ const acceptJsonHeader = { Accept: 'application/json' }
 
 const rootURL = '/api/v1/owner'
 
-export function getOwnerBalance (consume = requestor) {
-  return consume('/owner/balance', 'get')
+export function getOwnerBalance () {
+  return request.get(rootURL + '/balance')
+    .set(acceptJsonHeader)
+    .set(getAuthorizationHeader())
 }
 
 // POTENTIAL REFACTOR WITH CONSUME
@@ -26,14 +28,21 @@ export function addParkApi (park, url = rootURL) {
 export function getParksByOwnerIdApi (url = rootURL) {
   return request.get(url)
     .set(acceptJsonHeader)
+    .set(getAuthorizationHeader())
     .then(res => {
       return res.body.parks
     })
     .catch(err => console.error(err))
 }
 
-export function getHistoryByOwnerIdApi (id, consume = requestor) {
-  return consume(`/owner/history/${id}`, 'get')
+export function getHistoryByOwnerIdApi (url = rootURL) {
+  return request.get(`${url}/history`)
+    .set(acceptJsonHeader)
+    .set(getAuthorizationHeader())
+    .then(res => {
+      return res.body.history
+    })
+    .catch(err => console.error(err))
 }
 
 export function updateParkApi(park, url = rootURL) {

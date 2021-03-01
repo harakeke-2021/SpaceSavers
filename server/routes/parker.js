@@ -1,6 +1,6 @@
 // const path = require('path')
 const express = require('express')
-
+const { getTokenDecoder } = require('authenticare/server')
 const router = express.Router()
 require('dotenv').config()
 const { Client } = require('@googlemaps/google-maps-services-js')
@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/park/:id', (req, res) => {
   const id = Number(req.params.id)
   return db
     .getParkById(id)
@@ -66,9 +66,9 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.post('/parking/start', (req, res) => {
-  // const parkerId = from authenticare once setup, won't need userId from
-  const { parkId, userId } = req.body
+router.post('/parking/start', getTokenDecoder(), (req, res) => {
+  const userId = req.user.id
+  const { parkId } = req.body
   db.startPark(parkId, userId)
     .then((result) => {
       res.send(`${result} parking started`)
@@ -84,11 +84,10 @@ router.post('/parking/start', (req, res) => {
     })
 })
 
-// won't need parker id as url param once authenticare integrated
-router.post('/parking/end', (req, res) => {
-  // const parkerId = from authenticare
-  const { parkId, userId } = req.body
-  db.endPark(parkId, userId)
+router.post('/parking/end', getTokenDecoder(), (req, res) => {
+  const userId = req.user.id
+  const { historyId } = req.body
+  db.endPark(historyId, userId)
     .then((result) => {
       res.send(`${result} parking ended`)
       return null
@@ -98,17 +97,17 @@ router.post('/parking/end', (req, res) => {
       res.status(500).json({
         error: {
           title:
-            'Could not find parking history with Park ID' +
-            parkId +
-            'and User ID' +
-            userId
+            'Could not find parking history with History ID' +
+            historyId
         }
       })
     })
 })
 
-router.get('/history/:parkerId', (req, res) => {
-  db.getHistoryByParkerId(Number(req.params.parkerId))
+router.get('/history', getTokenDecoder(), (req, res) => {
+  const user = req.user
+  console.log(user)
+  db.getHistoryByParkerId(user.id)
     .then(result => [result].flat())
     .then((result) => res.json(result))
     .catch((err) => {
@@ -116,6 +115,24 @@ router.get('/history/:parkerId', (req, res) => {
       res.status(500).json({
         error: {
           title: 'Unable to get History'
+        }
+      })
+    })
+})
+
+router.get('/bookings', getTokenDecoder(), (req, res) => {
+  const user = req.user
+  db.getOpenBookingsByUserId(user.id)
+    .then(result => {
+      console.log(result)
+      res.json(result)
+      return null
+    })
+    .catch((err) => {
+      console.log(err.message)
+      res.status(500).json({
+        error: {
+          title: 'Unable to get Bookings'
         }
       })
     })

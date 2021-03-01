@@ -11,7 +11,7 @@ router.get('/', getTokenDecoder(), async (req, res) => {
   const user = req.user.username
 
   try {
-    const parks = await db.getParksByOwnerUsername(user)
+    const parks = await db.getParksByOwnerId(user.id)
     res.json({ parks })
   } catch (err) {
     console.log(err.message)
@@ -39,7 +39,7 @@ router.post('/', getTokenDecoder(), async (req, res) => {
 })
 
 // DELETE /api/v1/owner
-router.delete('/:id', getTokenDecoder(), async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const id = Number(req.params.id)
   const user = req.user
 
@@ -75,22 +75,25 @@ router.patch('/', getTokenDecoder(), async (req, res) => {
 })
 
 router.get('/', getTokenDecoder(), async (req, res) => {
-  try {
-    const balance = await db.getBalance()
-    res.json({ balance })
-  } catch (err) {
-    if (err.message === 'Unauthorized') {
-      return res.status(403).send(
-        'Unauthorized: Cannot get balance'
-      )
+  router.get('/balance', async (req, res) => {
+    const user = req.user
+    try {
+      const balance = await db.getOwnerBalance(user.id)
+      res.json({ balance })
+    } catch (err) {
+      if (err.message === 'Unauthorized') {
+        return res.status(403).send(
+          'Unauthorized: Cannot get balance'
+        )
+      }
+      res.status(500).send(err.message)
     }
-    res.status(500).send(err.message)
-  }
+  })
 })
 
-// won't need ownerid as url param once authenticare integrated
-router.get('/history/:ownerId', (req, res) => {
+router.get('/history', (req, res) => {
+  const user = req.user
   return db
-    .getHistoryByOwnerId(Number(req.params.ownerId))
-    .then((result) => res.json(result))
+    .getHistoryByOwnerId(user.id)
+    .then((history) => res.json({ history }))
 })
