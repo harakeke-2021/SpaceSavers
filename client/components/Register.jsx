@@ -10,7 +10,7 @@ export default function Register (props) {
     name: '',
     email: '',
     password: '',
-    isOwner: ''
+    rego: ''
   })
 
   const hideError = () => {
@@ -28,8 +28,8 @@ export default function Register (props) {
   function handleSubmit (e) {
     e.preventDefault()
 
-    const { username, name, email, password, isOwner } = form
-    register({ username, name, email, password, isOwner }, { baseUrl })
+    const { username, name, email, password, rego } = form
+    register({ username, name, email, password, rego }, { baseUrl })
       .then((token) => {
         if (isAuthenticated()) {
           props.history.push('/')
@@ -48,7 +48,7 @@ export default function Register (props) {
       <div onClick={hideError}>
         { error && `Error: ${error}` }
       </div>
-      <div className='w-96 m-10 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-light-blue-400'>
+      <div className='w-96 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-light-blue-400'>
         <form>
           <input
             id='name'
@@ -67,6 +67,16 @@ export default function Register (props) {
             value={form.username}
             onChange={handleChange}
             placeholder='username'
+            className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
+          />
+
+          <input
+            id='rego'
+            name='rego'
+            type='text'
+            value={form.rego}
+            onChange={handleChange}
+            placeholder='car registration'
             className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
           />
 
