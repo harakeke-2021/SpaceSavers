@@ -21,7 +21,8 @@ module.exports = {
   endPark,
   getHistoryByParkerId,
   getHistoryByOwnerId,
-  getOpenBookingsByUserId
+  getOpenBookingsByUserId,
+  getParksByOwnerId
 }
 
 // GET ALL PARKS
@@ -137,21 +138,21 @@ function getUserByName (username, db = connection) {
 
 // GET PARK BY OWNER ID
 
-// function getParksByOwnerId (ownerId, db = connection) {
-//   return db('parks')
-//     .where('owner_id', ownerId)
-//     .select(
-//       'id',
-//       'name',
-//       'owner_id as ownerId',
-//       'address',
-//       'lat',
-//       'lng',
-//       'price',
-//       'occupied',
-//       'occupant_id as occupantId'
-//     )
-// }
+function getParksByOwnerId (ownerId, db = connection) {
+  return db('parks')
+    .where('owner_id', ownerId)
+    .select(
+      'id',
+      'name',
+      'owner_id as ownerId',
+      'address',
+      'lat',
+      'lng',
+      'price',
+      'occupied',
+      'occupant_id as occupantId'
+    )
+}
 
 // GET USER PARKS BY ID
 
