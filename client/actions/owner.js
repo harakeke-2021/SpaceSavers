@@ -16,6 +16,7 @@ export const GET_OWNER_HISTORY = 'GET_OWNER_HISTORY'
 export function updateOwnerBalance (dispatch) {
   getOwnerBalance()
     .then((result) => {
+      console.log(result.body)
       const balance = result.body.balance
       dispatch({
         type: GET_BALANCE,
@@ -26,11 +27,9 @@ export function updateOwnerBalance (dispatch) {
     .catch((error) => console.log(error.message))
 }
 
-export function getParksByOwnerId (id = 1, dispatch) {
-  getParksByOwnerIdApi(1)
-    .then((result) => {
-      const parks = result.body
-      console.log('actions', parks)
+export function getParksByOwnerId () {
+  getParksByOwnerIdApi()
+    .then((parks) => {
       return dispatch({
         type: GET_PARKS_BY_OWNER_ID,
         parks
@@ -51,12 +50,12 @@ export function addPark (park, dispatch) {
     .catch((error) => console.log(error.message))
 }
 
-export function getHistoryByOwnerId (ownerId = 2) {
-  getHistoryByOwnerIdApi(ownerId).then(result => {
-    console.log(result.body)
+export function getHistoryByOwnerId () {
+  getHistoryByOwnerIdApi().then(history => {
+    console.log(history)
     dispatch({
       type: GET_OWNER_HISTORY,
-      history: result.body
+      history
     })
     return null
   })

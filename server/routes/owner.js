@@ -7,11 +7,15 @@ module.exports = router
 
 // GET /api/v1/owner
 
-router.get('/parks', getTokenDecoder(), async (req, res) => {
-  const user = req.user.username
+router.use(getTokenDecoder(), (req, res, next) => {
+  next()
+})
+
+router.get('/parks', async (req, res) => {
+  const user = req.user
 
   try {
-    const parks = await db.getParksByOwnerUsername(user)
+    const parks = await db.getParksByOwnerId(user.id)
     res.json({ parks })
   } catch (err) {
     console.log(err.message)
@@ -26,7 +30,7 @@ router.get('/parks', getTokenDecoder(), async (req, res) => {
 
 // POST /api/v1/owner
 
-router.post('/addpark', getTokenDecoder(), async (req, res) => {
+router.post('/addpark', async (req, res) => {
   const newPark = req.body
 
   const user = req.user
@@ -40,7 +44,7 @@ router.post('/addpark', getTokenDecoder(), async (req, res) => {
 })
 
 // DELETE /api/v1/owner
-router.delete('/:id', getTokenDecoder(), async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const id = Number(req.params.id)
   const user = req.user
 
@@ -57,9 +61,10 @@ router.delete('/:id', getTokenDecoder(), async (req, res) => {
   }
 })
 
-router.get('/', getTokenDecoder(), async (req, res) => {
+router.get('/balance', async (req, res) => {
+  const user = req.user
   try {
-    const balance = await db.getBalance()
+    const balance = await db.getOwnerBalance(user.id)
     res.json({ balance })
   } catch (err) {
     if (err.message === 'Unauthorized') {
@@ -71,9 +76,9 @@ router.get('/', getTokenDecoder(), async (req, res) => {
   }
 })
 
-// won't need ownerid as url param once authenticare integrated
-router.get('/history/:ownerId', (req, res) => {
+router.get('/history', (req, res) => {
+  const user = req.user
   return db
-    .getHistoryByOwnerId(Number(req.params.ownerId))
-    .then((result) => res.json(result))
+    .getHistoryByOwnerId(user.id)
+    .then((history) => res.json({ history }))
 })

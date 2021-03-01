@@ -11,8 +11,8 @@ export function updateUserPosition (position, dispatch) {
   })
 }
 
-export function getUserHistory (id) {
-  getUserHistoryApi(id).then((result) => {
+export function getUserHistory () {
+  getUserHistoryApi().then((result) => {
     const history = result.body
     dispatch({
       type: GET_USER_HISTORY,

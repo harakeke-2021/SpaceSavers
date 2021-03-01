@@ -52,13 +52,17 @@ function MapMarker (props) {
     setToggle(!toggle)
   }
 
-  const { price, address, name } = props.obj
+  const { price, address, name, id } = props.obj
 
   return (
     <div>
       <div ref={node}>
         <img style={style} onClick={onClick} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} src='./images/pin.png' />
-        {toggle === true ? <MarkerHover price={price} address={address} name={name}/> : null}
+        {toggle === true ? <MarkerHover
+          price={price}
+          address={address}
+          name={name}
+          id={id}/> : null}
       </div>
     </div>
   )
