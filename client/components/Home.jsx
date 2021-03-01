@@ -5,6 +5,7 @@ import AddressBar from './AddressBar'
 
 function Home () {
   const [searchArea, setSearchArea] = useState('')
+  const [userPosition, setUserPosition] = useState('')
   return (
     <div className='px-36 py-24 xl:mx-32'>
       <div className=''>
@@ -15,8 +16,8 @@ function Home () {
             Description of app
         </p>
       </div>
-      <AddressBar setSearchArea={setSearchArea}/>
-      <MapContainer searchArea={searchArea} />
+      <AddressBar setSearchArea={setSearchArea} setUserPosition={setUserPosition}/>
+      <MapContainer searchArea={searchArea} userPosition={userPosition} />
     </div>
   )
 }
