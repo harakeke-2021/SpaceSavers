@@ -17,7 +17,7 @@ function OwnerDashboard (props) {
     <IfAuthenticated>
       <div>
         <div>
-          <h2 className='pt-20 pb-10 text-center text-4xl font-black uppercase'>
+          <h2 className='pt-20 pb-10 text-center text-4xl font-black uppercase font-work'>
          Dashboard
           </h2>
           <div className='grid grid-cols-12 text-center'>

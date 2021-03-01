@@ -8,7 +8,7 @@ function Home () {
   return (
     <div className='px-36 py-24 xl:mx-32'>
       <div className=''>
-        <h1 className='p-5 text-center text-blue-600 text-6xl font-black uppercase'>
+        <h1 className='p-5 text-center text-blue-600 text-6xl font-black uppercase font-work'>
           Insert TAGLINE HERE
         </h1>
         <p className='text-center'>

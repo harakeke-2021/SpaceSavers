@@ -11,7 +11,7 @@ function OwnerHistory (props) {
 
   return (
     <div className='xl:mx-32'>
-      <h2 className='pt-20 pb-5 text-center text-4xl font-black uppercase'>Transaction History</h2>
+      <h2 className='pt-20 pb-5 text-center text-4xl font-black uppercase font-work'>Transaction History</h2>
       <div className=''>
         {history.map((transaction) => {
           return <ul key={transaction.historyId} className='w-96 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-gray-200'>
