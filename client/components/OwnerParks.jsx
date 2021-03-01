@@ -11,7 +11,7 @@ function OwnerParks (props) {
     getParksByOwnerId(1, props.dispatch)
   }, [])
   return (
-    <div className='my-10'>
+    <div className='my-10 bg-gray-100'>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-flow-row center-object'>
         {parks.map((park) => {
           return <OwnerPark key={park.id} park={park}/>

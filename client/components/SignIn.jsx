@@ -31,8 +31,7 @@ export default function SignIn (props) {
   }
 
   return (
-    <>
-      <h2>Sign In</h2>
+    <div className='w-72 h-72 m-10 shadow-lg rounded-lg  py-4 block m-auto'>
       <form>
         <label htmlFor="username">Username:</label>
         <input id="username" name="username" type="text" value={form.username} onChange={handleChange}/>
@@ -42,6 +41,6 @@ export default function SignIn (props) {
 
         <button type ="button" onClick={handleSubmit} >Sign In</button>
       </form>
-    </>
+    </div>
   )
 }

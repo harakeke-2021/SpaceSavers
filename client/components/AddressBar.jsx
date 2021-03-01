@@ -17,7 +17,7 @@ function AddressBar (props) {
 
   return (
     <div className='grid grid-cols-12 p-10 h-90'>
-      <div className='col-start-4 col-span-6'>
+      <div className='col-start-4 col-span-6 shadow-lg'>
         <div className='flex flex-row'>
           <input
             type='text'
