@@ -20,7 +20,8 @@ module.exports = {
   startPark,
   endPark,
   getHistoryByParkerId,
-  getHistoryByOwnerId
+  getHistoryByOwnerId,
+  getOpenBookingsByUserId
 }
 
 // GET ALL PARKS
@@ -50,13 +51,8 @@ function setUnoccupied (parkId, db = connection) {
 function getUserById (userId, db = connection) {
   return db('users')
     .where('id', userId)
-    .select(
-      'id',
-      'username',
-      'name',
-      'email'
-    )
-    .then(result => {
+    .select('id', 'username', 'name', 'email')
+    .then((result) => {
       const user = result[0]
       return {
         id: user.id,
@@ -107,14 +103,14 @@ function createUser (newUser, db = connection) {
   const { username, name, email, password } = newUser
 
   return userExists(username, db)
-    .then(exists => {
+    .then((exists) => {
       if (exists) {
         throw new Error('User exists')
       }
       return null
     })
     .then(() => generateHash(password))
-    .then(passwordHash => {
+    .then((passwordHash) => {
       return db('users').insert({ username, name, email, hash: passwordHash })
     })
 }
@@ -125,7 +121,7 @@ function userExists (username, db = connection) {
   return db('users')
     .count('id as n')
     .where('username', username)
-    .then(count => {
+    .then((count) => {
       return count[0].n > 0
     })
 }
@@ -185,11 +181,9 @@ async function editPark (updatePark, user, db = connection) {
   return db('parks')
     .where('id', updatePark.id)
     .first()
-    .then(park => authorizeUpdate(park, user))
+    .then((park) => authorizeUpdate(park, user))
     .then(() => {
-      return db('parks')
-        .where('id', updatePark.id)
-        .update(updatePark)
+      return db('parks').where('id', updatePark.id).update(updatePark)
     })
 }
 
@@ -199,13 +193,10 @@ async function deletePark (parkId, user, db = connection) {
   return db('parks')
     .where('id', parkId)
     .first()
-    .then(park => authorizeUpdate(park, user))
+    .then((park) => authorizeUpdate(park, user))
     .then(() => {
-      return db('parks')
-        .where('id', parkId)
-        .delete()
-    }
-    )
+      return db('parks').where('id', parkId).delete()
+    })
 }
 
 // GET ACCOUNT BALANCE
@@ -214,7 +205,7 @@ async function getOwnerBalance (id, db = connection) {
   return db('users')
     .first({ id })
     .select('balance')
-    .then(result => {
+    .then((result) => {
       return result.balance
     })
 }
@@ -231,17 +222,41 @@ function startPark (parkId, userId, db = connection) {
   return db('park_history').insert({
     park_id: parkId,
     user_id: userId,
-    start_time: Date.now()
+    start_time: Date.now() / 1000,
+    finished: false
   })
 }
 
-function endPark (parkId, userId, db = connection) {
+function endPark (historyId, userId, db = connection) {
+  return calculateCost(historyId, userId).then(([endTime, cost]) => {
+    console.log(endTime, cost)
+    return db('park_history')
+      .first({
+        id: historyId,
+        user_id: userId
+      })
+      .update({ end_time: endTime, cost: cost, finished: true })
+  })
+}
+
+function calculateCost (historyId, userId, db = connection) {
   return db('park_history')
-    .where({
-      park_id: parkId,
+    .first({
+      id: historyId,
       user_id: userId
     })
-    .update({ end_time: Date.now(), finished: true })
+    .join('parks', 'park_history.park_id', 'parks.id')
+    .select('park_history.start_time as startTime', 'parks.price as price')
+    .then(({ startTime, price }) => {
+      console.log(price)
+      const endTime = Date.now() / 1000
+      const secondsElapsed = (endTime - startTime)
+      const hours = secondsElapsed / (60 * 60)
+      console.log('hours', hours)
+      console.log('start', startTime, 'end', endTime)
+      const cost = hours * price
+      return [endTime, cost]
+    })
 }
 
 function getHistoryByParkerId (userId, db = connection) {
@@ -276,5 +291,20 @@ function getHistoryByOwnerId (ownerId, db = connection) {
       'parks.name as parkName',
       'parks.address as parkAddress',
       'parks.owner_id as ownerId'
+    )
+}
+
+function getOpenBookingsByUserId (userId, db = connection) {
+  console.log(userId)
+  return db('park_history')
+    .join('parks', 'park_history.park_id', 'parks.id')
+    .where({ 'park_history.user_id': userId, 'park_history.finished': false })
+    .select(
+      'park_history.user_id as userId',
+      'park_history.park_id as parkId',
+      'park_history.start_time as startTime',
+      'parks.name as parkName',
+      'parks.address as parkAddress',
+      'park_history.finished as finished'
     )
 }
