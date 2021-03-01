@@ -57,33 +57,27 @@ function MapContainer (props) {
   }
 
   return (
-    <>
-      {/* <button onClick={() => centerOnUserPosition()} className='flex m-2'>
-        Use My Location
-      </button> */}
-
-      <div className='map w-full h-96'>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key }}
-          defaultCenter={defaultCenter}
-          defaultZoom={15}
-          hoverDistance={40}
-          yesIWantToUseGoogleMapApiInternals={true}
-          onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-          {parks.map((park) => {
-            return (
-              park.occupied === 0 ? <MapMarker
-                key={park.lat}
-                lat={park.lat}
-                lng={park.lng}
-                obj={park}/>
-                : null
-            )
-          })}
-        </GoogleMapReact>
-        <ListResults />
-      </div>
-    </>
+    <div className='map w-full max-w-7xl h-xl block m-auto'>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key }}
+        defaultCenter={defaultCenter}
+        defaultZoom={15}
+        hoverDistance={40}
+        yesIWantToUseGoogleMapApiInternals={true}
+        onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
+        {parks.map((park) => {
+          return (
+            park.occupied === 0 ? <MapMarker
+              key={park.lat}
+              lat={park.lat}
+              lng={park.lng}
+              obj={park}/>
+              : null
+          )
+        })}
+      </GoogleMapReact>
+      <ListResults />
+    </div>
   )
 }
 
