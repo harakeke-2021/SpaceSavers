@@ -7,11 +7,7 @@ module.exports = router
 
 // GET /api/v1/owner
 
-router.use(getTokenDecoder(), (req, res, next) => {
-  next()
-})
-
-router.get('/parks', async (req, res) => {
+router.get('/', getTokenDecoder(), async (req, res) => {
   const user = req.user
 
   try {
@@ -30,9 +26,8 @@ router.get('/parks', async (req, res) => {
 
 // POST /api/v1/owner
 
-router.post('/addpark', async (req, res) => {
+router.post('/', getTokenDecoder(), async (req, res) => {
   const newPark = req.body
-
   const user = req.user
 
   try {
@@ -61,19 +56,39 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
-router.get('/balance', async (req, res) => {
+// UPDATE PARK /api/v1/owner
+
+router.patch('/', getTokenDecoder(), async (req, res) => {
+  const newPark = req.body
   const user = req.user
   try {
-    const balance = await db.getOwnerBalance(user.id)
-    res.json({ balance })
+    const parks = await db.udpatePark(newPark, user)
+    res.json({ parks })
   } catch (err) {
     if (err.message === 'Unauthorized') {
       return res.status(403).send(
-        'Unauthorized: Cannot get balance'
+        'Unauthorized: Only the user who added the park may update it'
       )
     }
     res.status(500).send(err.message)
   }
+})
+
+router.get('/', getTokenDecoder(), async (req, res) => {
+  router.get('/balance', async (req, res) => {
+    const user = req.user
+    try {
+      const balance = await db.getOwnerBalance(user.id)
+      res.json({ balance })
+    } catch (err) {
+      if (err.message === 'Unauthorized') {
+        return res.status(403).send(
+          'Unauthorized: Cannot get balance'
+        )
+      }
+      res.status(500).send(err.message)
+    }
+  })
 })
 
 router.get('/history', (req, res) => {

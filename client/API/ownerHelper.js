@@ -1,7 +1,6 @@
 import request from 'superagent'
 import requestor from '../consume'
-// import { getEncodedToken } from 'authenticare/client'
-import { getAuthorizationHeader } from 'authenticare/client'
+import { getAuthorizationHeader, getEncodedToken } from 'authenticare/client'
 const acceptJsonHeader = { Accept: 'application/json' }
 
 const rootURL = '/api/v1/owner'
@@ -16,15 +15,18 @@ export function getOwnerBalance () {
 
 export function addParkApi (park, url = rootURL) {
   return request.post(url)
-    .set(acceptJsonHeader)
-    .set(getAuthorizationHeader())
+  .set(acceptJsonHeader)
+  .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
     .send(park)
-    .then(res => res.body.parks)
-    .catch(err => console.error(err))
+    .then(res => {
+      console.log('res', res)
+      return res.body.parks
+    })
+    .catch(logError)
 }
 
 export function getParksByOwnerIdApi (url = rootURL) {
-  return request.get(`${url}/parks`)
+  return request.get(url)
     .set(acceptJsonHeader)
     .set(getAuthorizationHeader())
     .then(res => {
@@ -41,4 +43,35 @@ export function getHistoryByOwnerIdApi (url = rootURL) {
       return res.body.history
     })
     .catch(err => console.error(err))
+}
+
+export function updateParkApi(park, url = rootURL) {
+  return request.patch(url)
+    .set(acceptJsonHeader)
+    .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
+    .send(park)
+    .then(res => res.body.parks)
+    .catch(logError)
+}
+
+export function deleteParkApi(id, url = rootURL) {
+  return request.patch(`/${url}/${id}`)
+    .set(acceptJsonHeader)
+    .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
+    .then(res => res.body.parks)
+    .catch(logError)
+}
+
+
+function logError (err) {
+  if (err.message === 'Forbidden') {
+    throw new Error('Only the user who added the fruit may update and delete it')
+  } else {
+    // eslint-disable-next-line no-console
+    console.error(
+      'Error consuming the API (in client/api.js):',
+      err.message
+    )
+    throw err
+  }
 }

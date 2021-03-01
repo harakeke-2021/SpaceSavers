@@ -11,9 +11,9 @@ module.exports = {
   userExists,
   getUserById,
   getUserByName,
-  getParksByOwnerId,
+  getUserParksbyId,
   addPark,
-  editPark,
+  udpatePark,
   deletePark,
   authorizeUpdate,
   getOwnerBalance,
@@ -21,7 +21,8 @@ module.exports = {
   endPark,
   getHistoryByParkerId,
   getHistoryByOwnerId,
-  getOpenBookingsByUserId
+  getOpenBookingsByUserId,
+  getParksByOwnerId
 }
 
 // GET ALL PARKS
@@ -153,31 +154,51 @@ function getParksByOwnerId (ownerId, db = connection) {
     )
 }
 
+// GET USER PARKS BY ID
+
+async function getUserParksbyId (id, db = connection) {
+  return db('users')
+    .join('parks', 'users.id', 'parks.owner_id')
+    .where('parks.owner_id', id)
+    .select(
+      'parks.id as id',
+      'username',
+      'parks.name as name',
+      'owner_id as ownerId',
+      'address',
+      'lat',
+      'lng',
+      'price',
+      'occupied',
+      'occupant_id as occupantId'
+    )
+    .then(res => res)
+}
+
 // ADD PARK
 
-async function addPark (newPark, ownerId, lat, lng, user, db = connection) {
+async function addPark (newPark, user, db = connection) {
   const park = {
-    username: newPark.username,
+    // username: user.username,
     name: newPark.name,
-    owner_id: ownerId,
+    owner_id: user.id,
     address: newPark.address,
-    lat,
-    lng,
+    lat: newPark.lat,
+    lng: newPark.lng,
     price: newPark.price,
-    occupied: false,
-    occupant_id: null
+    occupied: false
   }
 
-  park.added_by_user = user.id
-
+  console.log('inside addPark dbHelper', park)
   return db('parks')
     .insert(park)
     .then(() => db)
+    .then(getUserParksbyId(user.id))
 }
 
-// EDIT PARK
+// UPDATE PARK
 
-async function editPark (updatePark, user, db = connection) {
+async function udpatePark (updatePark, user, db = connection) {
   return db('parks')
     .where('id', updatePark.id)
     .first()
@@ -185,6 +206,8 @@ async function editPark (updatePark, user, db = connection) {
     .then(() => {
       return db('parks').where('id', updatePark.id).update(updatePark)
     })
+    .then(() => db)
+    .then(getUserParksbyId(user.id))
 }
 
 // DELETE PARK
@@ -195,8 +218,13 @@ async function deletePark (parkId, user, db = connection) {
     .first()
     .then((park) => authorizeUpdate(park, user))
     .then(() => {
-      return db('parks').where('id', parkId).delete()
-    })
+      return db('parks')
+        .where('id', parkId)
+        .delete()
+    }
+    )
+    .then(() => db)
+    .then(getUserParksbyId(user.id))
 }
 
 // GET ACCOUNT BALANCE
