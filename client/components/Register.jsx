@@ -9,7 +9,8 @@ export default function Register (props) {
     username: '',
     name: '',
     email: '',
-    password: ''
+    password: '',
+    isOwner: ''
   })
 
   const hideError = () => {
@@ -27,7 +28,7 @@ export default function Register (props) {
   function handleSubmit (e) {
     e.preventDefault()
 
-    const { username, name, email, password } = form
+    const { username, name, email, password, isOwner } = form
     register({ username, name, email, password, isOwner }, { baseUrl })
       .then((token) => {
         if (isAuthenticated()) {
