@@ -8,7 +8,7 @@ module.exports = router
 // GET /api/v1/owner
 
 router.get('/', getTokenDecoder(), async (req, res) => {
-  const user = req.user.username
+  const user = req.user
 
   try {
     const parks = await db.getParksByOwnerId(user.id)

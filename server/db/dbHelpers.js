@@ -24,6 +24,7 @@ module.exports = {
   getHistoryByParkerId,
   getHistoryByOwnerId,
   getOpenBookingsByUserId
+
 }
 
 // GET ALL PARKS
@@ -139,7 +140,7 @@ function getUserByName (username, db = connection) {
 
 // GET PARK BY OWNER ID
 
-async function getParksByOwnerId (ownerId, db = connection) {
+function getParksByOwnerId (ownerId, db = connection) {
   return db('parks')
     .where('owner_id', ownerId)
     .select(
@@ -153,7 +154,6 @@ async function getParksByOwnerId (ownerId, db = connection) {
       'occupied',
       'occupant_id as occupantId'
     )
-    .then(res => res)
 }
 
 // GET USER PARKS BY ID
