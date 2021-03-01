@@ -9,10 +9,6 @@ const db = require('../db/dbHelpers')
 
 module.exports = router
 
-router.use(getTokenDecoder(), (req, res, next) => {
-  next()
-})
-
 router.post('/', (req, res) => {
   const { address } = req.body
   const client = new Client({})
@@ -70,7 +66,7 @@ router.get('/park/:id', (req, res) => {
     })
 })
 
-router.post('/parking/start', (req, res) => {
+router.post('/parking/start', getTokenDecoder(), (req, res) => {
   const userId = req.user.id
   const { parkId } = req.body
   db.startPark(parkId, userId)
@@ -88,7 +84,7 @@ router.post('/parking/start', (req, res) => {
     })
 })
 
-router.post('/parking/end', (req, res) => {
+router.post('/parking/end', getTokenDecoder(), (req, res) => {
   const userId = req.user.id
   const { historyId } = req.body
   db.endPark(historyId, userId)
@@ -108,7 +104,7 @@ router.post('/parking/end', (req, res) => {
     })
 })
 
-router.get('/history', (req, res) => {
+router.get('/history', getTokenDecoder(), (req, res) => {
   const user = req.user
   console.log(user)
   db.getHistoryByParkerId(user.id)
@@ -124,7 +120,7 @@ router.get('/history', (req, res) => {
     })
 })
 
-router.get('/bookings', (req, res) => {
+router.get('/bookings', getTokenDecoder(), (req, res) => {
   const user = req.user
   db.getOpenBookingsByUserId(user.id)
     .then(result => {
