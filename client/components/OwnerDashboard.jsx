@@ -18,7 +18,7 @@ function OwnerDashboard (props) {
       <div>
         <div>
           <h2 className='pt-20 pb-10 text-center text-4xl font-black uppercase font-work'>
-         Dashboard
+         My Parks
           </h2>
           <div className='grid grid-cols-12 text-center'>
             <p className='col-start-4 col-span-2 border-b-2 border-transparent hover:border-blue-600 p-2 mt-3 mb-2'>

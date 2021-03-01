@@ -54,7 +54,7 @@ function NewParkForm (props) {
             key='name'
             value={form?.name || ''}
             onChange={(e) => handleChange(e, 'name')}
-            // placeholder='Name'
+            required
             className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
 
@@ -64,7 +64,7 @@ function NewParkForm (props) {
             key='address'
             value={form?.address || ''}
             onChange={(e) => handleChange(e, 'address')}
-            // placeholder='Address'
+            required
             className='w-full border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
 
@@ -76,7 +76,7 @@ function NewParkForm (props) {
             key='price'
             value={form?.price || 0}
             onChange={(e) => handleChange(e, 'price')}
-            // placeholder='Price per hour'
+            required
             className='w-full border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
           <label name='lat'></label>
