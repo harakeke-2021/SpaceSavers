@@ -6,7 +6,7 @@ function OwnerPark (props) {
   return (
     <>
       <IfAuthenticated>
-        <ul className='text-center object-center grid-span-3 w-72 h-72 hover:bg-blue-500 hover:border-transparent hover:shadow-lg rounded-lg px-4 pt-10 border border-blue-500 block mx-auto hover:text-white'>
+        <ul className='m-auto text-center object-center grid-span-3 w-72 h-72 hover:bg-blue-500 hover:border-transparent hover:shadow-lg rounded-lg px-4 pt-10 border border-blue-500 block mx-auto hover:text-white'>
           <li>
             <img src='./images/park.png' alt='carpark symbol' className='h-14 block m-auto'/>
           </li>
