@@ -11,10 +11,12 @@ module.exports = {
   userExists,
   getUserById,
   getUserByName,
-  getUserParksbyId,
+  // getUserParksbyId,
+  getParksByOwnerId,
   addPark,
   udpatePark,
   deletePark,
+  getFullUser,
   authorizeUpdate,
   getOwnerBalance,
   startPark,
@@ -137,32 +139,12 @@ function getUserByName (username, db = connection) {
 
 // GET PARK BY OWNER ID
 
-// function getParksByOwnerId (ownerId, db = connection) {
-//   return db('parks')
-//     .where('owner_id', ownerId)
-//     .select(
-//       'id',
-//       'name',
-//       'owner_id as ownerId',
-//       'address',
-//       'lat',
-//       'lng',
-//       'price',
-//       'occupied',
-//       'occupant_id as occupantId'
-//     )
-// }
-
-// GET USER PARKS BY ID
-
-async function getUserParksbyId (id, db = connection) {
-  return db('users')
-    .join('parks', 'users.id', 'parks.owner_id')
-    .where('parks.owner_id', id)
+async function getParksByOwnerId (ownerId, db = connection) {
+  return db('parks')
+    .where('owner_id', ownerId)
     .select(
-      'parks.id as id',
-      'username',
-      'parks.name as name',
+      'id',
+      'name',
       'owner_id as ownerId',
       'address',
       'lat',
@@ -173,6 +155,27 @@ async function getUserParksbyId (id, db = connection) {
     )
     .then(res => res)
 }
+
+// GET USER PARKS BY ID
+
+// async function getUserParksbyId (id, db = connection) {
+//   return db('users')
+//     .join('parks', 'users.id', 'parks.owner_id')
+//     .where('owner_id', id)
+//     .select(
+//       'parks.id as id',
+//       'username',
+//       'parks.name as name',
+//       'owner_id as ownerId',
+//       'address',
+//       'lat',
+//       'lng',
+//       'price',
+//       'occupied',
+//       'occupant_id as occupantId'
+//     )
+//     .then(res => res)
+// }
 
 // ADD PARK
 
@@ -192,7 +195,7 @@ async function addPark (newPark, user, db = connection) {
   return db('parks')
     .insert(park)
     .then(() => db)
-    .then(getUserParksbyId(user.id))
+    .then(getParksByOwnerId(user.id))
 }
 
 // UPDATE PARK
@@ -206,7 +209,7 @@ async function udpatePark (updatePark, user, db = connection) {
       return db('parks').where('id', updatePark.id).update(updatePark)
     })
     .then(() => db)
-    .then(getUserParksbyId(user.id))
+    .then(getParksByOwnerId(user.id))
 }
 
 // DELETE PARK
@@ -223,7 +226,29 @@ async function deletePark (parkId, user, db = connection) {
     }
     )
     .then(() => db)
-    .then(getUserParksbyId(user.id))
+    .then(getParksByOwnerId(user.id))
+}
+
+// RETURN FULL USER PARK
+
+async function getFullUser (userId, db = connection) {
+  return db('users')
+    .join('parks', 'users.id', 'parks.owner_id')
+    .where('users.id', userId)
+    .select(
+      'users.id as id',
+      'username',
+      'name',
+      'email',
+      'balance',
+      'parks.id as parkId',
+      'address',
+      'parks.id as parkId',
+      'lat',
+      'lng',
+      'price',
+      'occupied'
+    )
 }
 
 // GET ACCOUNT BALANCE
