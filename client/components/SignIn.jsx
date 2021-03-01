@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { signIn, isAuthenticated } from 'authenticare/client'
 import { baseApiUrl as baseUrl } from '../config'
+import { Link } from 'react-router-dom'
 
 export default function SignIn (props) {
   const [form, setForm] = useState({
@@ -31,17 +32,37 @@ export default function SignIn (props) {
   }
 
   return (
-    <>
-      <h2>Sign In</h2>
+    <div className='w-96 m-10 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-light-blue-400'>
       <form>
-        <label htmlFor="username">Username:</label>
-        <input id="username" name="username" type="text" value={form.username} onChange={handleChange}/>
+        <input
+          id='username'
+          name='username'
+          type='text'
+          value={form.username}
+          onChange={handleChange}
+          placeholder='username'
+          className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 my-5 rounded-lg'/>
 
-        <label htmlFor="password">Password:</label>
-        <input id="password" name="password" type="password" value={form.password} onChange={handleChange}/>
+        <input
+          id='password'
+          name='password'
+          type='password'
+          value={form.password}
+          onChange={handleChange}
+          placeHolder='password'
+          className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
+        />
 
-        <button type ="button" onClick={handleSubmit} >Sign In</button>
+        <button type ='button' onClick={handleSubmit} className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2 hover:text-white'>
+          Sign In
+        </button>
       </form>
-    </>
+
+      <div className='my-5'>
+        <Link to='/register' className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2 text-center hover:text-white'>
+      Register
+        </Link>
+      </div>
+    </div>
   )
 }

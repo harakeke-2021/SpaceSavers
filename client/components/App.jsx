@@ -10,7 +10,7 @@ import Parker from './Parker'
 
 const App = () => {
   return (
-    <div>
+    <div className='xl:mx-32'>
       <Route path='/' component={Header} />
       <Route exact path='/' component={Home} />
       <Route path='/owner' component={Owner} />
