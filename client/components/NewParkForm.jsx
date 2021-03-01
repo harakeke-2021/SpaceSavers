@@ -35,7 +35,7 @@ function NewParkForm (props) {
             value={form?.name || ''}
             onChange={(e) => handleChange(e, 'name')}
             // placeholder='Name'
-            className='w-full border-b-1 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0'
+            className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
 
           <label name='address'>Address</label>
@@ -45,7 +45,7 @@ function NewParkForm (props) {
             value={form?.address || ''}
             onChange={(e) => handleChange(e, 'address')}
             // placeholder='Address'
-            className='w-full border-transparent focus:border-blue-500 focus:bg-white focus:ring-0'
+            className='w-full border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
 
           <label name='price'>Price per hour</label>
@@ -57,10 +57,10 @@ function NewParkForm (props) {
             value={form?.price || 0}
             onChange={(e) => handleChange(e, 'price')}
             // placeholder='Price per hour'
-            className='w-full border-transparent focus:border-blue-500 focus:bg-white focus:ring-0'
+            className='w-full border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
           <div>
-            <button className='hover:shadow-lg hover:bg-blue-500 block mx-auto my-2 p-1 rounded-lg'>
+            <button className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto my-2 p-1 rounded-lg'>
           Add Park
             </button>
           </div>

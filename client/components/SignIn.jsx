@@ -31,16 +31,34 @@ export default function SignIn (props) {
   }
 
   return (
-    <div className='w-72 h-72 m-10 shadow-lg rounded-lg  py-4 block m-auto'>
-      <form>
-        <label htmlFor="username">Username:</label>
-        <input id="username" name="username" type="text" value={form.username} onChange={handleChange}/>
+    <div className='w-96 m-10 shadow-lg rounded-lg  py-4 block m-auto p-5 my-20'>
+      <form className="border-">
+        {/* <label htmlFor='username'>Username:</label> */}
+        <input
+          id='username'
+          name='username'
+          type='text'
+          value={form.username}
+          onChange={handleChange}
+          placeholder='username'
+          className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 my-5 rounded-lg'/>
 
-        <label htmlFor="password">Password:</label>
-        <input id="password" name="password" type="password" value={form.password} onChange={handleChange}/>
+        {/* <label htmlFor='password'>Password:</label> */}
+        <input
+          id='password'
+          name='password'
+          type='password'
+          value={form.password}
+          onChange={handleChange}
+          placeHolder='password'
+          className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
+        />
 
-        <button type ="button" onClick={handleSubmit} >Sign In</button>
+        <button type ='button' onClick={handleSubmit} className='w-full hover:shadow-lg hover:bg-blue-500 block mx-auto mt-4 px-5 py-2 rounded-lg my-2'>
+          Sign In
+        </button>
       </form>
+
     </div>
   )
 }

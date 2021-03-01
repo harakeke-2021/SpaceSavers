@@ -12,7 +12,7 @@ function OwnerPark (props) {
           </li>
           <li className='text-l capitalize'>{name}</li>
           <li className='text-2xl capitalize'>{address}</li>
-          <li className='text-l'>{`$ ${price}`} /hr</li>
+          <li className='text-l'>{`$ ${price}`}/hr</li>
           { occupied
             ? <li className='text-l py-1'>Status: Occupied</li>
             : <li className='text-l py-1'>Status: Unoccupied</li>
