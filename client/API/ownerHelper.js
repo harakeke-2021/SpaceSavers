@@ -58,7 +58,8 @@ export function updateParkApi(park, url = rootURL) {
 }
 
 export function deleteParkApi(id, url = rootURL) {
-  return request.delete(`/${url}/${id}`)
+  console.log('id', id)
+  return request.delete(`${url}/${id}`)
     .set(acceptJsonHeader)
     .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
     .then(res => res.body.parks)

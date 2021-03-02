@@ -195,6 +195,8 @@ async function udpatePark (updatePark, user, db = connection) {
 // DELETE PARK
 
 async function deletePark (parkId, user, db = connection) {
+  console.log('inside db function/ parkId', parkId)
+  console.log('inside db function/ user', user)
   return db('parks')
     .where('id', parkId)
     .first()

@@ -28,8 +28,10 @@ export default function SelectedOwnerPark (props) {
   }
 
   function handleDelete () {
+    console.log(editing.id)
     deleteParkApi(editing.id)
       .then(closeAddForm)
+      .then(setRender(render + 1))
       .catch(err => console.log(err.message))
   }
 
