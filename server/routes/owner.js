@@ -81,6 +81,7 @@ router.get('/balance', async (req, res) => {
   const user = req.user
   try {
     const balance = await db.getOwnerBalance(user.id)
+    console.log(balance)
     res.json({ balance })
   } catch (err) {
     if (err.message === 'Unauthorized') {

@@ -231,7 +231,7 @@ async function getFullUser (userId, db = connection) {
 
 async function getOwnerBalance (id, db = connection) {
   return db('users')
-    .first({ id })
+    .where({ id }).first()
     .select('balance')
     .then((result) => {
       return result.balance
@@ -304,7 +304,7 @@ async function endPark (historyId, userId, db = connection) {
   // const trx7 = await trxProvider()
   try {
     const endTime = Math.floor(Date.now() / 1000)
-    const { parkId, ownerBalance, price, startTime } = await endParkHelper(historyId, trx1)
+    const { parkId, ownerBalance, ownerId, price, startTime } = await endParkHelper(historyId, trx1)
     const secondsElapsed = endTime - startTime
     const hours = secondsElapsed / (60 * 60)
     const cost = Math.round(hours * price * 100) / 100
@@ -314,7 +314,7 @@ async function endPark (historyId, userId, db = connection) {
     console.log(parkId)
     await setUnoccupied(parkId, trx3)
     const newBalance = ownerBalance + cost
-    await updateUserBalance(userId, newBalance, trx4)
+    await updateUserBalance(ownerId, newBalance, trx4)
 
     trx1.commit()
     trx2.commit()
@@ -349,6 +349,7 @@ function endParkHelper (historyId, db = connection) {
     .leftJoin('users', 'parks.owner_id', 'users.id')
     .select('park_id as parkId',
       'users.balance as ownerBalance',
+      'parks.owner_id as ownerId',
       'parks.price as price',
       'park_history.start_time as startTime'
     )
