@@ -9,7 +9,7 @@ const db = require('../db/dbHelpers')
 
 module.exports = router
 
-router.post('/', (req, res) => {
+router.post('/geocode', (req, res) => {
   const { address } = req.body
   const client = new Client({})
   client
@@ -22,7 +22,6 @@ router.post('/', (req, res) => {
       timeout: 1000 // milliseconds
     })
     .then((r) => {
-      // console.log(r.data.results[0].geometry)
       res.json(r.data.results[0].geometry)
       return null
     })

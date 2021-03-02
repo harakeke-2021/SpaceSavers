@@ -188,8 +188,6 @@ async function addPark (newPark, user, db = connection) {
     price: newPark.price,
     occupied: false
   }
-
-  console.log('inside addPark dbHelper', park)
   return db('parks')
     .insert(park)
     .then(() => db)
@@ -253,7 +251,7 @@ function isParkOccupied (parkId, db = connection) {
 }
 
 function startPark (parkId, userId, db = connection) {
-  isParkOccupied(parkId)
+  return isParkOccupied(parkId)
     .then((result) => {
       if (!result) {
         return new Error('No Park with that ID Found')
@@ -263,7 +261,7 @@ function startPark (parkId, userId, db = connection) {
         return null
       }
     })
-    .then((occupied) => {
+    .then(() => {
       return db('park_history').insert({
         park_id: parkId,
         user_id: userId,
