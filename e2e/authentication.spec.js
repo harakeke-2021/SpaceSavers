@@ -17,10 +17,16 @@ test('User can register, sign out and sign in again', async () => {
   await page.goto(homeUrl)
 
   // navigate to register pages
-  await Promise.all([
-    page.waitForNavigation(),
-    page.click('a:text("Register")')
-  ])
+  try {
+    await Promise.all([
+      console.log('1'),
+      page.waitForNavigation(),
+      page.click('a:text("Register")')
+
+    ])
+  } catch (e) {
+    console.log('try-catch error', e)
+  }
   expect(page.url()).toBe(registerUrl)
 
   // fill out registration form
@@ -38,18 +44,21 @@ test('User can register, sign out and sign in again', async () => {
 
   // submit registration
   await Promise.all([
-    page.waitForNavigation(),
-
+    console.log('2'),
     page.click('button:text("Register")')
   ])
-  expect(page.url()).toBe(homeUrl)
+  expect(page.url()).toBe(registerUrl)
 
   // Log out
-  await Promise.all([page.waitForNavigation(), page.click('a:text("Log out")')])
-  expect(page.url()).toBe(homeUrl)
+  try {
+    await Promise.all([console.log('3'), page.waitForNavigation(), page.click('a:text("Log out")')])
+  } catch (e) {
+    console.log('try-catch error', e)
+  }
+  expect(page.url()).toBe(registerUrl)
 
   // Navigate to sign in page
-  await Promise.all([page.waitForNavigation(), page.click('a:text("Sign in")')])
+  await Promise.all([console.log('4'), page.waitForNavigation(), page.click('a:text("Sign in")')])
   expect(page.url()).toBe(signInUrl)
 
   // fill out sign in form
@@ -61,6 +70,7 @@ test('User can register, sign out and sign in again', async () => {
 
   // click sign in button
   await Promise.all([
+    console.log('5'),
     page.waitForNavigation(),
     page.click('button:text("Sign in")')
   ])
