@@ -4,10 +4,11 @@ import { getUserHistory } from '../actions/user'
 
 function ParkerHistory (props) {
   const { history } = props.user
+  console.log(history)
 
   useEffect(() => {
     // user id 1 hardcoded in for now
-    getUserHistory(1)
+    getUserHistory(4)
   }, [])
   return (
     <div className="xl:mx-32">
