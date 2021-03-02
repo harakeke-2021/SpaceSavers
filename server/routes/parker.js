@@ -92,7 +92,7 @@ router.patch('/parking/end', getTokenDecoder(), (req, res) => {
   const userId = req.user.id
   const { historyId } = req.body
 
-  db.endPark(historyId, userId)
+  db.newEndPark(historyId, userId)
     .then((result) => {
       res.send(`${result} parking ended`)
       return null

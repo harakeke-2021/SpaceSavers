@@ -7,6 +7,10 @@ module.exports = {
     connection: {
       filename: path.join(__dirname, 'dev.sqlite3')
     },
+    pool: {
+      min: 2,
+      max: 10
+    },
     migrations: {
       directory: path.join(__dirname, 'migrations')
     },
