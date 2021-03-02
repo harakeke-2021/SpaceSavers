@@ -260,7 +260,7 @@ function startPark (parkId, userId, db = connection) {
       } else if (result.occupied) {
         return new Error(`Park with ID ${parkId} is already occupied`)
       } else {
-
+        return null
       }
     })
     .then((occupied) => {
@@ -275,7 +275,6 @@ function startPark (parkId, userId, db = connection) {
 
 function endPark (historyId, userId, db = connection) {
   return calculateCost(historyId, userId).then(([endTime, cost]) => {
-    console.log(endTime, cost)
     return db('park_history')
       .where({
         id: historyId,
@@ -294,14 +293,10 @@ function calculateCost (historyId, userId, db = connection) {
     }).first()
     .select('park_history.start_time as startTime', 'parks.price as price')
     .then((res) => {
-      console.log(res)
       const { startTime, price } = res
       const endTime = Math.floor(Date.now() / 1000)
       const secondsElapsed = (endTime - startTime)
       const hours = secondsElapsed / (60 * 60)
-      console.log('start', startTime, 'end', endTime)
-      console.log('seconds', secondsElapsed, 'hours', hours)
-      console.log('start', startTime, 'end', endTime)
       const cost = hours * price
       return [endTime, cost]
     })
