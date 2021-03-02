@@ -37,7 +37,8 @@
     ],
     "plugins": [
       "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-proposal-object-rest-spread"
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/transform-runtime"
     ]
   },
   "eslintConfig": {
@@ -47,6 +48,7 @@
     ]
   },
   "dependencies": {
+    "@babel/runtime": "^7.13.9",
     "@googlemaps/google-maps-services-js": "^3.1.16",
     "@tailwindcss/forms": "^0.2.1",
     "authenticare": "^0.4.9",
@@ -61,6 +63,7 @@
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.13.9",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@tailwindcss/custom-forms": "^0.2.1",
