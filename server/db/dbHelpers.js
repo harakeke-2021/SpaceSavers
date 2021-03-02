@@ -244,14 +244,10 @@ function authorizeUpdate (park, user) {
   }
 }
 
-function isParkOccupied (parkId, db = connection) {
+function checkIfParkOccupied (parkId, db = connection) {
   return db('parks')
     .where({ id: parkId }).first()
     .select('occupied')
-}
-
-function startPark (parkId, userId, db = connection) {
-  return isParkOccupied(parkId)
     .then((result) => {
       if (!result) {
         return new Error('No Park with that ID Found')
@@ -261,6 +257,10 @@ function startPark (parkId, userId, db = connection) {
         return null
       }
     })
+}
+
+function startPark (parkId, userId, db = connection) {
+  return checkIfParkOccupied(parkId)
     .then(() => {
       return db('park_history').insert({
         park_id: parkId,
