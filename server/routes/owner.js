@@ -12,7 +12,6 @@ router.use(getTokenDecoder(), (req, res, next) => {
 })
 
 router.get('/', async (req, res) => {
-  console.log('sfddfs')
   const user = req.user
 
   try {
