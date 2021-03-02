@@ -3,7 +3,6 @@ const playwright = require('playwright')
 const connection = require('../server/db/connection')
 
 const homeUrl = process.env.E2E_URL || 'http://localhost:3000/#/'
-const parkerUrl = homeUrl + 'parker'
 const registerUrl = homeUrl + 'register'
 const signInUrl = homeUrl + 'signin'
 
@@ -43,7 +42,7 @@ test('User can register, sign out and sign in again', async () => {
 
     page.click('button:text("Register")')
   ])
-  expect(page.url()).toBe(parkerUrl)
+  expect(page.url()).toBe(homeUrl)
 
   // Log out
   await Promise.all([page.waitForNavigation(), page.click('a:text("Log out")')])
@@ -55,19 +54,17 @@ test('User can register, sign out and sign in again', async () => {
 
   // fill out sign in form
   await page.click('input[name="username"]')
-  await page.fill('input[name="username"]', 'Leshgooo1234')
+  await page.fill('input[name="username"]', 'pete')
 
   await page.click('input[name="password"]')
-  await page.fill('input[name="password"]', '12356')
+  await page.fill('input[name="password"]', '1234qwer')
 
   // click sign in button
   await Promise.all([
     page.waitForNavigation(),
-    // this really should be an assertion rather than a waitFor...
-    page.waitForSelector('h3:text("Kingsland Community Orchard")'),
     page.click('button:text("Sign in")')
   ])
-  expect(page.url()).toBe(parkerUrl)
+  expect(page.url()).toBe(homeUrl)
 
   // TEARDOWN ------------
   await page.close()
