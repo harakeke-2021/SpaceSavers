@@ -250,9 +250,9 @@ function checkIfParkOccupied (parkId, db = connection) {
     .select('occupied')
     .then((result) => {
       if (!result) {
-        return new Error('No Park with that ID Found')
+        throw new Error('No Park with that ID Found')
       } else if (result.occupied) {
-        return new Error(`Park with ID ${parkId} is already occupied`)
+        throw new Error(`Park with ID ${parkId} is already occupied`)
       } else {
         return null
       }
@@ -261,6 +261,9 @@ function checkIfParkOccupied (parkId, db = connection) {
 
 function startPark (parkId, userId, db = connection) {
   return checkIfParkOccupied(parkId)
+    .then(() => {
+      return setOccupied(parkId, userId)
+    })
     .then(() => {
       return db('park_history').insert({
         park_id: parkId,
