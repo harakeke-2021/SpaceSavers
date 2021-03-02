@@ -23,9 +23,9 @@ module.exports = {
   startPark,
   endPark,
   getHistoryByParkerId,
-  getHistoryByOwnerId,
+  getHistoryByOwnerId
   // getOpenBookingsByUserId,
-  newEndPark
+  // newEndPark
 }
 
 // GET ALL PARKS
@@ -45,10 +45,9 @@ function setOccupied (parkId, userId, db = connection) {
 // SET UNOCCUPIED
 
 function setUnoccupied (parkId, db = connection) {
-  console.log('asdfsadf')
   return db('parks')
     .where('id', parkId)
-    .update({ occupied: false })
+    .update({ occupied: false, occupant_id: null })
 }
 
 // GET USER BY ID
@@ -294,7 +293,7 @@ async function startPark (parkId, userId, db = connection) {
   //   })
 }
 
-async function newEndPark (historyId, userId, db = connection) {
+async function endPark (historyId, userId, db = connection) {
   const trxProvider = db.transactionProvider()
   const endTime = Math.floor(Date.now() / 1000)
   const trx1 = await trxProvider()
@@ -303,7 +302,6 @@ async function newEndPark (historyId, userId, db = connection) {
   await updateParkHistory(historyId, userId, endTime, cost, trx2)
   const trx3 = await trxProvider()
   const parkId = await getParkIdByHistoryId(historyId, trx3)
-  console.log(parkId)
   const trx4 = await trxProvider()
   await setUnoccupied(parkId, trx4)
   trx1.commit()
@@ -330,18 +328,18 @@ function updateParkHistory (historyId, userId, endTime, cost, db = connection) {
     .update({ end_time: endTime, cost: cost, finished: true })
 }
 
-function endPark (historyId, userId, db = connection) {
-  return calculateCost(historyId, userId)
-    .then(([endTime, cost]) => {
-      return db('park_history')
-        .where({
-          id: historyId,
-          user_id: userId
-        })
-        .first()
-        .update({ end_time: endTime, cost: cost, finished: true })
-    })
-}
+// function endPark (historyId, userId, db = connection) {
+//   return calculateCost(historyId, userId)
+//     .then(([endTime, cost]) => {
+//       return db('park_history')
+//         .where({
+//           id: historyId,
+//           user_id: userId
+//         })
+//         .first()
+//         .update({ end_time: endTime, cost: cost, finished: true })
+//     })
+// }
 
 async function calculateCost (historyId, userId, endTime, db = connection) {
   return db('park_history')
