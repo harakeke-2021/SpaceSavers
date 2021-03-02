@@ -5,7 +5,7 @@ exports.up = function (knex) {
     table.integer('user_id').references('users.id')
     table.timestamp('start_time')
     table.timestamp('end_time')
-    table.decimal('cost', 2)
+    table.decimal('cost', 10, 2)
     table.boolean('finished').defaultTo(false)
   })
 }
