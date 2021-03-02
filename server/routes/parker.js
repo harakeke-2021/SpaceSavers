@@ -84,7 +84,7 @@ router.post('/parking/start', getTokenDecoder(), (req, res) => {
     })
 })
 
-router.post('/parking/end', getTokenDecoder(), (req, res) => {
+router.patch('/parking/end', getTokenDecoder(), (req, res) => {
   const userId = req.user.id
   const { historyId } = req.body
   db.endPark(historyId, userId)

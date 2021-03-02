@@ -9,7 +9,10 @@ function CurrentParks (props) {
   }, [])
 
   const { activeParks } = props.user
-  console.log('Testing', activeParks)
+
+  function onClick () {
+    
+  }
 
   return (
     <div>
@@ -19,7 +22,7 @@ function CurrentParks (props) {
           return <div key={park.startTime}>
             <li>{park.parkName}</li>
             <li>{park.parkAddress}</li>
-            <button>Finish Parking</button>
+            <button onClick={onClick}>Finish Parking</button>
           </div>
         })}
       </ul>
