@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getActiveParks } from '../actions/user'
+import { getActiveParks, getUserHistory } from '../actions/user'
 import { endParking } from '../api/currenParksHelper'
 
 function CurrentParks (props) {
   useEffect(() => {
     getActiveParks()
-  }, [])
+  }, [onClick])
 
   const { activeParks } = props.user
 
   function onClick (e) {
     const historyId = Number(e.target.value)
     endParking(historyId)
+    getUserHistory()
   }
 
   return (
