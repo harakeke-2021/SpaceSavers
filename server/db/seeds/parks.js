@@ -43,8 +43,8 @@ exports.seed = function (knex) {
           name: 'Albert Park',
           price: 15.0,
           owner_id: 2,
-          occupied: true,
-          occupant_id: 1,
+          occupied: false,
+          occupant_id: null,
           address: '33-43 Princes Street, Auckland Central, Auckland',
           lat: -36.850488045610895,
           lng: 174.76786664060185

@@ -1,22 +1,32 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 
-import { getAllParks } from '../actions/parks'
+import { getAllParks, setSearchAreaByAddress, setSearchAreaByLatlng } from '../actions/parks'
 
 function AddressBar (props) {
-  const { setSearchArea, setUserPosition } = props
+  // const { setSearchArea, setUserPosition } = props
   const [address, setAddress] = useState('')
+  const { searchArea } = props.parks
 
   function handleChange (e) {
     setAddress(e.target.value)
   }
 
   function handleClick () {
-    setSearchArea(address)
-    getAllParks()
+    setSearchAreaByAddress(address)
   }
 
   function handleUseLocation () {
-    setUserPosition()
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const newUserPosition = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        setSearchAreaByLatlng(newUserPosition)
+      },
+      (err) => console.log('Error:', err.message)
+    )
   }
 
   return (
@@ -47,4 +57,6 @@ function AddressBar (props) {
   )
 }
 
-export default AddressBar
+const mapStateToProps = (state) => ({ parks: state.parks })
+
+export default connect(mapStateToProps)(AddressBar)
