@@ -30,6 +30,11 @@ router.post('/geocode', (req, res) => {
     })
 })
 
+// router.post('/geolocate', (req, res) => {
+//   console.log(req.ip)
+//   res.send(req.ip)
+// })
+
 router.get('/', (req, res) => {
   return db
     .getAllParks()
@@ -70,7 +75,7 @@ router.post('/parking/start', getTokenDecoder(), (req, res) => {
   const { parkId } = req.body
   db.startPark(parkId, userId)
     .then((result) => {
-      res.send(`${result} parking started`)
+      res.send(result)
       return null
     })
     .catch((err) => {

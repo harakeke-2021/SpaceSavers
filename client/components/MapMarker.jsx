@@ -21,24 +21,24 @@ function MapMarker (props) {
   }
 
   const [style, setStyle] = useState(style1)
-  const [toggle, setToggle] = useState(false)
+  // const [toggle, setToggle] = useState(false)
 
-  useEffect(() => {
-    if (toggle) {
-      document.addEventListener('click', handleClickOutside)
-    } else {
-      document.removeEventListener('click', handleClickOutside)
-    }
-  }, [toggle])
+  // useEffect(() => {
+  //   if (toggle) {
+  //     document.addEventListener('click', handleClickOutside)
+  //   } else {
+  //     document.removeEventListener('click', handleClickOutside)
+  //   }
+  // }, [toggle])
 
   const node = useRef()
 
-  function handleClickOutside (e) {
-    if (node.current && node.current.contains(e.target)) {
-      return
-    }
-    setToggle(!toggle)
-  }
+  // function handleClickOutside (e) {
+  //   if (node.current && node.current.contains(e.target)) {
+  //     return
+  //   }
+  //   setToggle(!toggle)
+  // }
 
   function mouseEnter (e) {
     setStyle(style2)
@@ -48,9 +48,10 @@ function MapMarker (props) {
     setStyle(style1)
   }
 
-  function onClick (e) {
-    setToggle(!toggle)
-  }
+  // function onClick (e) {
+  //   setToggle(!toggle)
+  //   props.toggleSelected()
+  // }
 
   const { price, address, name, id } = props.obj
 
@@ -60,13 +61,13 @@ function MapMarker (props) {
         <img
           style={style}
           className='absolute'
-          onClick={onClick}
+          onClick={props.toggleSelected}
           onMouseEnter={mouseEnter}
           onMouseLeave={mouseLeave}
           src='./images/pin.png'
         />
 
-        {toggle === true
+        {props.selectedMarker === id
           ? <MarkerHover
             price={price}
             address={address}
@@ -74,6 +75,7 @@ function MapMarker (props) {
             id={id}/>
           : null
         }
+
       </div>
     </div>
   )

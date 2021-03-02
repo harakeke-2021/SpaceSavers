@@ -6,7 +6,7 @@ exports.up = function (knex) {
     table.string('email')
     table.binary('hash')
     table.string('registration')
-    table.binary('balance')
+    table.decimal('balance', 2)
   })
 }
 
