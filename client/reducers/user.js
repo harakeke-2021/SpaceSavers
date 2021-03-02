@@ -1,6 +1,6 @@
-import { UPDATE_USER_POSITION, GET_USER_HISTORY } from '../actions/user'
+import { UPDATE_USER_POSITION, GET_USER_HISTORY, GET_ACTIVE_PARKS } from '../actions/user'
 
-const initialState = { id: null, name: '', position: null, history: [] }
+const initialState = { id: null, name: '', position: null, history: [], activeParks: [] }
 
 export default function owner (state = initialState, action) {
   switch (action.type) {
@@ -13,6 +13,11 @@ export default function owner (state = initialState, action) {
       return {
         ...state,
         history: action.history
+      }
+    case GET_ACTIVE_PARKS:
+      return {
+        ...state,
+        activeParks: action.activeParks
       }
     default:
       return state
