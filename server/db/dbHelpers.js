@@ -157,32 +157,10 @@ function getParksByOwnerId (ownerId, db = connection) {
     )
 }
 
-// GET USER PARKS BY ID
-
-// async function getUserParksbyId (id, db = connection) {
-//   return db('users')
-//     .join('parks', 'users.id', 'parks.owner_id')
-//     .where('owner_id', id)
-//     .select(
-//       'parks.id as id',
-//       'username',
-//       'parks.name as name',
-//       'owner_id as ownerId',
-//       'address',
-//       'lat',
-//       'lng',
-//       'price',
-//       'occupied',
-//       'occupant_id as occupantId'
-//     )
-//     .then(res => res)
-// }
-
 // ADD PARK
 
 async function addPark (newPark, user, db = connection) {
   const park = {
-    // username: user.username,
     name: newPark.name,
     owner_id: user.id,
     address: newPark.address,
@@ -192,7 +170,6 @@ async function addPark (newPark, user, db = connection) {
     occupied: false
   }
 
-  console.log('inside addPark dbHelper', park)
   return db('parks')
     .insert(park)
     .then(() => db)
@@ -202,6 +179,8 @@ async function addPark (newPark, user, db = connection) {
 // UPDATE PARK
 
 async function udpatePark (updatePark, user, db = connection) {
+  console.log('inside db function/ updatePark', updatePark)
+  console.log('inside db function/ user', user)
   return db('parks')
     .where('id', updatePark.id)
     .first()
@@ -267,7 +246,7 @@ async function getOwnerBalance (id, db = connection) {
 // AUTHORIZE FUNCTION
 
 function authorizeUpdate (park, user) {
-  if (park.added_by_user !== user.id) {
+  if (park.owner_id !== user.id) {
     throw new Error('Unauthorized')
   }
 }

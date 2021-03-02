@@ -3,16 +3,16 @@ import React, { useState } from 'react'
 import { updateParkApi, deleteParkApi } from '../api/ownerHelper'
 
 export default function SelectedOwnerPark (props) {
-  const { currentName, currentPrice, closeAddForm } = props
+  const { closeAddForm, id, render, setRender } = props
   const [editing, setEditing] = useState({
-    name: currentName,
-    price: currentPrice
+    id,
+    name: '',
+    price: 0
   })
 
   function handleEditChange (e) {
     const { name, value } = e.target
-    console.log('name', name)
-    console.log('target', value)
+
     setEditing({
       ...editing,
       [name]: value
@@ -20,8 +20,10 @@ export default function SelectedOwnerPark (props) {
   }
 
   function handleUpdate () {
+    console.log('inside handleUpdate', editing)
     updateParkApi(editing)
       .then(closeAddForm)
+      .then(setRender(render + 1))
       .catch(err => console.log(err.message))
   }
 
@@ -33,22 +35,23 @@ export default function SelectedOwnerPark (props) {
 
   return (
     <>
-      <h2>Selected</h2>
+
       <form>
-        <label>Name:</label>
+        {/* <label htmlFor='id'></label>
+        <input name='id' type='hidden' value={id}/> */}
+
+        <label htmlFor='name'>Name:</label>
         <input type='text'
           key='name'
-
-          value={editing.name || ''}
+          name='name'
           onChange={handleEditChange} />
 
-        <label>Price per hour:</label>
+        <label htmlFor='price'>Price per hour:</label>
         <input type='number'
           step='1'
           min='0'
           key='price'
-
-          value={editing.price || ''}
+          name='price'
           onChange={handleEditChange} />
 
         <button type='button'

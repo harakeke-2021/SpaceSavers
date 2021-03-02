@@ -5,7 +5,7 @@ import SelectedOwnerPark from './SelectedOwnerPark'
 function OwnerPark (props) {
   const [update, setUpdate] = useState(false)
 
-  const { name, address, price, occupied } = props.park
+  const { name, address, price, occupied, id } = props.park
 
   function openUpdateForm (e) {
     e.preventDefault()
@@ -36,8 +36,9 @@ function OwnerPark (props) {
         </ul>
         {update ? (
           <SelectedOwnerPark
-            currentName={name}
-            currenetPrice={price}
+            id={id}
+            setRender={props.setRender}
+            render={props.render}
             closeAddForm={closeUpdateForm}
           />
         ) : (
