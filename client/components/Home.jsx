@@ -5,18 +5,19 @@ import AddressBar from './AddressBar'
 
 function Home () {
   const [searchArea, setSearchArea] = useState('')
+  const [userPosition, setUserPosition] = useState('')
   return (
     <div className='px-36 py-24 xl:mx-32'>
       <div className=''>
-        <h1 className='p-5 text-center text-blue-600 text-6xl font-black uppercase'>
+        <h1 className='p-5 text-center text-blue-600 text-6xl font-black uppercase font-work'>
           Insert TAGLINE HERE
         </h1>
         <p className='text-center'>
             Description of app
         </p>
       </div>
-      <AddressBar setSearchArea={setSearchArea}/>
-      <MapContainer searchArea={searchArea} />
+      <AddressBar setSearchArea={setSearchArea} setUserPosition={setUserPosition}/>
+      <MapContainer searchArea={searchArea} userPosition={userPosition} />
     </div>
   )
 }

@@ -108,7 +108,7 @@ router.get('/history', getTokenDecoder(), (req, res) => {
   const user = req.user
   console.log(user)
   db.getHistoryByParkerId(user.id)
-    .then(result => [result].flat())
+    // .then(result => [result].flat())
     .then((result) => res.json(result))
     .catch((err) => {
       console.log(err.message)

@@ -3,9 +3,14 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      // fontFamily: {
-      //   roboto: ['Roboto']
-      // }
+      fontFamily: {
+        work: ['"Work Sans"'],
+        roboto: ['Roboto']
+      },
+      height: {
+        lg: '500px',
+        xl: '600px'
+      }
     }
   },
   variants: {

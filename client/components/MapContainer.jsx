@@ -58,12 +58,7 @@ function MapContainer (props) {
 
   return (
     <>
-      <button onClick={() => centerOnUserPosition()} className='flex m-2'>
-        {/* <img src='/images/gps.png' alt='gps symbol' className='w-5 h-5 flex-auto mx-2'/> */}
-        Use My Location
-      </button>
-
-      <div className='map w-full h-96'>
+      <div className='map w-full max-w-7xl h-xl block m-auto'>
         <GoogleMapReact
           bootstrapURLKeys={{ key }}
           defaultCenter={defaultCenter}

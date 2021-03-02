@@ -24,7 +24,7 @@ function MarkerHover (props) {
 
   return (
     <div style={style}>
-      <h1>{name}</h1>
+      <h3>{name}</h3>
       <p>The price of this parking is {price}</p>
       <p>Address: {address}</p>
       <div>

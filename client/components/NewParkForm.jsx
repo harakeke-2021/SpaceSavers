@@ -43,11 +43,9 @@ function NewParkForm (props) {
   return (
     <div className=' w-72 h-72 m-10 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-500 py-4 block m-auto'>
       <div className='px-3'>
-        <button className='' onClick={closeForm}>
-          <img src='images/cancel.png' alt='cross symbol' className="w-3 h-3 object-right"/>
-          {/* <svg className='h-6 w-6 text-black' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6'/>
-          </svg> */}
+        <button className='font-' onClick={closeForm}>
+          x
+          {/* <img src='images/cancel.png' alt='cross symbol' className="w-3 h-3 object-right"/> */}
         </button>
         <form onSubmit={handleSubmit}>
           <label name='parkName'>Name</label>
