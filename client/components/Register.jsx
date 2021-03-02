@@ -49,7 +49,7 @@ export default function Register (props) {
         { error && `Error: ${error}` }
       </div>
       <div className='w-96 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-light-blue-400'>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             id='name'
             name='name'
@@ -57,6 +57,7 @@ export default function Register (props) {
             value={form.name}
             onChange={handleChange}
             placeholder='name'
+            required
             className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
           />
 
@@ -67,6 +68,7 @@ export default function Register (props) {
             value={form.username}
             onChange={handleChange}
             placeholder='username'
+            required
             className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
           />
 
@@ -77,6 +79,7 @@ export default function Register (props) {
             value={form.rego}
             onChange={handleChange}
             placeholder='car registration'
+            required
             className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
           />
 
@@ -87,6 +90,7 @@ export default function Register (props) {
             value={form.email}
             onChange={handleChange}
             placeholder='email'
+            required
             className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
           />
 
@@ -97,10 +101,11 @@ export default function Register (props) {
             value={form.password}
             onChange={handleChange}
             placeholder='password'
+            required
             className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg my-2'
           />
 
-          <button type='button' onClick={handleSubmit} className='w-full hover:shadow-lg hover:bg-blue-500 hover:text-white block mx-auto mt-4 px-5 py-2 rounded-lg my-2'>
+          <button className='w-full hover:shadow-lg hover:bg-blue-500 hover:text-white block mx-auto mt-4 px-5 py-2 rounded-lg my-2'>
             Register
           </button>
         </form>

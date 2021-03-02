@@ -12,7 +12,6 @@ router.use(getTokenDecoder(), (req, res, next) => {
 })
 
 router.get('/', async (req, res) => {
-  console.log('sfddfs')
   const user = req.user
 
   try {
@@ -48,6 +47,9 @@ router.delete('/:id', async (req, res) => {
   const id = Number(req.params.id)
   const user = req.user
 
+  console.log('router id', id)
+  console.log('user ', user)
+
   try {
     const parks = await db.deletePark(id, user)
     res.json({ parks })
@@ -63,7 +65,7 @@ router.delete('/:id', async (req, res) => {
 
 // UPDATE PARK /api/v1/owner
 
-router.patch('/', async (req, res) => {
+router.put('/', async (req, res) => {
   const newPark = req.body
   const user = req.user
   try {

@@ -9,7 +9,7 @@ const db = require('../db/dbHelpers')
 
 module.exports = router
 
-router.post('/', (req, res) => {
+router.post('/geocode', (req, res) => {
   const { address } = req.body
   const client = new Client({})
   client
@@ -22,7 +22,6 @@ router.post('/', (req, res) => {
       timeout: 1000 // milliseconds
     })
     .then((r) => {
-      // console.log(r.data.results[0].geometry)
       res.json(r.data.results[0].geometry)
       return null
     })
@@ -106,9 +105,9 @@ router.patch('/parking/end', getTokenDecoder(), (req, res) => {
 
 router.get('/history', getTokenDecoder(), (req, res) => {
   const user = req.user
-  console.log(user)
-  db.getHistoryByParkerId(user.id)
-    .then(result => [result].flat())
+  const isFinished = true
+  db.getHistoryByParkerId(user.id, isFinished)
+    // .then(result => [result].flat())
     .then((result) => res.json(result))
     .catch((err) => {
       console.log(err.message)
@@ -122,7 +121,8 @@ router.get('/history', getTokenDecoder(), (req, res) => {
 
 router.get('/bookings', getTokenDecoder(), (req, res) => {
   const user = req.user
-  db.getOpenBookingsByUserId(user.id)
+  const isFinished = false
+  db.getHistoryByParkerId(user.id, isFinished)
     .then(result => {
       console.log(result)
       res.json(result)

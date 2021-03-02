@@ -1,23 +1,37 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 
-import { getAllParks } from '../actions/parks'
+import { getAllParks, setSearchAreaByAddress, setSearchAreaByLatlng } from '../actions/parks'
 
 function AddressBar (props) {
-  const { setSearchArea } = props
+  // const { setSearchArea, setUserPosition } = props
   const [address, setAddress] = useState('')
+  const { searchArea } = props.parks
 
   function handleChange (e) {
     setAddress(e.target.value)
   }
 
   function handleClick () {
-    setSearchArea(address)
-    getAllParks()
+    setSearchAreaByAddress(address)
+  }
+
+  function handleUseLocation () {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const newUserPosition = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        setSearchAreaByLatlng(newUserPosition)
+      },
+      (err) => console.log('Error:', err.message)
+    )
   }
 
   return (
-    <div className='grid grid-cols-12 p-10 h-90'>
-      <div className='col-start-4 col-span-6 shadow-lg'>
+    <div className='grid grid-cols-12 py-10 h-90 w-3/4 m-auto'>
+      <div className='col-start-3 col-span-8 shadow-lg'>
         <div className='flex flex-row'>
           <input
             type='text'
@@ -27,9 +41,15 @@ function AddressBar (props) {
           />
           <button
             onClick={handleClick}
-            className='w-44 py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+            className='w-44 py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-blue-500 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
           >
         Find My Park
+          </button>
+          <button
+            onClick={handleUseLocation}
+            className='w-52 py-2 px-4 border shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
+
+        Use My Location
           </button>
         </div>
       </div>
@@ -37,4 +57,6 @@ function AddressBar (props) {
   )
 }
 
-export default AddressBar
+const mapStateToProps = (state) => ({ parks: state.parks })
+
+export default connect(mapStateToProps)(AddressBar)
