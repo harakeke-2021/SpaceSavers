@@ -295,20 +295,28 @@ async function startPark (parkId, userId, db = connection) {
 
 async function endPark (historyId, userId, db = connection) {
   const trxProvider = db.transactionProvider()
-  const endTime = Math.floor(Date.now() / 1000)
   const trx1 = await trxProvider()
-  const cost = await calculateCost(historyId, userId, endTime, trx1)
   const trx2 = await trxProvider()
-  await updateParkHistory(historyId, userId, endTime, cost, trx2)
   const trx3 = await trxProvider()
-  const parkId = await getParkIdByHistoryId(historyId, trx3)
   const trx4 = await trxProvider()
-  await setUnoccupied(parkId, trx4)
-  trx1.commit()
-  trx2.commit()
-  trx3.commit()
-  trx4.commit()
-  return 'Parking Ended'
+  try {
+    const endTime = Math.floor(Date.now() / 1000)
+    const cost = await calculateCost(historyId, userId, endTime, trx1)
+    await updateParkHistory(historyId, userId, endTime, cost, trx2)
+    const parkId = await getParkIdByHistoryId(historyId, trx3)
+    await setUnoccupied(parkId, trx4)
+    trx1.commit()
+    trx2.commit()
+    trx3.commit()
+    trx4.commit()
+    return 'Parking Ended'
+  } catch (error) {
+    trx1.rollback()
+    trx2.rollback()
+    trx3.rollback()
+    trx4.rollback()
+    throw new Error('hello')
+  }
 }
 
 function getParkIdByHistoryId (historyId, db = connection) {
