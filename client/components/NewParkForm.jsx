@@ -10,7 +10,6 @@ function NewParkForm (props) {
 
   function handleChange (e, field) {
     setForm({ ...form, [field]: e.target.value })
-    console.log(form)
   }
 
   function handleSubmit (e) {

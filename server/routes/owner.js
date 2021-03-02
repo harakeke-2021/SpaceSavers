@@ -46,10 +46,6 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const id = Number(req.params.id)
   const user = req.user
-
-  console.log('router id', id)
-  console.log('user ', user)
-
   try {
     const parks = await db.deletePark(id, user)
     res.json({ parks })

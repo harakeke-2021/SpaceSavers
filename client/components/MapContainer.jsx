@@ -52,6 +52,15 @@ function MapContainer (props) {
     centerOnUserPosition(map)
   }
 
+  function handleSelection (e, parkId) {
+    e.preventDefault()
+    if (selectedMarker === parkId) {
+      setSelectedMarker(null)
+    } else {
+      setSelectedMarker(parkId)
+    }
+  }
+
   return (
     <>
       <div className='map w-full max-w-7xl h-xl block m-auto'>
@@ -70,7 +79,7 @@ function MapContainer (props) {
                 lng={park.lng}
                 obj={park}
                 selectedMarker={selectedMarker}
-                toggleSelected={() => setSelectedMarker(park.id)}
+                toggleSelected={(e) => handleSelection(e, park.id)}
               />
             ) : null
           })}

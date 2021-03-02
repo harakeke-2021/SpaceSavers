@@ -15,7 +15,7 @@ module.exports = {
   // getUserParksbyId,
   getParksByOwnerId,
   addPark,
-  udpatePark,
+  updatePark,
   deletePark,
   getFullUser,
   authorizeUpdate,
@@ -177,9 +177,7 @@ async function addPark (newPark, user, db = connection) {
 
 // UPDATE PARK
 
-async function udpatePark (updatePark, user, db = connection) {
-  console.log('inside db function/ updatePark', updatePark)
-  console.log('inside db function/ user', user)
+async function updatePark (updatePark, user, db = connection) {
   return db('parks')
     .where('id', updatePark.id)
     .first()
@@ -194,8 +192,6 @@ async function udpatePark (updatePark, user, db = connection) {
 // DELETE PARK
 
 async function deletePark (parkId, user, db = connection) {
-  console.log('inside db function/ parkId', parkId)
-  console.log('inside db function/ user', user)
   return db('parks')
     .where('id', parkId)
     .first()
@@ -260,7 +256,7 @@ function checkIfParkOccupied (parkId, db = connection) {
       } else if (result.occupied) {
         throw new Error(`Park with ID ${parkId} is already occupied`)
       } else {
-        return null
+        return result
       }
     })
 }

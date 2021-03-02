@@ -16,7 +16,6 @@ export const GET_OWNER_HISTORY = 'GET_OWNER_HISTORY'
 export function updateOwnerBalance (dispatch) {
   getOwnerBalance()
     .then((result) => {
-      console.log(result.body)
       const balance = result.body.balance
       dispatch({
         type: GET_BALANCE,
