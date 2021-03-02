@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { getActiveParks } from '../actions/user'
+import { getActiveParks, endParking } from '../actions/user'
 
 function CurrentParks (props) {
   useEffect(() => {
@@ -9,7 +9,11 @@ function CurrentParks (props) {
   }, [])
 
   const { activeParks } = props.user
-  console.log('Testing', activeParks)
+
+  function onClick (e) {
+    const parkId = Number(e.target.value)
+    endParking(parkId)
+  }
 
   return (
     <div>
@@ -19,7 +23,7 @@ function CurrentParks (props) {
           return <div key={park.startTime}>
             <li>{park.parkName}</li>
             <li>{park.parkAddress}</li>
-            <button>Finish Parking</button>
+            <button value={park.parkId} onClick={onClick}>Finish Parking</button>
           </div>
         })}
       </ul>
