@@ -6,7 +6,7 @@ exports.up = function (knex) {
     table.string('address')
     table.float('lat')
     table.float('lng')
-    table.decimal('price', 2)
+    table.decimal('price', 10, 2)
     table.boolean('occupied')
     table.integer('occupant_id').references('users.id')
   })
