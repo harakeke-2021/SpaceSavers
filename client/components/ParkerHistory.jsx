@@ -11,8 +11,8 @@ function ParkerHistory (props) {
     getUserHistory(4)
   }, [])
   return (
-    <div className="xl:mx-32">
-      <h2 className='pt-20 pb-10 text-center text-4xl font-black uppercase font-work'>My Parking History</h2>
+    <div>
+      <h2 className='pt-10 pb-5 text-center text-4xl font-black uppercase font-work tracking-wider'>My Parking History</h2>
       {history.map((transaction) => {
         return <div key={transaction.historyId} className='w-96 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-gray-200'>
           <div>History ID: {transaction.historyId}</div>

@@ -10,7 +10,7 @@ function MarkerHover (props) {
   }
 
   return (
-    <div className="relative right-20 top-7 w-44 h-auto text-center bg-white border rounded-lg border-blue-500 p-1">
+    <div className='relative right-20 top-7 w-44 h-auto text-center bg-white border rounded-lg border-blue-500 p-1'>
       <ul className='text-sm m-auto'>
         <li>
           <img src='./images/park.png' alt='carpark symbol' className='h-8 block mx-auto my-3'/>

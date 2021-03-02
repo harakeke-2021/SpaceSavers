@@ -44,7 +44,7 @@ function NewParkForm (props) {
     <div className='w-80 h-80 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-500 py-4 block m-auto'>
       <div className='px-3'>
         <button className='relative left-64 bottom-2' onClick={closeForm}>
-          <img src='images/cancel.png' alt='cross symbol' className="w-3 h-3 m-2"/>
+          <img src='images/cancel.png' alt='cross symbol' className='w-3 h-3 m-2'/>
         </button>
         <form onSubmit={handleSubmit}>
           <label name='parkName'>Name</label>
@@ -80,16 +80,16 @@ function NewParkForm (props) {
           />
           <label name='lat'></label>
           <input
-            type="hidden"
+            type='hidden'
             value={geoCode.lat}
-            key="lat"
+            key='lat'
           />
 
           <label name='lng'></label>
           <input
-            type="hidden"
+            type='hidden'
             value={geoCode.lng}
-            key="lng"
+            key='lng'
           />
 
           <div>

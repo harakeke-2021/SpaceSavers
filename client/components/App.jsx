@@ -10,7 +10,7 @@ import Parker from './Parker'
 
 const App = () => {
   return (
-    <div className="font-roboto">
+    <div className='font-roboto'>
       <Route path='/' component={Header} />
       <Route exact path='/' component={Home} />
       <Route path='/owner' component={Owner} />
