@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getUserHistory } from '../actions/user'
+import { dateParser } from '../utility'
 
 function ParkerHistory (props) {
   const { history } = props.user
-  console.log(history)
 
   useEffect(() => {
-    // user id 1 hardcoded in for now
-    getUserHistory(4)
+    getUserHistory()
   }, [])
   return (
     <div className='xl:mx-32'>
@@ -46,8 +45,8 @@ function ParkerHistory (props) {
                         </td>
 
                         <td className='px-6 py-4 whitespace-nowrap'>
-                          <div className='text-sm font-medium text-gray-900'>Start: {transaction.startTime}</div>
-                          <div className='text-sm font-medium text-gray-900'>End:   {transaction.endTime}</div>
+                          <div className='text-sm font-medium text-gray-900'>Start: {dateParser(transaction.startTime)}</div>
+                          <div className='text-sm font-medium text-gray-900'>End:   {dateParser(transaction.endTime)}</div>
                         </td>
 
                         <td className='px-6 py-4 whitespace-nowrap'>

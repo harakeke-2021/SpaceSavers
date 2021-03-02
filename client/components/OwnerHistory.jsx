@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getHistoryByOwnerId } from '../actions/owner'
+import { dateParser } from '../utility'
 
 function OwnerHistory (props) {
   const { history } = props.owner
   useEffect(() => {
-    // user id 3 hardcoded in for now
-    getHistoryByOwnerId(3)
+    getHistoryByOwnerId()
   }, [])
 
   return (
@@ -52,8 +52,8 @@ function OwnerHistory (props) {
                         </td>
 
                         <td className='px-6 py-4 whitespace-nowrap'>
-                          <div className='text-sm font-medium text-gray-900'>Start: {transaction.startTime}</div>
-                          <div className='text-sm font-medium text-gray-900'>End:   {transaction.endTime}</div>
+                          <div className='text-sm font-medium text-gray-900'>Start: {dateParser(transaction.startTime)}</div>
+                          <div className='text-sm font-medium text-gray-900'>End:   {dateParser(transaction.endTime)}</div>
                         </td>
 
                         <td className='px-6 py-4 whitespace-nowrap'>

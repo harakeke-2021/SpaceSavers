@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { getActiveParks } from '../actions/user'
+import { endParking } from '../api/currenParksHelper'
 
 function CurrentParks (props) {
   useEffect(() => {
@@ -9,7 +10,11 @@ function CurrentParks (props) {
   }, [])
 
   const { activeParks } = props.user
-  console.log('Testing', activeParks)
+
+  function onClick (e) {
+    const historyId = Number(e.target.value)
+    endParking(historyId)
+  }
 
   return (
     <>
@@ -27,7 +32,7 @@ function CurrentParks (props) {
                   <li className='text-2xl capitalize font-medium'>{park.parkAddress}</li>
                   {/* <li className='text-lg py-1'>{`$ ${park.price}`}/hr</li> */}
                 </ul>
-                <button className='w-1/2 hover:shadow-lg bg-red-400 hover:bg-red-500 block mx-auto my-2 p-1 rounded-lg text-white'>
+                <button onClick={onClick} value={park.historyId} className='w-1/2 hover:shadow-lg bg-red-400 hover:bg-red-500 block mx-auto my-2 p-1 rounded-lg text-white'>
                   Finish Parking
                 </button>
               </div>
