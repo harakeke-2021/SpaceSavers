@@ -332,7 +332,7 @@ async function endPark (historyId, userId, db = connection) {
     // trx5.rollback()
     // trx6.rollback()
     // trx7.rollback()
-    throw new Error('hello')
+    throw new Error('Could not finish park')
   }
 }
 
