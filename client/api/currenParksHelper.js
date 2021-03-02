@@ -1,6 +1,6 @@
 import request from 'superagent'
 import requestor from '../consume'
-import { getAuthorizationHeader, getEncodedToken } from 'authenticare/client'
+import { getAuthorizationHeader } from 'authenticare/client'
 
 const acceptJsonHeader = { Accept: 'application/json' }
 const rootURL = '/api/v1/parker'
@@ -11,11 +11,11 @@ export function getActiveParksApi () {
     .set(getAuthorizationHeader())
 }
 
-export function endParking (parkId, consume = requestor) {
-  return request.post(rootURL)
+export function endParking (historyId, consume = requestor) {
+  return request.patch(rootURL + '/parking/end')
     .set(acceptJsonHeader)
     .set(getAuthorizationHeader())
-    .send({ parkId })
+    .send({ historyId })
     .then(transactionId => transactionId.body)
     .catch(err => console.error(err))
 }
