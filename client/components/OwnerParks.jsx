@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { getParksByOwnerId } from '../actions/owner'
 import NewPark from './NewPark'
 import OwnerPark from './OwnerPark'
-// import { IfAuthenticated } from './Authenticated'
 
 function OwnerParks (props) {
   const { parks } = props.owner
@@ -12,7 +11,7 @@ function OwnerParks (props) {
   }, [])
   return (
     <div className='my-10'>
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-flow-row center-object gap-y-10'>
+      <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-flow-row center-object gap-y-10'>
         {parks.map((park) => {
           return <OwnerPark key={park.id} park={park}/>
         })}
