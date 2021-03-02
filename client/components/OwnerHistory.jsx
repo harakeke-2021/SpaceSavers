@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getHistoryByOwnerId } from '../actions/owner'
+import { dateParser } from '../utility'
 
 function OwnerHistory (props) {
   const { history } = props.owner
   useEffect(() => {
-    // user id 3 hardcoded in for now
-    getHistoryByOwnerId(3)
+    getHistoryByOwnerId()
   }, [])
 
   return (
@@ -18,8 +18,8 @@ function OwnerHistory (props) {
             <li>History ID: {transaction.historyId}</li>
             <li>Park ID: {transaction.parkId}</li>
             <li>Parker ID: {transaction.parkerId}</li>
-            <li>Start Time: {Date.parse(transaction.startTime)}</li>
-            <li>End Time: {transaction.endTime}</li>
+            <li>Start Time: {dateParser(transaction.startTime)}</li>
+            <li>End Time: {dateParser(transaction.endTime)}</li>
             <li>Cost: {transaction.cost}</li>
             <li>Finished: {transaction.finished ? 'Yes' : 'No'}</li>
             <li>Park Name: {transaction.parkName}</li>
