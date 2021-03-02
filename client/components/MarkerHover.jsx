@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { startParking } from '../api/markerHoverHelper'
 
@@ -18,9 +19,9 @@ function MarkerHover (props) {
         <li className='capitalize'>{name}</li>
         <li className='capitalize'>{address}</li>
         <li className=''>{`$ ${price}`}/hr</li>
-
+        
         <button onClick={onClick} className='w-3/4 hover:shadow-lg bg-blue-400 hover:bg-blue-500 block mx-auto mt-1 mb-2 rounded-lg text-white'>
-          Start Parking
+          <Link to='/parker'>Start Parking</Link>
         </button>
       </ul>
     </div>
