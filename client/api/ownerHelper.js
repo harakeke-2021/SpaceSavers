@@ -19,7 +19,6 @@ export function addParkApi (park, url = rootURL) {
   .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
     .send(park)
     .then(res => {
-      console.log('res.body.parks',res.body.parks)
       return res.body.parks
     })
     .catch(logError)
@@ -46,19 +45,16 @@ export function getHistoryByOwnerIdApi (url = rootURL) {
 }
 
 export function updateParkApi(park, url = rootURL) {
-  console.log('updateParkApi',park)
   return request.put(url)
   .set(acceptJsonHeader)
   .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
     .send(park)
     .then(res => {
-      console.log('res.body.parks', res.body.parks)
       return res.body.parks})
     .catch(logError)
 }
 
 export function deleteParkApi(id, url = rootURL) {
-  console.log('id', id)
   return request.delete(`${url}/${id}`)
     .set(acceptJsonHeader)
     .set({ 'Authorization': `Bearer ${getEncodedToken()}` })
