@@ -10,8 +10,8 @@ function ParkerHistory (props) {
     getUserHistory()
   }, [])
   return (
-    <div className='xl:mx-32'>
-      <h2 className='pt-20 pb-5 text-center text-4xl font-black uppercase font-work'>My Parking History</h2>
+    <div className='mb-32 xl:mx-32'>
+      <h3 className='pt-20 pb-5 text-center text-3xl font-semibold uppercase font-roboto'>My Parking History</h3>
       <div className='flex flex-col my-5 lg:w-3/4 m-auto'>
         <div className='my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
           <div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
