@@ -5,7 +5,7 @@ function MapMarker (props) {
   const K_SIZE = 40
 
   const style1 = {
-    position: 'absolute',
+    // position: 'absolute',
     width: K_SIZE,
     height: K_SIZE,
     left: -K_SIZE / 2,
@@ -13,7 +13,7 @@ function MapMarker (props) {
   }
 
   const style2 = {
-    position: 'absolute',
+    // position: 'absolute',
     width: K_SIZE * 1.125,
     height: K_SIZE * 1.125,
     left: (-K_SIZE * 1.125) / 2,
@@ -57,12 +57,23 @@ function MapMarker (props) {
   return (
     <div>
       <div ref={node}>
-        <img style={style} onClick={onClick} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} src='./images/pin.png' />
-        {toggle === true ? <MarkerHover
-          price={price}
-          address={address}
-          name={name}
-          id={id}/> : null}
+        <img
+          style={style}
+          className="absolute"
+          onClick={onClick}
+          onMouseEnter={mouseEnter}
+          onMouseLeave={mouseLeave}
+          src='./images/pin.png'
+        />
+
+        {toggle === true
+          ? <MarkerHover
+            price={price}
+            address={address}
+            name={name}
+            id={id}/>
+          : null
+        }
       </div>
     </div>
   )

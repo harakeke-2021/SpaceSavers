@@ -41,7 +41,7 @@ function NewParkForm (props) {
   }, [form.address])
 
   return (
-    <div className=' w-72 h-72 m-10 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-500 py-4 block m-auto'>
+    <div className=' w-72 h-72 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-500 py-4 block m-auto'>
       <div className='px-3'>
         <button className='font-' onClick={closeForm}>
           x
