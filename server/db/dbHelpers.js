@@ -313,7 +313,7 @@ async function endPark (historyId, userId, db = connection) {
     await updateParkHistory(historyId, userId, endTime, cost, trx2)
     console.log(parkId)
     await setUnoccupied(parkId, trx3)
-    const newBalance = ownerBalance + cost
+    const newBalance = Math.round((ownerBalance + cost) * 100) / 100
     await updateUserBalance(ownerId, newBalance, trx4)
 
     trx1.commit()
