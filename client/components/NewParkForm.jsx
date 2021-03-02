@@ -15,13 +15,22 @@ function NewParkForm (props) {
 
   function handleSubmit (e) {
     e.preventDefault()
-    const newForm = {
-      ...form,
-      ...geoCode
-    }
-    addPark(newForm, props.dispatch)
-    setForm({})
-    closeForm()
+    getGeoCode({ address: form.address })
+      .then(res => {
+        const { lat, lng } = res.body.location
+        const newForm = {
+          ...form,
+          lat,
+          lng
+        }
+        addPark(newForm, props.dispatch)
+        setForm({})
+        closeForm()
+        return null
+      })
+      .catch((e) => {
+        console.log(e.message)
+      })
   }
 
   // useEffect(() => {
@@ -41,7 +50,7 @@ function NewParkForm (props) {
   // }, [form.address])
 
   return (
-    <div className=' w-72 h-72 m-10 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-500 py-4 block m-auto'>
+    <div className=' w-72 h-72 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-500 py-4 block m-auto'>
       <div className='px-3'>
         <button className='font-' onClick={closeForm}>
           x
@@ -54,7 +63,7 @@ function NewParkForm (props) {
             key='name'
             value={form?.name || ''}
             onChange={(e) => handleChange(e, 'name')}
-            // placeholder='Name'
+            required
             className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
 
@@ -64,7 +73,7 @@ function NewParkForm (props) {
             key='address'
             value={form?.address || ''}
             onChange={(e) => handleChange(e, 'address')}
-            // placeholder='Address'
+            required
             className='w-full border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
 
@@ -76,7 +85,7 @@ function NewParkForm (props) {
             key='price'
             value={form?.price || 0}
             onChange={(e) => handleChange(e, 'price')}
-            // placeholder='Price per hour'
+            required
             className='w-full border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
           />
           <label name='lat'></label>

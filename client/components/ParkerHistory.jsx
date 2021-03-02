@@ -4,25 +4,26 @@ import { getUserHistory } from '../actions/user'
 
 function ParkerHistory (props) {
   const { history } = props.user
+  console.log(history)
 
   useEffect(() => {
     // user id 1 hardcoded in for now
-    getUserHistory(1)
+    getUserHistory(4)
   }, [])
   return (
     <div className="xl:mx-32">
-      <h2 className='pt-20 pb-10 text-center text-4xl font-black uppercase font-work'>Parking History</h2>
+      <h2 className='pt-20 pb-10 text-center text-4xl font-black uppercase font-work'>My Parking History</h2>
       {history.map((transaction) => {
-        return <div key={transaction.historyId}>
-          <div>History ID:{transaction.historyId}</div>
-          <div>Park ID:{transaction.parkId}</div>
-          <div>Parker ID:{transaction.parkerId}</div>
-          <div>Start Time:{transaction.startTime}</div>
-          <div>End Time:{transaction.endTime}</div>
-          <div>Cost:{transaction.cost}</div>
-          <div>Finished:{transaction.finished ? 'Yes' : 'No'}</div>
-          <div>Park Name:{transaction.parkName}</div>
-          <div>Park Address:{transaction.parkAddress}</div>
+        return <div key={transaction.historyId} className='w-96 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-gray-200'>
+          <div>History ID: {transaction.historyId}</div>
+          <div>Park ID: {transaction.parkId}</div>
+          <div>Parker ID: {transaction.parkerId}</div>
+          <div>Start Time: {transaction.startTime}</div>
+          <div>End Time: {transaction.endTime}</div>
+          <div>Cost: ${transaction.cost}</div>
+          <div>Finished: {transaction.finished ? 'Yes' : 'No'}</div>
+          <div>Park Name: {transaction.parkName}</div>
+          <div>Park Address: {transaction.parkAddress}</div>
         </div>
       })}</div>
   )

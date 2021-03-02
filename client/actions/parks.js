@@ -1,9 +1,11 @@
 import { getAllParksApi, getGeoCode } from '../api/mapsHelper'
 import { dispatch } from '../store'
+import { getActiveParksApi } from '../api/currenParksHelper'
 
 export const GET_ALL_PARKS = 'GET_ALL_PARKS'
-// export const SET_ALL_PARKS = 'SET_ALL_PARKS'
 export const SET_SEARCH_AREA = 'SET_SEARCH_AREA'
+export const GET_PARKER_HISTORY = 'GET_PARKER_HISTORY'
+export const GET_ACTIVE_PARKS = 'GET_ACTIVE_PARKS'
 
 export function getAllParks () {
   getAllParksApi()
@@ -17,6 +19,28 @@ export function getAllParks () {
     })
     .catch(err => console.error(err))
 }
+
+export function getActiveParks (parks) {
+  getActiveParksApi()
+    .then(res => {
+      const active = res.body
+      console.log('active', active)
+
+      dispatch({
+        type: GET_ACTIVE_PARKS,
+        active
+      })
+      return null
+    })
+    .catch(err => console.error(err))
+}
+
+// export function setParks (parks) {
+//   return {
+//     type: SET_ALL_PARKS,
+//     parks
+//   }
+// }
 
 export function setSearchAreaByLatlng (latlng) {
   dispatch({
@@ -39,10 +63,3 @@ export function setSearchAreaByAddress (address) {
     })
     .catch(err => console.error(err))
 }
-
-// export function setParks (parks) {
-//   return {
-//     type: SET_ALL_PARKS,
-//     parks
-//   }
-// }
