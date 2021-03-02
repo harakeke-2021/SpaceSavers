@@ -59,7 +59,7 @@ function MapMarker (props) {
       <div ref={node}>
         <img
           style={style}
-          className="absolute"
+          className='absolute'
           onClick={onClick}
           onMouseEnter={mouseEnter}
           onMouseLeave={mouseLeave}

@@ -11,22 +11,34 @@ function CurrentParks (props) {
   const { activeParks } = props.user
 
   function onClick () {
-    
+
   }
 
   return (
-    <div>
-      <h2 className='pt-20 pb-10 text-center text-4xl font-black uppercase'>Current Parking</h2>
-      <ul>
-        {activeParks.map(park => {
-          return <div key={park.startTime}>
-            <li>{park.parkName}</li>
-            <li>{park.parkAddress}</li>
-            <button onClick={onClick}>Finish Parking</button>
-          </div>
-        })}
-      </ul>
-    </div>
+    <>
+      <h2 className='pt-10 pb-5 text-center text-4xl font-black uppercase font-work tracking-wider'>Current Parking</h2>
+      <div className='w-3/4 my-10 block m-auto'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 2xl:flex xl:flex-row'>
+          {activeParks.map(park => {
+            return (
+              <div key={park.startTime} className='w-96 h-auto shadow-lg rounded-lg py-4 mx-auto p-5 my-20 text-center'>
+                <div>
+                  <img src='./images/park.png' alt='carpark symbol' className='h-20 block mx-auto m-full pb-3'/>
+                </div>
+                <ul className=''>
+                  <li className='text-lg capitalize font-light'>{park.parkName}</li>
+                  <li className='text-2xl capitalize font-medium'>{park.parkAddress}</li>
+                  {/* <li className='text-lg py-1'>{`$ ${park.price}`}/hr</li> */}
+                </ul>
+                <button className='w-1/2 hover:shadow-lg hover:bg-red-500 block mx-auto my-2 p-1 rounded-lg hover:text-white text-red-500'>
+                  Finish Parking
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </>
   )
 }
 

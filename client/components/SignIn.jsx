@@ -32,7 +32,7 @@ export default function SignIn (props) {
   }
 
   return (
-    <div className='w-96 m-10 shadow-lg rounded-lg py-4 block m-auto p-5 my-20 divide-y divide-gray-200'>
+    <div className='w-96 shadow-lg rounded-lg py-4 block mx-auto p-5 my-20 divide-y divide-gray-200'>
       <form>
         <input
           id='username'

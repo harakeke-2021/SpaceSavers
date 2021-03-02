@@ -11,18 +11,20 @@ module.exports = {
   userExists,
   getUserById,
   getUserByName,
-  getUserParksbyId,
+  // getUserParksbyId,
+  getParksByOwnerId,
   addPark,
   udpatePark,
   deletePark,
+  getFullUser,
   authorizeUpdate,
   getOwnerBalance,
   startPark,
   endPark,
   getHistoryByParkerId,
-  getHistoryByOwnerId,
+  getHistoryByOwnerId
   // getOpenBookingsByUserId,
-  getParksByOwnerId
+
 }
 
 // GET ALL PARKS
@@ -52,14 +54,15 @@ function setUnoccupied (parkId, db = connection) {
 function getUserById (userId, db = connection) {
   return db('users')
     .where('id', userId)
-    .select('id', 'username', 'name', 'email')
+    .select('id', 'username', 'name', 'email', 'registration')
     .then((result) => {
       const user = result[0]
       return {
         id: user.id,
         username: user.username,
         name: user.name,
-        email: user.email
+        email: user.email,
+        registration: user.registration
       }
     })
 }
@@ -131,7 +134,7 @@ function userExists (username, db = connection) {
 
 function getUserByName (username, db = connection) {
   return db('users')
-    .select('username', 'name', 'email', 'id', 'hash')
+    .select('username', 'name', 'email', 'id', 'hash', 'registration')
     .where('username', username)
     .first()
 }
@@ -154,32 +157,10 @@ function getParksByOwnerId (ownerId, db = connection) {
     )
 }
 
-// GET USER PARKS BY ID
-
-async function getUserParksbyId (id, db = connection) {
-  return db('users')
-    .join('parks', 'users.id', 'parks.owner_id')
-    .where('parks.owner_id', id)
-    .select(
-      'parks.id as id',
-      'username',
-      'parks.name as name',
-      'owner_id as ownerId',
-      'address',
-      'lat',
-      'lng',
-      'price',
-      'occupied',
-      'occupant_id as occupantId'
-    )
-    .then(res => res)
-}
-
 // ADD PARK
 
 async function addPark (newPark, user, db = connection) {
   const park = {
-    // username: user.username,
     name: newPark.name,
     owner_id: user.id,
     address: newPark.address,
@@ -191,12 +172,14 @@ async function addPark (newPark, user, db = connection) {
   return db('parks')
     .insert(park)
     .then(() => db)
-    .then(getUserParksbyId(user.id))
+    .then(getParksByOwnerId(user.id))
 }
 
 // UPDATE PARK
 
 async function udpatePark (updatePark, user, db = connection) {
+  console.log('inside db function/ updatePark', updatePark)
+  console.log('inside db function/ user', user)
   return db('parks')
     .where('id', updatePark.id)
     .first()
@@ -205,12 +188,14 @@ async function udpatePark (updatePark, user, db = connection) {
       return db('parks').where('id', updatePark.id).update(updatePark)
     })
     .then(() => db)
-    .then(getUserParksbyId(user.id))
+    .then(getParksByOwnerId(user.id))
 }
 
 // DELETE PARK
 
 async function deletePark (parkId, user, db = connection) {
+  console.log('inside db function/ parkId', parkId)
+  console.log('inside db function/ user', user)
   return db('parks')
     .where('id', parkId)
     .first()
@@ -222,7 +207,30 @@ async function deletePark (parkId, user, db = connection) {
     }
     )
     .then(() => db)
-    .then(getUserParksbyId(user.id))
+    .then(getParksByOwnerId(user.id))
+}
+
+// RETURN FULL USER PARK
+
+async function getFullUser (userId, db = connection) {
+  return db('users')
+    .join('parks', 'users.id', 'parks.owner_id')
+    .where('users.id', userId)
+    .select(
+      'users.id as id',
+      'username',
+      'name',
+      'email',
+      'balance',
+      'registration',
+      'parks.id as parkId',
+      'address',
+      'parks.id as parkId',
+      'lat',
+      'lng',
+      'price',
+      'occupied'
+    )
 }
 
 // GET ACCOUNT BALANCE
@@ -239,7 +247,7 @@ async function getOwnerBalance (id, db = connection) {
 // AUTHORIZE FUNCTION
 
 function authorizeUpdate (park, user) {
-  if (park.added_by_user !== user.id) {
+  if (park.owner_id !== user.id) {
     throw new Error('Unauthorized')
   }
 }
