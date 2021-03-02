@@ -15,7 +15,7 @@ function CurrentParks (props) {
     <>
       <h2 className='pt-10 pb-5 text-center text-4xl font-black uppercase font-work tracking-wider'>Current Parking</h2>
       <div className='w-3/4 my-10 block m-auto'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 2xl:flex xl:flex-row'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3'>
           {activeParks.map(park => {
             return (
               <div key={park.startTime} className='w-96 h-auto shadow-lg rounded-lg py-4 mx-auto p-5 my-20 text-center'>
@@ -27,7 +27,7 @@ function CurrentParks (props) {
                   <li className='text-2xl capitalize font-medium'>{park.parkAddress}</li>
                   {/* <li className='text-lg py-1'>{`$ ${park.price}`}/hr</li> */}
                 </ul>
-                <button className='w-1/2 hover:shadow-lg hover:bg-red-500 block mx-auto my-2 p-1 rounded-lg hover:text-white text-red-500'>
+                <button className='w-1/2 hover:shadow-lg bg-red-400 hover:bg-red-500 block mx-auto my-2 p-1 rounded-lg text-white'>
                   Finish Parking
                 </button>
               </div>
