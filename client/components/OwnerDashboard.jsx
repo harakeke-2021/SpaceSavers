@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { updateOwnerBalance } from '../actions/owner'
 import OwnerParks from './OwnerParks'
-import { Link } from 'react-router-dom'
 import { IfAuthenticated } from './Authenticated'
 import OwnerHistory from './OwnerHistory'
 

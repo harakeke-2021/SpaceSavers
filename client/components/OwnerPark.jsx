@@ -6,7 +6,7 @@ function OwnerPark (props) {
   const [update, setUpdate] = useState(false)
 
   const { name, address, price, occupied, id } = props.park
-  console.log('name', name)
+
   function openUpdateForm (e) {
     e.preventDefault()
     setUpdate(true)

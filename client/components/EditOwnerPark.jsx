@@ -9,7 +9,6 @@ export default function EditOwnerPark (props) {
     name: parkName,
     price: price
   })
-  console.log('park name', parkName)
 
   function handleEditChange (e) {
     const { name, value } = e.target
