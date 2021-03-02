@@ -75,7 +75,7 @@ router.post('/parking/start', getTokenDecoder(), (req, res) => {
   const { parkId } = req.body
   db.startPark(parkId, userId)
     .then((result) => {
-      res.send(`${result} parking started`)
+      res.send(result)
       return null
     })
     .catch((err) => {

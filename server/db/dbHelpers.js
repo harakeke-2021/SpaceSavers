@@ -1,6 +1,7 @@
 const connection = require('./connection')
 
 const { generateHash } = require('authenticare/server')
+const { falseDependencies } = require('mathjs')
 
 module.exports = {
   getAllParks,
@@ -24,7 +25,6 @@ module.exports = {
   getHistoryByParkerId,
   getHistoryByOwnerId
   // getOpenBookingsByUserId,
-
 }
 
 // GET ALL PARKS
@@ -201,11 +201,8 @@ async function deletePark (parkId, user, db = connection) {
     .first()
     .then((park) => authorizeUpdate(park, user))
     .then(() => {
-      return db('parks')
-        .where('id', parkId)
-        .delete()
-    }
-    )
+      return db('parks').where('id', parkId).delete()
+    })
     .then(() => db)
     .then(getParksByOwnerId(user.id))
 }
@@ -254,7 +251,8 @@ function authorizeUpdate (park, user) {
 
 function checkIfParkOccupied (parkId, db = connection) {
   return db('parks')
-    .where({ id: parkId }).first()
+    .where({ id: parkId })
+    .first()
     .select('occupied')
     .then((result) => {
       if (!result) {
@@ -267,19 +265,35 @@ function checkIfParkOccupied (parkId, db = connection) {
     })
 }
 
-function startPark (parkId, userId, db = connection) {
-  return checkIfParkOccupied(parkId)
-    .then(() => {
-      return setOccupied(parkId, userId)
+async function startPark (parkId, userId, db = connection) {
+  // try {
+  await db.transaction(async trx => {
+    await checkIfParkOccupied(parkId, trx)
+    await setOccupied(parkId, userId, trx)
+    await trx('park_history').insert({
+      park_id: parkId,
+      user_id: userId,
+      start_time: Math.floor(Date.now() / 1000),
+      finished: false
     })
-    .then(() => {
-      return db('park_history').insert({
-        park_id: parkId,
-        user_id: userId,
-        start_time: Math.floor(Date.now() / 1000),
-        finished: false
-      })
-    })
+  })
+  return 'Parking Started'
+  // } catch (error) {
+  //   console.log('DB Error:', error.message)
+  // }
+
+  // return checkIfParkOccupied(parkId)
+  //   .then(() => {
+  //     return setOccupied(parkId, userId)
+  //   })
+  //   .then(() => {
+  //     return db('park_history').insert({
+  //       park_id: parkId,
+  //       user_id: userId,
+  //       start_time: Math.floor(Date.now() / 1000),
+  //       finished: false
+  //     })
+  //   })
 }
 
 function endPark (historyId, userId, db = connection) {
@@ -288,7 +302,8 @@ function endPark (historyId, userId, db = connection) {
       .where({
         id: historyId,
         user_id: userId
-      }).first()
+      })
+      .first()
       .update({ end_time: endTime, cost: cost, finished: true })
   })
 }
@@ -299,12 +314,13 @@ function calculateCost (historyId, userId, db = connection) {
     .where({
       'park_history.id': historyId,
       'park_history.user_id': userId
-    }).first()
+    })
+    .first()
     .select('park_history.start_time as startTime', 'parks.price as price')
     .then((res) => {
       const { startTime, price } = res
       const endTime = Math.floor(Date.now() / 1000)
-      const secondsElapsed = (endTime - startTime)
+      const secondsElapsed = endTime - startTime
       const hours = secondsElapsed / (60 * 60)
       const cost = hours * price
       return [endTime, cost]
@@ -314,7 +330,10 @@ function calculateCost (historyId, userId, db = connection) {
 function getHistoryByParkerId (userId, isFinished, db = connection) {
   return db('park_history')
     .join('parks', 'park_history.park_id', 'parks.id')
-    .where({ 'park_history.user_id': userId, 'park_history.finished': isFinished })
+    .where({
+      'park_history.user_id': userId,
+      'park_history.finished': isFinished
+    })
     .select(
       'park_history.id as historyId',
       'park_history.park_id as parkId',
