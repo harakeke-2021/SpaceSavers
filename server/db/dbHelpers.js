@@ -363,7 +363,7 @@ async function calculateCost (historyId, userId, endTime, db = connection) {
       // const endTime = Math.floor(Date.now() / 1000)
       const secondsElapsed = endTime - startTime
       const hours = secondsElapsed / (60 * 60)
-      const cost = hours * price
+      const cost = Math.round(hours * price * 100) / 100
       return cost
     })
 }
