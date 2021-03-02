@@ -21,7 +21,7 @@ module.exports = {
   endPark,
   getHistoryByParkerId,
   getHistoryByOwnerId,
-  getOpenBookingsByUserId,
+  // getOpenBookingsByUserId,
   getParksByOwnerId
 }
 
@@ -247,12 +247,15 @@ function authorizeUpdate (park, user) {
 }
 
 function startPark (parkId, userId, db = connection) {
-  return db('park_history').insert({
-    park_id: parkId,
-    user_id: userId,
-    start_time: Math.floor(Date.now() / 1000),
-    finished: false
-  })
+  return setOccupied(parkId, userId)
+    .then(() => {
+      return db('park_history').insert({
+        park_id: parkId,
+        user_id: userId,
+        start_time: Math.floor(Date.now() / 1000),
+        finished: false
+      })
+    })
 }
 
 function endPark (historyId, userId, db = connection) {
@@ -289,10 +292,10 @@ function calculateCost (historyId, userId, db = connection) {
     })
 }
 
-function getHistoryByParkerId (userId, db = connection) {
+function getHistoryByParkerId (userId, isFinished, db = connection) {
   return db('park_history')
     .join('parks', 'park_history.park_id', 'parks.id')
-    .where({ 'park_history.user_id': userId, 'park_history.finished': true })
+    .where({ 'park_history.user_id': userId, 'park_history.finished': isFinished })
     .select(
       'park_history.id as historyId',
       'park_history.park_id as parkId',
@@ -324,17 +327,18 @@ function getHistoryByOwnerId (ownerId, db = connection) {
     )
 }
 
-function getOpenBookingsByUserId (userId, db = connection) {
-  console.log(userId)
-  return db('park_history')
-    .join('parks', 'park_history.park_id', 'parks.id')
-    .where({ 'park_history.user_id': userId, 'park_history.finished': false })
-    .select(
-      'park_history.user_id as userId',
-      'park_history.park_id as parkId',
-      'park_history.start_time as startTime',
-      'parks.name as parkName',
-      'parks.address as parkAddress',
-      'park_history.finished as finished'
-    )
-}
+// below function is the basically the same as getHistoryByParkerId so resuing that and passed in isFinished as an arg from the route
+// function getOpenBookingsByUserId (userId, db = connection) {
+//   console.log(userId)
+//   return db('park_history')
+//     .join('parks', 'park_history.park_id', 'parks.id')
+//     .where({ 'park_history.user_id': userId, 'park_history.finished': false })
+//     .select(
+//       'park_history.user_id as userId',
+//       'park_history.park_id as parkId',
+//       'park_history.start_time as startTime',
+//       'parks.name as parkName',
+//       'parks.address as parkAddress',
+//       'park_history.finished as finished'
+//     )
+// }

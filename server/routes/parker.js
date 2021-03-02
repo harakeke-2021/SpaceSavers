@@ -106,8 +106,8 @@ router.post('/parking/end', getTokenDecoder(), (req, res) => {
 
 router.get('/history', getTokenDecoder(), (req, res) => {
   const user = req.user
-  console.log(user)
-  db.getHistoryByParkerId(user.id)
+  const isFinished = true
+  db.getHistoryByParkerId(user.id, isFinished)
     // .then(result => [result].flat())
     .then((result) => res.json(result))
     .catch((err) => {
@@ -122,7 +122,8 @@ router.get('/history', getTokenDecoder(), (req, res) => {
 
 router.get('/bookings', getTokenDecoder(), (req, res) => {
   const user = req.user
-  db.getOpenBookingsByUserId(user.id)
+  const isFinished = false
+  db.getHistoryByParkerId(user.id, isFinished)
     .then(result => {
       console.log(result)
       res.json(result)
