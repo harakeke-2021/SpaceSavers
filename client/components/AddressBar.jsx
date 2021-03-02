@@ -30,7 +30,7 @@ function AddressBar (props) {
   }
 
   return (
-    <div className='grid grid-cols-12 py-10 h-90'>
+    <div className='grid grid-cols-12 py-10 h-90 w-3/4 m-auto'>
       <div className='col-start-3 col-span-8 shadow-lg'>
         <div className='flex flex-row'>
           <input

@@ -19,7 +19,7 @@ function MarkerHover (props) {
         <li className='capitalize'>{address}</li>
         <li className=''>{`$ ${price}`}/hr</li>
 
-        <button onClick={onClick} className='w-3/4 hover:shadow-lg hover:bg-blue-500 block mx-auto mt-1 mb-2 rounded-lg hover:text-white'>
+        <button onClick={onClick} className='w-3/4 hover:shadow-lg bg-blue-400 hover:bg-blue-500 block mx-auto mt-1 mb-2 rounded-lg text-white'>
           Start Parking
         </button>
       </ul>

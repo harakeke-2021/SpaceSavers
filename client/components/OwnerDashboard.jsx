@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { updateOwnerBalance } from '../actions/owner'
 import OwnerParks from './OwnerParks'
 import { Link } from 'react-router-dom'
 import { IfAuthenticated } from './Authenticated'
+import OwnerHistory from './OwnerHistory'
 
 function OwnerDashboard (props) {
   // const [balance, setBalance] = useState(0)
@@ -24,13 +25,11 @@ function OwnerDashboard (props) {
             <p className='col-start-4 col-span-2 border-b-2 border-transparent hover:border-blue-600 p-2 mt-3 mb-2'>
           Account Balance: ${owner.balance}
             </p>
-            <Link to='/owner/history' className='col-start-8 col-span-1 border-b-2 border-transparent hover:border-blue-600 p-2 mt-3 mb-2'>
-          History
-            </Link>
           </div>
           <OwnerParks />
         </div>
       </div>
+      <OwnerHistory/>
     </IfAuthenticated>
 
   )
