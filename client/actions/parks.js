@@ -24,8 +24,6 @@ export function getActiveParks (parks) {
   getActiveParksApi()
     .then(res => {
       const active = res.body
-      console.log('active', active)
-
       dispatch({
         type: GET_ACTIVE_PARKS,
         active
