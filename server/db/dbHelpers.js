@@ -350,7 +350,7 @@ function getHistoryByParkerId (userId, isFinished, db = connection) {
 function getHistoryByOwnerId (ownerId, db = connection) {
   return db('park_history')
     .join('parks', 'park_history.park_id', 'parks.id')
-    .where({ 'park_history.user_id': ownerId, 'park_history.finished': true })
+    .where({ 'parks.owner_id': ownerId, 'park_history.finished': true })
     .select(
       'park_history.id as historyId',
       'park_history.park_id as parkId',
