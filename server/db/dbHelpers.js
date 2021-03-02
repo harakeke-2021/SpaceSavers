@@ -22,8 +22,8 @@ module.exports = {
   startPark,
   endPark,
   getHistoryByParkerId,
-  getHistoryByOwnerId,
-  getOpenBookingsByUserId
+  getHistoryByOwnerId
+  // getOpenBookingsByUserId,
 
 }
 
@@ -169,7 +169,6 @@ async function addPark (newPark, user, db = connection) {
     price: newPark.price,
     occupied: false
   }
-
   return db('parks')
     .insert(park)
     .then(() => db)
@@ -253,18 +252,38 @@ function authorizeUpdate (park, user) {
   }
 }
 
+function checkIfParkOccupied (parkId, db = connection) {
+  return db('parks')
+    .where({ id: parkId }).first()
+    .select('occupied')
+    .then((result) => {
+      if (!result) {
+        throw new Error('No Park with that ID Found')
+      } else if (result.occupied) {
+        throw new Error(`Park with ID ${parkId} is already occupied`)
+      } else {
+        return null
+      }
+    })
+}
+
 function startPark (parkId, userId, db = connection) {
-  return db('park_history').insert({
-    park_id: parkId,
-    user_id: userId,
-    start_time: Math.floor(Date.now() / 1000),
-    finished: false
-  })
+  return checkIfParkOccupied(parkId)
+    .then(() => {
+      return setOccupied(parkId, userId)
+    })
+    .then(() => {
+      return db('park_history').insert({
+        park_id: parkId,
+        user_id: userId,
+        start_time: Math.floor(Date.now() / 1000),
+        finished: false
+      })
+    })
 }
 
 function endPark (historyId, userId, db = connection) {
   return calculateCost(historyId, userId).then(([endTime, cost]) => {
-    console.log(endTime, cost)
     return db('park_history')
       .where({
         id: historyId,
@@ -283,23 +302,19 @@ function calculateCost (historyId, userId, db = connection) {
     }).first()
     .select('park_history.start_time as startTime', 'parks.price as price')
     .then((res) => {
-      console.log(res)
       const { startTime, price } = res
       const endTime = Math.floor(Date.now() / 1000)
       const secondsElapsed = (endTime - startTime)
       const hours = secondsElapsed / (60 * 60)
-      console.log('start', startTime, 'end', endTime)
-      console.log('seconds', secondsElapsed, 'hours', hours)
-      console.log('start', startTime, 'end', endTime)
       const cost = hours * price
       return [endTime, cost]
     })
 }
 
-function getHistoryByParkerId (userId, db = connection) {
+function getHistoryByParkerId (userId, isFinished, db = connection) {
   return db('park_history')
     .join('parks', 'park_history.park_id', 'parks.id')
-    .where({ 'park_history.user_id': userId, 'park_history.finished': true })
+    .where({ 'park_history.user_id': userId, 'park_history.finished': isFinished })
     .select(
       'park_history.id as historyId',
       'park_history.park_id as parkId',
@@ -331,17 +346,18 @@ function getHistoryByOwnerId (ownerId, db = connection) {
     )
 }
 
-function getOpenBookingsByUserId (userId, db = connection) {
-  console.log(userId)
-  return db('park_history')
-    .join('parks', 'park_history.park_id', 'parks.id')
-    .where({ 'park_history.user_id': userId, 'park_history.finished': false })
-    .select(
-      'park_history.user_id as userId',
-      'park_history.park_id as parkId',
-      'park_history.start_time as startTime',
-      'parks.name as parkName',
-      'parks.address as parkAddress',
-      'park_history.finished as finished'
-    )
-}
+// below function is the basically the same as getHistoryByParkerId so resuing that and passed in isFinished as an arg from the route
+// function getOpenBookingsByUserId (userId, db = connection) {
+//   console.log(userId)
+//   return db('park_history')
+//     .join('parks', 'park_history.park_id', 'parks.id')
+//     .where({ 'park_history.user_id': userId, 'park_history.finished': false })
+//     .select(
+//       'park_history.user_id as userId',
+//       'park_history.park_id as parkId',
+//       'park_history.start_time as startTime',
+//       'parks.name as parkName',
+//       'parks.address as parkAddress',
+//       'park_history.finished as finished'
+//     )
+// }

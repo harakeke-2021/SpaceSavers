@@ -1,9 +1,19 @@
-import { GET_ALL_PARKS } from '../actions/parks'
+import { GET_ALL_PARKS, SET_SEARCH_AREA } from '../actions/parks'
 
-export default function parks (state = [], action) {
+const initialState = { parks: [], searchArea: null }
+
+export default function parks (state = initialState, action) {
   switch (action.type) {
     case GET_ALL_PARKS:
-      return action.parks
+      return {
+        ...state,
+        parks: action.parks
+      }
+    case SET_SEARCH_AREA:
+      return {
+        ...state,
+        searchArea: action.searchArea
+      }
     default:
       return state
   }

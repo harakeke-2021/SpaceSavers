@@ -15,30 +15,39 @@ function NewParkForm (props) {
 
   function handleSubmit (e) {
     e.preventDefault()
-    const newForm = {
-      ...form,
-      ...geoCode
-    }
-    addPark(newForm, props.dispatch)
-    setForm({})
-    closeForm()
-  }
-
-  useEffect(() => {
-    setForm({ ...form })
     getGeoCode({ address: form.address })
-      .then((res) => {
-        const { location } = res.body
-        // console.log('location', location)
-        setGeoCode({ lat: location.lat, lng: location.lng })
-        // console.log('geocode', geoCode)
+      .then(res => {
+        const { lat, lng } = res.body.location
+        const newForm = {
+          ...form,
+          lat,
+          lng
+        }
+        addPark(newForm, props.dispatch)
+        setForm({})
+        closeForm()
         return null
       })
-
       .catch((e) => {
         console.log(e.message)
       })
-  }, [form.address])
+  }
+
+  // useEffect(() => {
+  //   setForm({ ...form })
+  //   getGeoCode({ address: form.address })
+  //     .then((res) => {
+  //       const { location } = res.body
+  //       // console.log('location', location)
+  //       setGeoCode({ lat: location.lat, lng: location.lng })
+  //       // console.log('geocode', geoCode)
+  //       return null
+  //     })
+
+  //     .catch((e) => {
+  //       console.log(e.message)
+  //     })
+  // }, [form.address])
 
   return (
     <div className=' w-72 h-72 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-500 py-4 block m-auto'>
