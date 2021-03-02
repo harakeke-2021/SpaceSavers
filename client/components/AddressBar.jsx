@@ -33,32 +33,34 @@ function AddressBar (props) {
   }
 
   return (
-    <div className='grid grid-cols-12 py-10 h-90 w-3/4 m-auto'>
-      <div className='col-start-3 col-span-8 shadow-lg'>
-        <div className='flex flex-row'>
-          <form onSubmit={handleSubmit}>
+    <>
+      <div className='grid grid-cols-12 py-10 h-90 xl:w-3/4 m-auto'>
+        <div className='col-start-2 col-span-7 shadow-lg'>
+          <form onSubmit={handleSubmit} className='flex flex-row col-span-6'>
             <input
               type='text'
               onChange={handleChange}
               placeholder='Search here'
-              className='w-full border-transparent focus:border-blue-500 focus:bg-white focus:ring-0'
+              className='w-full h-full border-transparent focus:border-blue-500 focus:bg-white focus:ring-0'
             />
             <button
-              className='w-44 py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-blue-500 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+              className='h-full w-52 py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
             >
-        Find My Park
+              Find My Park
             </button>
           </form>
+        </div>
+        <div className='w-full text-2xl col-start-9 col-span-2 shadow-lg'>
           <button
             onClick={handleUseLocation}
-            className='w-52 py-2 px-4 border shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
-
-        Use My Location
+            className='w-full py-2 px-4 border shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
+              Use My Location
           </button>
-          {showGeoWarning ? <GeolocationWarning/> : null }
         </div>
+        {showGeoWarning ? <GeolocationWarning/> : null }
       </div>
-    </div>
+
+    </>
   )
 }
 
