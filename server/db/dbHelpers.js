@@ -246,9 +246,24 @@ function authorizeUpdate (park, user) {
   }
 }
 
+function isParkOccupied (parkId, db = connection) {
+  return db('parks')
+    .where({ id: parkId }).first()
+    .select('occupied')
+}
+
 function startPark (parkId, userId, db = connection) {
-  return setOccupied(parkId, userId)
-    .then(() => {
+  isParkOccupied(parkId)
+    .then((result) => {
+      if (!result) {
+        return new Error('No Park with that ID Found')
+      } else if (result.occupied) {
+        return new Error(`Park with ID ${parkId} is already occupied`)
+      } else {
+
+      }
+    })
+    .then((occupied) => {
       return db('park_history').insert({
         park_id: parkId,
         user_id: userId,
