@@ -299,31 +299,63 @@ async function endPark (historyId, userId, db = connection) {
   const trx2 = await trxProvider()
   const trx3 = await trxProvider()
   const trx4 = await trxProvider()
+  // const trx5 = await trxProvider()
+  // const trx6 = await trxProvider()
+  // const trx7 = await trxProvider()
   try {
     const endTime = Math.floor(Date.now() / 1000)
-    const cost = await calculateCost(historyId, userId, endTime, trx1)
+    const { parkId, ownerBalance, price, startTime } = await endParkHelper(historyId, trx1)
+    const secondsElapsed = endTime - startTime
+    const hours = secondsElapsed / (60 * 60)
+    const cost = Math.round(hours * price * 100) / 100
+
+    // const cost = await calculateCost(historyId, userId, endTime, trx1)
     await updateParkHistory(historyId, userId, endTime, cost, trx2)
-    const parkId = await getParkIdByHistoryId(historyId, trx3)
-    await setUnoccupied(parkId, trx4)
+    console.log(parkId)
+    await setUnoccupied(parkId, trx3)
+    const newBalance = ownerBalance + cost
+    await updateUserBalance(userId, newBalance, trx4)
+
     trx1.commit()
     trx2.commit()
     trx3.commit()
     trx4.commit()
+    // trx5.commit()
+    // trx6.commit()
+    // trx7.commit()
     return 'Parking Ended'
   } catch (error) {
     trx1.rollback()
     trx2.rollback()
     trx3.rollback()
     trx4.rollback()
+    // trx5.rollback()
+    // trx6.rollback()
+    // trx7.rollback()
     throw new Error('hello')
   }
 }
 
-function getParkIdByHistoryId (historyId, db = connection) {
+function updateUserBalance (userId, newBalance, db = connection) {
+  return db('users')
+    .where({ id: userId })
+    .update({ balance: newBalance })
+}
+
+function endParkHelper (historyId, db = connection) {
   return db('park_history')
-    .where({ id: historyId }).first()
-    .select('park_id')
-    .then(res => res.park_id)
+    .where({ 'park_history.id': historyId }).first()
+    .leftJoin('parks', 'park_history.park_id', 'parks.id')
+    .leftJoin('users', 'parks.owner_id', 'users.id')
+    .select('park_id as parkId',
+      'users.balance as ownerBalance',
+      'parks.price as price',
+      'park_history.start_time as startTime'
+    )
+    .then(res => {
+      console.log(res)
+      return res
+    })
 }
 
 function updateParkHistory (historyId, userId, endTime, cost, db = connection) {
