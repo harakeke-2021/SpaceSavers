@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 function ListResults (props) {
-  const { parks } = props
+  const { parks } = props.parks
 
   return (
     <div>

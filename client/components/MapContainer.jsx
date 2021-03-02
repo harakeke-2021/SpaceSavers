@@ -4,13 +4,14 @@ import MapMarker from './MapMarker'
 import { connect } from 'react-redux'
 
 import { getGeoCode } from '../api/mapsHelper'
+import { getAllParks } from '../actions/parks'
 // import { updateUserPosition } from '../actions/user'
 import ListResults from './ListResults'
 
 function MapContainer (props) {
   const defaultCenter = { lat: 0, lng: 0 }
   // const userPosition = props.user.position
-  const { searchArea, parks } = props
+  const { searchArea, parks } = props.parks
   const [map, setMap] = useState()
 
   function centerOnUserPosition (mapApi = map) {
@@ -29,19 +30,24 @@ function MapContainer (props) {
   }
 
   function handleSearch () {
-    getGeoCode({ address: searchArea })
-      .then((res) => {
-        const { location } = res.body
-        map.setCenter({ lat: location.lat, lng: location.lng })
-        return null
-      })
-      .catch((e) => {
-        console.log(e.message)
-      })
+    // getGeoCode({ address: searchArea })
+    //   .then((res) => {
+    //     const { location } = res.body
+    //     map.setCenter({ lat: location.lat, lng: location.lng })
+    //     return null
+    //   })
+    //   .catch((e) => {
+    //     console.log(e.message)
+    //   })
+    map.setCenter(searchArea)
   }
 
   useEffect(() => {
-    if (searchArea) handleSearch()
+    getAllParks()
+  }, [searchArea])
+
+  useEffect(() => {
+    if (searchArea && map) handleSearch()
   }, [searchArea])
 
   const key = 'AIzaSyAwonXg89LWspEiD10wgptbWOuK8lLh6VI'
