@@ -15,7 +15,7 @@ module.exports = {
   // getUserParksbyId,
   getParksByOwnerId,
   addPark,
-  udpatePark,
+  updatePark,
   deletePark,
   getFullUser,
   authorizeUpdate,
@@ -177,7 +177,7 @@ async function addPark (newPark, user, db = connection) {
 
 // UPDATE PARK
 
-async function udpatePark (updatePark, user, db = connection) {
+async function updatePark (updatePark, user, db = connection) {
   return db('parks')
     .where('id', updatePark.id)
     .first()
@@ -256,7 +256,7 @@ function checkIfParkOccupied (parkId, db = connection) {
       } else if (result.occupied) {
         throw new Error(`Park with ID ${parkId} is already occupied`)
       } else {
-        return null
+        return result
       }
     })
 }
