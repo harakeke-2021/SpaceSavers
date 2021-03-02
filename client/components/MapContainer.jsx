@@ -3,7 +3,6 @@ import GoogleMapReact from 'google-map-react'
 import MapMarker from './MapMarker'
 import { connect } from 'react-redux'
 import { getAllParks } from '../actions/parks'
-import ListResults from './ListResults'
 
 function MapContainer (props) {
   const defaultCenter = { lat: -40.900557, lng: 174.885971 }
@@ -85,7 +84,7 @@ function MapContainer (props) {
             ) : null
           })}
         </GoogleMapReact>
-        <ListResults />
+
       </div>
     </>
   )
