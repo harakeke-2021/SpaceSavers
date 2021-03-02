@@ -45,9 +45,10 @@ function setOccupied (parkId, userId, db = connection) {
 // SET UNOCCUPIED
 
 function setUnoccupied (parkId, db = connection) {
+  console.log('asdfsadf')
   return db('parks')
     .where('id', parkId)
-    .update({ occupied: false, occupant_id: null })
+    .update({ occupied: false })
 }
 
 // GET USER BY ID
@@ -304,12 +305,12 @@ async function newEndPark (historyId, userId, db = connection) {
   const parkId = await getParkIdByHistoryId(historyId, trx3)
   console.log(parkId)
   const trx4 = await trxProvider()
-  setUnoccupied(parkId, trx4)
+  await setUnoccupied(parkId, trx4)
   trx1.commit()
   trx2.commit()
   trx3.commit()
   trx4.commit()
-  return 'all done'
+  return 'Parking Ended'
 }
 
 function getParkIdByHistoryId (historyId, db = connection) {
