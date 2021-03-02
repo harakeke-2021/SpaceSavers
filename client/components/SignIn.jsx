@@ -49,7 +49,7 @@ export default function SignIn (props) {
           type='password'
           value={form.password}
           onChange={handleChange}
-          placeHolder='password'
+          placeholder='password'
           className='w-full border-b-1 border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 rounded-lg'
         />
 

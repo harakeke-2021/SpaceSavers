@@ -18,7 +18,7 @@ function OwnerHistory (props) {
             <li>History ID: {transaction.historyId}</li>
             <li>Park ID: {transaction.parkId}</li>
             <li>Parker ID: {transaction.parkerId}</li>
-            <li>Start Time: {transaction.startTime}</li>
+            <li>Start Time: {Date.parse(transaction.startTime)}</li>
             <li>End Time: {transaction.endTime}</li>
             <li>Cost: {transaction.cost}</li>
             <li>Finished: {transaction.finished ? 'Yes' : 'No'}</li>

@@ -30,6 +30,11 @@ router.post('/geocode', (req, res) => {
     })
 })
 
+// router.post('/geolocate', (req, res) => {
+//   console.log(req.ip)
+//   res.send(req.ip)
+// })
+
 router.get('/', (req, res) => {
   return db
     .getAllParks()
