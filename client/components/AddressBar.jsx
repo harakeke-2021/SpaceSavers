@@ -34,8 +34,8 @@ function AddressBar (props) {
 
   return (
     <>
-      <div className='grid grid-cols-12 py-10 h-90 xl:w-3/4 m-auto'>
-        <div className='col-start-2 col-span-7 shadow-lg'>
+      <div className='grid grid-cols-12 py-10 h-90 mx-auto'>
+        <div className='col-start-2 col-span-8 shadow-lg'>
           <form onSubmit={handleSubmit} className='flex flex-row col-span-6'>
             <input
               type='text'
@@ -50,7 +50,7 @@ function AddressBar (props) {
             </button>
           </form>
         </div>
-        <div className='w-full text-2xl col-start-9 col-span-2 shadow-lg'>
+        <div className='w-full col-start-10 col-span-2 shadow-lg'>
           <button
             onClick={handleUseLocation}
             className='w-full py-2 px-4 border shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
