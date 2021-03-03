@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getUserHistory } from '../actions/user'
 import { dateParser } from '../utility'
+import { v4 } from 'uuid'
 
 function ParkerHistory (props) {
   const { history } = props.user
@@ -37,22 +38,23 @@ function ParkerHistory (props) {
 
                   { history.map((transaction) => {
                     return (
-                      <tr key={transaction.id} >
+                      <tr key={v4()} >
 
-                        <td className='px-6 py-4 whitespace-nowrap'>
+                        <td key={v4()} className='px-6 py-4 whitespace-nowrap'>
                           <div className='text-sm font-medium text-gray-900'>{transaction.parkName}</div>
                           <div className='text-sm text-gray-500'>{transaction.parkAddress}</div>
                         </td>
 
-                        <td className='px-6 py-4 whitespace-nowrap'>
+                        <td key={v4()} className='px-6 py-4 whitespace-nowrap'>
                           <div className='text-sm font-medium text-gray-900'>Start: {dateParser(transaction.startTime)}</div>
                           <div className='text-sm font-medium text-gray-900'>End:   {dateParser(transaction.endTime)}</div>
                         </td>
 
-                        <td className='px-6 py-4 whitespace-nowrap'>
+                        <td key={v4()} className='px-6 py-4 whitespace-nowrap'>
                           <div className='text-sm font-medium text-gray-900'>{transaction.finished ? 'Complete' : 'Incomplete'}</div>
                         </td>
-                        <td className='px-6 py-4 whitespace-nowrap'>
+
+                        <td key={v4()} className='px-6 py-4 whitespace-nowrap'>
                           <div className='text-sm font-medium text-gray-900'>${transaction.cost} </div>
                         </td>
                       </tr>
