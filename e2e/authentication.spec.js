@@ -2,7 +2,7 @@ const playwright = require('playwright')
 
 const connection = require('../server/db/connection')
 
-const homeUrl = process.env.E2E_URL || 'http://localhost:3001/#/'
+const homeUrl = process.env.E2E_URL || 'http://localhost:3000/#/'
 const registerUrl = homeUrl + 'register'
 const signInUrl = homeUrl + 'signin'
 
@@ -10,7 +10,7 @@ test('User can register, sign out and sign in again', async () => {
   // SETUP -----------------------
   await connection.migrate.latest()
   await connection.seed.run()
-  const browser = await playwright.chromium.launch()
+  const browser = await playwright.chromium.launch({ headless: false })
   const page = await browser.newPage()
   // -----------------------------
 
@@ -36,60 +36,39 @@ test('User can register, sign out and sign in again', async () => {
   await page.click('input[name="password"]')
   await page.fill('input[name="password"]', 'password')
   await page.screenshot({ path: 'beforeregisterclick.png', fullPage: true })
-  // await Promise.all([
-  // page.waitForNavigation(),
-  //   page.waitForSelector('button:text("Register")'),
-  // page.click('button:text("Register")')
-  //   // await page.click('a:text("Home")')
-  // ])
-  await page.click('button', { force: true })
-  console.log('button clicked... now lets wait ')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.waitForLoadState('networkidle')
-  await page.screenshot({ path: 'afterbuttonclick.png', fullPage: true })
-  console.log(page.url())
+  await Promise.all([
+    page.waitForNavigation(),
+    page.click('button:text("Register")')
+  ])
 
   // Log out
+  await page.waitForLoadState('networkidle')
   await Promise.all([
     // page.waitForNavigation(),
-    // page.waitForSelector('a:text("Log Off")')
-    // page.click('a:text("Log Off")')
-    page.click('a:text("Sign In")')
+    page.waitForSelector('a:text("Log Off")'),
+    page.click('a:text("Log Off")')
   ])
-  await page.screenshot({ path: 'afterlogout.png', fullPage: true })
 
-  await page.waitForLoadState('networkidle')
-  expect(page.url()).toBe(registerUrl)
+  expect(page.url()).toBe(homeUrl)
   console.log('sign in')
   // Navigate to sign in page
   await Promise.all([
-    page.waitForSelector('a:text("Sign in")'),
-    page.click('a:text("Sign in")')
+    page.waitForNavigation(),
+    // page.waitForSelector('a:text("Sign in")'),
+    page.click('a:text("Sign In")')
   ])
   expect(page.url()).toBe(signInUrl)
 
-  console.log('fill out sign in')
   // fill out sign in form
   await page.click('input[name="username"]')
-  await page.fill('input[name="username"]', 'Burgerlord')
+  await page.fill('input[name="username"]', 'Peter')
   await page.click('input[name="password"]')
-  await page.fill('input[name="password"]', 'password')
+  await page.fill('input[name="password"]', 'Peter')
 
-  console.log('click sign in')
   // click sign in button
   await Promise.all([
-    // page.waitForNavigation(),
-    page.waitForSelector('button:text("Sign in")'),
+    page.waitForNavigation(),
+    // page.waitForSelector('button:text("Sign in")'),
     page.click('button:text("Sign in")')
   ])
   expect(page.url()).toBe(homeUrl)
