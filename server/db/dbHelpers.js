@@ -23,9 +23,16 @@ module.exports = {
   startPark,
   endPark,
   getHistoryByParkerId,
-  getHistoryByOwnerId
+  getHistoryByOwnerId,
+  getIdByUsername
   // getOpenBookingsByUserId,
   // newEndPark
+}
+
+function getIdByUsername (username, db = connection) {
+  return db('users')
+    .where({ username })
+    .first()
 }
 
 // GET ALL PARKS

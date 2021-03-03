@@ -48,8 +48,40 @@ exports.seed = function (knex) {
           address: '33-43 Princes Street, Auckland Central, Auckland',
           lat: -36.850488045610895,
           lng: 174.76786664060185
+        },
+        {
+          id: 5,
+          name: '90 Sandringham Road',
+          price: 15.0,
+          owner_id: 6,
+          occupied: false,
+          occupant_id: null,
+          address: '90 Sandringham Road, Sandringham, Auckland',
+          lat: -36.87884,
+          lng: 174.741731
+        },
+        {
+          id: 6,
+          name: '6 Rossmay Terrace',
+          price: 25.0,
+          owner_id: 4,
+          occupied: false,
+          occupant_id: null,
+          address: '6 Rossmay Terrace, Mount Eden, Auckland',
+          lat: -36.8743897,
+          lng: 174.7405463
+        },
+        {
+          id: 7,
+          name: '45 Walters Road',
+          price: 22.0,
+          owner_id: 2,
+          occupied: false,
+          occupant_id: null,
+          address: '45 Walters Road, Mount Eden, Auckland',
+          lat: -36.8737888,
+          lng: 174.7447412
         }
-
       ])
     })
 }
