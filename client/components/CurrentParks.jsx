@@ -23,7 +23,7 @@ function CurrentParks (props) {
 
       {activeParks.length === 0
         ? <div className='block mx-auto text-center'>
-          <p className='capitalize'>You have no current parks</p>
+          <p className='capitalize'>You are not currently parking</p>
           <div className='my-4'>
             <Link to={'/'} className='rounded-lg py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
           Find My Park
