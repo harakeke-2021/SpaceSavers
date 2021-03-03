@@ -35,7 +35,7 @@ exports.seed = function (knex) {
           user_id: 4,
           start_time: 1614456000,
           end_time: 1614470400,
-          cost: 80.00,
+          cost: 18.00,
           finished: true
         },
         {
@@ -43,28 +43,36 @@ exports.seed = function (knex) {
           park_id: 2,
           user_id: 1,
           start_time: 1614456000,
-          finished: false
+          end_time: 1614474400,
+          cost: 24.00,
+          finished: true
         },
         {
           id: 6,
           park_id: 3,
           user_id: 2,
           start_time: 1614456000,
-          finished: false
+          end_time: 1614470300,
+          cost: 20.00,
+          finished: true
         },
         {
           id: 7,
           park_id: 1,
           user_id: 3,
           start_time: 1614456000,
-          finished: false
+          end_time: 1614460400,
+          cost: 34.00,
+          finished: true
         },
         {
           id: 8,
           park_id: 1,
           user_id: 4,
           start_time: 1614456000,
-          finished: false
+          end_time: 1614470400,
+          cost: 80.00,
+          finished: true
         }
       ])
     })
