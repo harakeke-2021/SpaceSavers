@@ -12,25 +12,25 @@ function ParkerHistory (props) {
   }, [])
 
   return (
-    <div className='sm-mx-2 md:mx-5 xl:mx-32'>
+    <div className='sm-mx-2 md:mx-5 xl:mx-32 2xl:52'>
       <h3 className='pt-10 pb-5 text-center text-3xl font-semibold uppercase font-roboto'>My Parking History</h3>
       <div className='flex flex-col my-5 m-auto'>
         <div className='my-2 overflow-x-auto'>
-          <div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-            <div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
+          <div className='py-2 align-middle inline-block min-w-full'>
+            <div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg w-min m-auto'>
               <table className='min-w-full divide-y divide-gray-200'>
                 <thead className='bg-blue-500'>
                   <tr>
-                    <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider'>
+                    <th scope='col' className='px-6 py-3 text-left font-medium text-white uppercase tracking-wider'>
                     Park
                     </th>
-                    <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider'>
+                    <th scope='col' className='px-6 py-3 text-left font-medium text-white uppercase tracking-wider'>
                     Length
                     </th>
-                    <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider'>
+                    <th scope='col' className='px-6 py-3 text-left font-medium text-white uppercase tracking-wider'>
                     Status
                     </th>
-                    <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider'>
+                    <th scope='col' className='px-6 py-3 text-left font-medium text-white uppercase tracking-wider'>
                     Cost
                     </th>
                   </tr>
@@ -42,21 +42,21 @@ function ParkerHistory (props) {
                       <tr key={v4()} >
 
                         <td key={v4()} className='px-6 py-4 whitespace-nowrap'>
-                          <div className='text-sm font-medium text-gray-900'>{transaction.parkName}</div>
-                          <div className='text-sm text-gray-500'>{transaction.parkAddress}</div>
+                          <div className='font-medium text-gray-900'>{transaction.parkName}</div>
+                          <div className='text-gray-500'>{transaction.parkAddress}</div>
                         </td>
 
                         <td key={v4()} className='px-6 py-4 whitespace-nowrap'>
-                          <div className='text-sm font-medium text-gray-900'>Start: {dateParser(transaction.startTime)}</div>
-                          <div className='text-sm font-medium text-gray-900'>End:   {dateParser(transaction.endTime)}</div>
+                          <div className='font-medium text-gray-900'>Start: {dateParser(transaction.startTime)}</div>
+                          <div className='font-medium text-gray-900'>End:   {dateParser(transaction.endTime)}</div>
                         </td>
 
                         <td key={v4()} className='px-6 py-4 whitespace-nowrap'>
-                          <div className='text-sm font-medium text-gray-900'>{transaction.finished ? 'Complete' : 'Incomplete'}</div>
+                          <div className='font-medium text-gray-900'>{transaction.finished ? 'Complete' : 'Incomplete'}</div>
                         </td>
 
                         <td key={v4()} className='px-6 py-4 whitespace-nowrap'>
-                          <div className='text-sm font-medium text-gray-900'>${transaction.cost} </div>
+                          <div className='font-medium text-gray-900'>${transaction.cost} </div>
                         </td>
                       </tr>
                     )
