@@ -23,9 +23,16 @@ module.exports = {
   startPark,
   endPark,
   getHistoryByParkerId,
-  getHistoryByOwnerId
+  getHistoryByOwnerId,
+  getIdByUsername
   // getOpenBookingsByUserId,
   // newEndPark
+}
+
+function getIdByUsername (username, db = connection) {
+  return db('users')
+    .where({ username })
+    .first()
 }
 
 // GET ALL PARKS
@@ -172,8 +179,7 @@ async function addPark (newPark, user, db = connection) {
   }
   return db('parks')
     .insert(park)
-    .then(() => db)
-    .then(getParksByOwnerId(user.id))
+    .then(() => getParksByOwnerId(user.id))
 }
 
 // UPDATE PARK
