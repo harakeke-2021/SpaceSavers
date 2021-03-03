@@ -10,7 +10,6 @@ function NewParkForm (props) {
 
   function handleChange (e, field) {
     setForm({ ...form, [field]: e.target.value })
-    console.log(form)
   }
 
   function handleSubmit (e) {
@@ -32,22 +31,6 @@ function NewParkForm (props) {
         console.log(e.message)
       })
   }
-
-  // useEffect(() => {
-  //   setForm({ ...form })
-  //   getGeoCode({ address: form.address })
-  //     .then((res) => {
-  //       const { location } = res.body
-  //       // console.log('location', location)
-  //       setGeoCode({ lat: location.lat, lng: location.lng })
-  //       // console.log('geocode', geoCode)
-  //       return null
-  //     })
-
-  //     .catch((e) => {
-  //       console.log(e.message)
-  //     })
-  // }, [form.address])
 
   return (
     <div className='w-80 h-80 hover:border-transparent hover:shadow-xs rounded-lg hover:shadow-lg border-2 border-dashed border-blue-500 py-4 block m-auto'>

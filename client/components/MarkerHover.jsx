@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { startParking } from '../api/markerHoverHelper'
+import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 
 function MarkerHover (props) {
   const { id, address, price, name } = props
@@ -19,9 +21,17 @@ function MarkerHover (props) {
         <li className='capitalize'>{address}</li>
         <li className=''>{`$ ${price}`}/hr</li>
 
-        <button onClick={onClick} className='w-3/4 hover:shadow-lg bg-blue-400 hover:bg-blue-500 block mx-auto mt-1 mb-2 rounded-lg text-white'>
-          Start Parking
-        </button>
+        <IfAuthenticated>
+          <button onClick={onClick} className='w-3/4 hover:shadow-lg bg-blue-400 hover:bg-blue-500 block mx-auto mt-1 mb-2 rounded-lg text-white'>
+            <Link to='/parker'>Start Parking</Link>
+          </button>
+        </IfAuthenticated>
+        <IfNotAuthenticated>
+          <button onClick={onClick} className='w-3/4 hover:shadow-lg bg-blue-400 hover:bg-blue-500 block mx-auto mt-1 mb-2 rounded-lg text-white'>
+            <Link to='/register'>Start Parking</Link>
+          </button>
+        </IfNotAuthenticated>
+
       </ul>
     </div>
   )

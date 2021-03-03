@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { updateOwnerBalance } from '../actions/owner'
 import OwnerParks from './OwnerParks'
-import { Link } from 'react-router-dom'
 import { IfAuthenticated } from './Authenticated'
 import OwnerHistory from './OwnerHistory'
 
@@ -17,17 +16,16 @@ function OwnerDashboard (props) {
   return (
     <IfAuthenticated>
       <div>
-        <div>
-          <h2 className='pt-20 pb-10 text-center text-4xl font-black uppercase font-work'>
-         My Parks
+        <div className='border-b-2 border-gray-200'>
+          <h2 className='pt-20 pb-10 text-center text-4xl font-bold uppercase font-roboto'>
+         Owner Dashboard
           </h2>
-          <div className='grid grid-cols-12 text-center'>
-            <p className='col-start-4 col-span-2 border-b-2 border-transparent hover:border-blue-600 p-2 mt-3 mb-2'>
+
+          <p className='text-center w-48 border-b-2 border-transparent hover:border-blue-500 p-2 mx-auto mt-3 mb-2'>
           Account Balance: ${owner.balance}
-            </p>
-          </div>
-          <OwnerParks />
+          </p>
         </div>
+        <OwnerParks />
       </div>
       <OwnerHistory/>
     </IfAuthenticated>

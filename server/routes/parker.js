@@ -130,7 +130,6 @@ router.get('/bookings', getTokenDecoder(), (req, res) => {
   const isFinished = false
   db.getHistoryByParkerId(user.id, isFinished)
     .then(result => {
-      console.log(result)
       res.json(result)
       return null
     })

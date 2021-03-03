@@ -15,7 +15,7 @@ module.exports = {
   // getUserParksbyId,
   getParksByOwnerId,
   addPark,
-  udpatePark,
+  updatePark,
   deletePark,
   getFullUser,
   authorizeUpdate,
@@ -25,6 +25,7 @@ module.exports = {
   getHistoryByParkerId,
   getHistoryByOwnerId
   // getOpenBookingsByUserId,
+  // newEndPark
 }
 
 // GET ALL PARKS
@@ -177,9 +178,7 @@ async function addPark (newPark, user, db = connection) {
 
 // UPDATE PARK
 
-async function udpatePark (updatePark, user, db = connection) {
-  console.log('inside db function/ updatePark', updatePark)
-  console.log('inside db function/ user', user)
+async function updatePark (updatePark, user, db = connection) {
   return db('parks')
     .where('id', updatePark.id)
     .first()
@@ -232,7 +231,7 @@ async function getFullUser (userId, db = connection) {
 
 async function getOwnerBalance (id, db = connection) {
   return db('users')
-    .first({ id })
+    .where({ id }).first()
     .select('balance')
     .then((result) => {
       return result.balance
@@ -258,7 +257,7 @@ function checkIfParkOccupied (parkId, db = connection) {
       } else if (result.occupied) {
         throw new Error(`Park with ID ${parkId} is already occupied`)
       } else {
-        return null
+        return result
       }
     })
 }
@@ -294,19 +293,96 @@ async function startPark (parkId, userId, db = connection) {
   //   })
 }
 
-function endPark (historyId, userId, db = connection) {
-  return calculateCost(historyId, userId).then(([endTime, cost]) => {
-    return db('park_history')
-      .where({
-        id: historyId,
-        user_id: userId
-      })
-      .first()
-      .update({ end_time: endTime, cost: cost, finished: true })
-  })
+async function endPark (historyId, userId, db = connection) {
+  const trxProvider = db.transactionProvider()
+  const trx1 = await trxProvider()
+  const trx2 = await trxProvider()
+  const trx3 = await trxProvider()
+  const trx4 = await trxProvider()
+  // const trx5 = await trxProvider()
+  // const trx6 = await trxProvider()
+  // const trx7 = await trxProvider()
+  try {
+    const endTime = Math.floor(Date.now() / 1000)
+    const { parkId, ownerBalance, ownerId, price, startTime } = await endParkHelper(historyId, trx1)
+    const secondsElapsed = endTime - startTime
+    const hours = secondsElapsed / (60 * 60)
+    const cost = Math.round(hours * price * 100) / 100
+
+    // const cost = await calculateCost(historyId, userId, endTime, trx1)
+    await updateParkHistory(historyId, userId, endTime, cost, trx2)
+    console.log(parkId)
+    await setUnoccupied(parkId, trx3)
+    const newBalance = Math.round((ownerBalance + cost) * 100) / 100
+    await updateUserBalance(ownerId, newBalance, trx4)
+
+    trx1.commit()
+    trx2.commit()
+    trx3.commit()
+    trx4.commit()
+    // trx5.commit()
+    // trx6.commit()
+    // trx7.commit()
+    return 'Parking Ended'
+  } catch (error) {
+    trx1.rollback()
+    trx2.rollback()
+    trx3.rollback()
+    trx4.rollback()
+    // trx5.rollback()
+    // trx6.rollback()
+    // trx7.rollback()
+    throw new Error('Could not finish park')
+  }
 }
 
-function calculateCost (historyId, userId, db = connection) {
+function updateUserBalance (userId, newBalance, db = connection) {
+  return db('users')
+    .where({ id: userId })
+    .update({ balance: newBalance })
+}
+
+function endParkHelper (historyId, db = connection) {
+  return db('park_history')
+    .where({ 'park_history.id': historyId }).first()
+    .leftJoin('parks', 'park_history.park_id', 'parks.id')
+    .leftJoin('users', 'parks.owner_id', 'users.id')
+    .select('park_id as parkId',
+      'users.balance as ownerBalance',
+      'parks.owner_id as ownerId',
+      'parks.price as price',
+      'park_history.start_time as startTime'
+    )
+    .then(res => {
+      console.log(res)
+      return res
+    })
+}
+
+function updateParkHistory (historyId, userId, endTime, cost, db = connection) {
+  return db('park_history')
+    .where({
+      id: historyId,
+      user_id: userId
+    })
+    .first()
+    .update({ end_time: endTime, cost: cost, finished: true })
+}
+
+// function endPark (historyId, userId, db = connection) {
+//   return calculateCost(historyId, userId)
+//     .then(([endTime, cost]) => {
+//       return db('park_history')
+//         .where({
+//           id: historyId,
+//           user_id: userId
+//         })
+//         .first()
+//         .update({ end_time: endTime, cost: cost, finished: true })
+//     })
+// }
+
+async function calculateCost (historyId, userId, endTime, db = connection) {
   return db('park_history')
     .join('parks', 'park_history.park_id', 'parks.id')
     .where({
@@ -317,11 +393,11 @@ function calculateCost (historyId, userId, db = connection) {
     .select('park_history.start_time as startTime', 'parks.price as price')
     .then((res) => {
       const { startTime, price } = res
-      const endTime = Math.floor(Date.now() / 1000)
+      // const endTime = Math.floor(Date.now() / 1000)
       const secondsElapsed = endTime - startTime
       const hours = secondsElapsed / (60 * 60)
-      const cost = hours * price
-      return [endTime, cost]
+      const cost = Math.round(hours * price * 100) / 100
+      return cost
     })
 }
 

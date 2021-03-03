@@ -11,12 +11,15 @@ function OwnerParks (props) {
     getParksByOwnerId()
   }, [render])
   return (
-    <div className='w-3/4 my-10 block m-auto'>
-      <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-flow-row center-object gap-y-10'>
-        {parks.map((park) => {
-          return <OwnerPark setRender={setRender} render={render} key={park.id} park={park}/>
-        })}
-        <NewPark />
+    <div className='border-b-2 border-gray-200'>
+      <h3 className='pt-10 pb-5 text-center text-3xl font-semibold uppercase font-roboto tracking-wider'>My Parks</h3>
+      <div className='w-3/4 my-10 block m-auto'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-flow-row center-object gap-y-10'>
+          {parks.map((park) => {
+            return <OwnerPark setRender={setRender} render={render} key={park.id} park={park}/>
+          })}
+          <NewPark />
+        </div>
       </div>
     </div>
   )

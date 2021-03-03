@@ -16,7 +16,7 @@ function NavBar () {
         <Link to={'/owner'} className='col-start-3 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2'>
         My Parks
         </Link>
-        <Link to='#' onClick={logOff} className='col-start-4 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2'>
+        <Link to='/' onClick={logOff} className='col-start-4 border-b-2 border-transparent hover:border-white p-2 mt-3 mb-2'>
           Log Off
         </Link>
       </IfAuthenticated>
