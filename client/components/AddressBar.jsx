@@ -33,34 +33,27 @@ function AddressBar (props) {
   }
 
   return (
-    <>
-      <div className='grid grid-cols-12 py-10 h-90 mx-auto'>
-        <div className='col-start-2 col-span-8 shadow-lg'>
-          <form onSubmit={handleSubmit} className='flex flex-row col-span-6'>
-            <input
-              type='text'
-              onChange={handleChange}
-              placeholder='Search here'
-              className='w-full h-full border-transparent focus:border-blue-500 focus:bg-white focus:ring-0'
-            />
-            <button
-              className='h-full w-52 py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
-            >
+    <div>
+      <form onSubmit={handleSubmit} className='flex flex-wrap flex-auto my-10 gap-5 mx-auto md:px-10 lg:px-20 2xl:px-32'>
+        <input
+          type='text'
+          onChange={handleChange}
+          placeholder='Search here'
+          className='border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 shadow-sm rounded-lg w-72 flex-1'
+        />
+        <button
+          className=' py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+        >
               Find My Park
-            </button>
-          </form>
-        </div>
-        <div className='w-full col-start-10 col-span-2 shadow-lg'>
-          <button
-            onClick={handleUseLocation}
-            className='w-full py-2 px-4 border shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
+        </button>
+        <button
+          onClick={handleUseLocation}
+          className=' py-2 px-4 border rounded-lg shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
               Use My Location
-          </button>
-        </div>
+        </button>
         {showGeoWarning ? <GeolocationWarning/> : null }
-      </div>
-
-    </>
+      </form>
+    </div>
   )
 }
 
