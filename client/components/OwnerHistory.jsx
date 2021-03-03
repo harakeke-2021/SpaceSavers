@@ -9,12 +9,12 @@ function OwnerHistory (props) {
   useEffect(() => {
     getHistoryByOwnerId()
   }, [])
-  // console.log('random', v4())
+
   return (
-    <div className='mb-32 xl:mx-32'>
+    <div className='sm-mx-2 md:mx-5 xl:mx-32'>
       <h3 className='pt-10 pb-5 text-center text-3xl font-semibold uppercase font-roboto tracking-wider'>Transaction History</h3>
-      <div className='flex flex-col my-5 lg:w-3/4 m-auto'>
-        <div className='my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
+      <div className='flex flex-col my-5 m-auto'>
+        <div className='my-2 overflow-x-auto'>
           <div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
             <div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
               <table className='min-w-full divide-y divide-gray-200'>

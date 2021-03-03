@@ -25,7 +25,7 @@ function CurrentParks (props) {
         ? <div className='block mx-auto text-center'>
           <p className='capitalize'>You have no current parks</p>
           <div className='my-4'>
-            <Link to={'/'} className='py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
+            <Link to={'/'} className='rounded-lg py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
           Find My Park
             </Link>
           </div>
