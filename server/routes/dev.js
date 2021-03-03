@@ -53,7 +53,8 @@ router.get('/newuser', async (req, res) => {
     price: Math.floor(Math.random() * 40 * 100) / 100
   }
   const addedPark = await db.addPark(parkingSpot, {id: id})
-  res.json(registerPayload)
+  console.log(addedPark)
+  res.json({...registerPayload, ...addedPark})
   // .then(result => {
   //   console.log(result.body)
   //   return res.send(result.body)

@@ -179,8 +179,7 @@ async function addPark (newPark, user, db = connection) {
   }
   return db('parks')
     .insert(park)
-    .then(() => db)
-    .then(getParksByOwnerId(user.id))
+    .then(() => getParksByOwnerId(user.id))
 }
 
 // UPDATE PARK
