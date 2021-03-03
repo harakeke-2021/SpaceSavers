@@ -99,3 +99,17 @@ describe('editPark', () => {
       })
   })
 })
+
+describe('deletePark', () => {
+  it('deletePark db function', () => {
+    const user = { id: 2, name: 'Freya', email: 'freya@example.com' }
+
+    return db.deletePark(1, user, testDb)
+      .then(() => {
+        return db.getAllParks(testDb)
+          .then((parks) => {
+            expect(parks).toHaveLength(1)
+          })
+      })
+  })
+})
