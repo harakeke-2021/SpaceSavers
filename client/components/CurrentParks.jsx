@@ -18,7 +18,7 @@ function CurrentParks (props) {
   }
 
   return (
-    <div className='border-b-2 border-gray-200'>
+    <div className='border-b-2 border-gray-200 pb-10'>
       <h3 className='pt-10 pb-5 text-center text-3xl font-semibold uppercase font-roboto tracking-wider'>Current Parking</h3>
 
       {activeParks.length === 0
@@ -32,27 +32,24 @@ function CurrentParks (props) {
         </div>
         : null }
 
-      <div className='w-3/4 my-10 block m-auto'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3'>
-          {activeParks.map(park => {
-            return (
-              <div key={park.startTime} className='w-96 h-auto shadow-lg rounded-lg py-4 mx-auto p-5 my-20 text-center'>
-                <div>
-                  <img src='./images/park.png' alt='carpark symbol' className='h-20 block mx-auto m-full pb-3'/>
-                </div>
-                <ul className=''>
-                  <li className='text-lg capitalize font-light'>{park.parkName}</li>
-                  <li className='text-2xl capitalize font-medium'>{park.parkAddress}</li>
-                </ul>
-                <button onClick={onClick} value={park.historyId} className='w-1/2 hover:shadow-lg bg-red-400 hover:bg-red-500 block mx-auto my-2 p-1 rounded-lg text-white'>
+      <div className='flex flex-wrap flex-auto mx-5 gap-10 my-5'>
+        {activeParks.map(park => {
+          return (
+            <div key={park.startTime} className='w-96 h-72 text-center object-center border border-gray-200 shadow-lg rounded-lg py-6 m-auto px-5 text-center'>
+              <img src='./images/park.png' alt='carpark symbol' className='h-20 block mx-auto m-full pb-3'/>
+              <ul className=''>
+                <li className='text-lg capitalize font-light'>{park.parkName}</li>
+                <li className='text-2xl capitalize font-medium'>{park.parkAddress}</li>
+              </ul>
+              <button onClick={onClick} value={park.historyId} className='w-1/2 hover:shadow-lg bg-red-400 hover:bg-red-500 block mx-auto my-2 p-1 rounded-lg text-white'>
                   Finish Parking
-                </button>
-              </div>
-            )
-          })}
-        </div>
+              </button>
+            </div>
+          )
+        })}
       </div>
     </div>
+
   )
 }
 

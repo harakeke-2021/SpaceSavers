@@ -31,7 +31,7 @@ function OwnerPark (props) {
           />
         )
           : (
-            <div className='w-80 h-80 text-center object-center grid-span-3 hover:bg-blue-500 hover:border-transparent hover:shadow-lg rounded-lg p-5 border border-blue-500 block mx-auto hover:text-white'>
+            <div className='w-80 h-80 text-center object-center hover:bg-blue-500 hover:border-transparent hover:shadow-lg rounded-lg p-5 border border-blue-500 block mx-auto hover:text-white'>
               <button onClick={openUpdateForm} className='relative left-28'>
              Edit
               </button>
