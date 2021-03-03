@@ -7,14 +7,14 @@ exports.seed = function (knex) {
       return knex('parks').insert([
         {
           id: 1,
-          name: 'EDA Parking',
+          name: 'Britomart Parking',
           price: 9.99,
           owner_id: 2,
           occupied: false,
           occupant_id: null,
-          address: '12 Morgan Place, Newmarket, Auckland',
-          lat: -36.8644651,
-          lng: 174.7760992
+          address: 'Britomart Train Station, Auckland Central, Auckland',
+          lat: -36.8444044,
+          lng: 174.7673453
         },
         {
           id: 2,
