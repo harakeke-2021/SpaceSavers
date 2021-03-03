@@ -29,6 +29,24 @@ module.exports = {
     }
   },
 
+  e2e: {
+    client: 'sqlite3',
+    useNullAsDefault: true,
+    // connection: {
+    //   filename: ':memory:'
+    // },
+    connection: {
+      filename: path.join(__dirname, '../../e2e/dev.sqlite3')
+    },
+    migrations: {
+      directory: path.join(__dirname, 'migrations')
+    },
+    seeds: {
+      directory: path.join(__dirname, 'seeds')
+      // change to testlater
+    }
+  },
+
   staging: {
     client: 'postgresql',
     connection: {
