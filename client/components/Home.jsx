@@ -7,7 +7,7 @@ function Home () {
   const [searchArea, setSearchArea] = useState('')
   const [userPosition, setUserPosition] = useState('')
   return (
-    <div className='px-36 lg:mx-10 xl:mx-24 2xl:mx-36'>
+    <div className='px-36 lg:mx-10 xl:mx-24 2xl:mx-36 pb-20'>
       <div className='border-b-2 border-gray-200 pb-10 mt-20'>
         <h1 className='pt-5 text-center text-blue-600 text-9xl font-black uppercase font-work'>
           Space Saver
