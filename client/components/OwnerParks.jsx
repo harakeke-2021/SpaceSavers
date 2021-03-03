@@ -12,7 +12,7 @@ function OwnerParks (props) {
   }, [render])
   return (
     <div className='border-b-2 border-gray-200 pb-10'>
-      <h3 className='pt-10 pb-5 text-center text-3xl font-semibold uppercase font-roboto tracking-wider'>My Parks</h3>
+      <h3 className='pt-10 pb-5 text-center text-3xl font-semibold uppercase font-work'>My Parks</h3>
       <div className='flex flex-wrap flex-auto mx-5 gap-10 my-5'>
         {parks.map((park) => {
           return <OwnerPark setRender={setRender} render={render} key={park.id} park={park}/>

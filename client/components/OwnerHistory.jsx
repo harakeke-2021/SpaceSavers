@@ -12,7 +12,7 @@ function OwnerHistory (props) {
 
   return (
     <div className='sm-mx-5 md:mx-10 xl:mx-32 2xl:52'>
-      <h3 className='pt-10 pb-5 text-center text-3xl font-semibold uppercase font-roboto tracking-wider'>Transaction History</h3>
+      <h3 className='pt-10 pb-3 text-center text-3xl font-semibold uppercase font-work'>Transaction History</h3>
       <div className='flex flex-col my-5 m-auto'>
         <div className='my-2 overflow-x-auto'>
           <div className='py-2 align-middle inline-block min-w-full'>

@@ -19,7 +19,7 @@ function CurrentParks (props) {
 
   return (
     <div className='border-b-2 border-gray-200 pb-10'>
-      <h3 className='pt-10 pb-5 text-center text-3xl font-semibold uppercase font-roboto tracking-wider'>Current Parking</h3>
+      <h3 className='pt-10 pb-5 text-center text-3xl font-semibold uppercase font-work'>Current Parking</h3>
 
       {activeParks.length === 0
         ? <div className='block mx-auto text-center'>
