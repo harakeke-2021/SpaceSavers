@@ -5,7 +5,7 @@ import OwnerDashboard from './OwnerDashboard'
 
 function Owner (props) {
   return (
-    <div className='px-20 xl:mx-26 mb-26'>
+    <div className='lg:mx-20 xl:mx-26 2xl:mx-36'>
       <Route exact path='/owner' component={OwnerDashboard} />
     </div>
   )

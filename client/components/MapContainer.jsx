@@ -63,7 +63,7 @@ function MapContainer (props) {
 
   return (
     <>
-      <div className='map w-full max-w-7xl h-xl block m-auto'>
+      <div className='map w-full h-xl block m-auto'>
         <GoogleMapReact
           bootstrapURLKeys={{ key }}
           defaultCenter={defaultCenter}

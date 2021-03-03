@@ -17,11 +17,10 @@ function OwnerDashboard (props) {
     <IfAuthenticated>
       <div>
         <div className='border-b-2 border-gray-200'>
-          <h2 className='pt-20 pb-10 text-center text-4xl font-bold uppercase font-roboto'>
+          <h2 className='pt-16 pb-5 text-center text-5xl font-black uppercase font-work text-blue-600'>
          Owner Dashboard
           </h2>
-
-          <p className='text-center w-48 border-b-2 border-transparent hover:border-blue-500 p-2 mx-auto mt-3 mb-2'>
+          <p className='text-center w-48 border-b-2 border-transparent hover:border-blue-500 p-2 mx-auto mt-3 mb-2 font-semibold font-work'>
           Account Balance: ${owner.balance}
           </p>
         </div>
