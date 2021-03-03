@@ -65,7 +65,7 @@ router.put('/', async (req, res) => {
   const newPark = req.body
   const user = req.user
   try {
-    const parks = await db.udpatePark(newPark, user)
+    const parks = await db.updatePark(newPark, user)
     res.json({ parks })
   } catch (err) {
     if (err.message === 'Unauthorized') {
