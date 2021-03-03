@@ -44,17 +44,19 @@ router.get('/newuser', async (req, res) => {
     .post('http://localhost:3000/api/v1/auth/register')
     .send(registerPayload)
   const { id } = await db.getIdByUsername(user.login.username)
-  const latlng = await request.post('http://localhost:3000/api/v1/parker/geocode').send({address:user.location.city + " " +user.location.country })
+  const latlng = await request
+    .post('http://localhost:3000/api/v1/parker/geocode')
+    .send({ address: user.location.city + ' ' + user.location.country })
   const parkingSpot = {
     name: user.name.first + "'s Parking Spot",
     address: `${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.country}`,
     lat: latlng.body.location.lat,
     lng: latlng.body.location.lng,
-    price: Math.floor(Math.random() * 40 * 100) / 100
+    price: parseInt(Math.floor(Math.random() * 10 * 100) / 100)
   }
-  const addedPark = await db.addPark(parkingSpot, {id: id})
+  const addedPark = await db.addPark(parkingSpot, { id: id })
   console.log(addedPark)
-  res.json({...registerPayload, ...addedPark})
+  res.json({ ...registerPayload, ...addedPark })
   // .then(result => {
   //   console.log(result.body)
   //   return res.send(result.body)

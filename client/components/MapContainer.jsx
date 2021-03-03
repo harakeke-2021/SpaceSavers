@@ -74,7 +74,7 @@ function MapContainer (props) {
           {parks.map((park) => {
             return park.occupied === 0 ? (
               <MapMarker
-                key={park.lat}
+                key={park.id}
                 lat={park.lat}
                 lng={park.lng}
                 obj={park}

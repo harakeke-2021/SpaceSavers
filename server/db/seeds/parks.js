@@ -8,18 +8,18 @@ exports.seed = function (knex) {
         {
           id: 1,
           name: 'EDA Parking',
-          price: 20.0,
+          price: 9.99,
           owner_id: 2,
           occupied: false,
           occupant_id: null,
           address: '12 Morgan Place, Newmarket, Auckland',
-          lat: -36.8646253,
-          lng: 174.7672811
+          lat: -36.8644651,
+          lng: 174.7760992
         },
         {
           id: 2,
           name: 'Sky Tower Parking',
-          price: 50.0,
+          price: 19.99,
           owner_id: 3,
           occupied: false,
           occupant_id: null,
@@ -30,7 +30,7 @@ exports.seed = function (knex) {
         {
           id: 3,
           name: 'UoA - OGG Building',
-          price: 30.0,
+          price: 8.09,
           owner_id: 1,
           occupied: false,
           occupant_id: null,
@@ -41,7 +41,7 @@ exports.seed = function (knex) {
         {
           id: 4,
           name: 'Albert Park',
-          price: 15.0,
+          price: 9.5,
           owner_id: 2,
           occupied: false,
           occupant_id: null,
@@ -52,7 +52,7 @@ exports.seed = function (knex) {
         {
           id: 5,
           name: '90 Sandringham Road',
-          price: 15.0,
+          price: 8.99,
           owner_id: 6,
           occupied: false,
           occupant_id: null,
@@ -63,7 +63,7 @@ exports.seed = function (knex) {
         {
           id: 6,
           name: '6 Rossmay Terrace',
-          price: 25.0,
+          price: 7.99,
           owner_id: 4,
           occupied: false,
           occupant_id: null,
@@ -74,13 +74,79 @@ exports.seed = function (knex) {
         {
           id: 7,
           name: '45 Walters Road',
-          price: 22.0,
+          price: 8.50,
           owner_id: 2,
           occupied: false,
           occupant_id: null,
           address: '45 Walters Road, Mount Eden, Auckland',
           lat: -36.8737888,
           lng: 174.7447412
+        },
+        {
+          id: 8,
+          name: 'Spark Arena Parking',
+          price: 5.50,
+          owner_id: 2,
+          occupied: false,
+          occupant_id: null,
+          address: '42-80 Mahuhu Crescent, Parnell, Auckland',
+          lat: -36.847183,
+          lng: 174.776268
+        },
+        {
+          id: 9,
+          name: 'Near Newmarket Station',
+          price: 3.99,
+          owner_id: 2,
+          occupied: false,
+          occupant_id: null,
+          address: '10 Durville Heights, Remuera, Auckland',
+          lat: -36.8705889,
+          lng: 174.7776582
+        },
+        {
+          id: 10,
+          name: 'Near Eden Park',
+          price: 8.00,
+          owner_id: 2,
+          occupied: false,
+          occupant_id: null,
+          address: '6-12 Cricket Avenue, Mount Eden, Auckland',
+          lat: -36.847183,
+          lng: 174.776268
+        },
+        {
+          id: 11,
+          name: 'Jacinda\'s Parking Spot',
+          price: 49.99,
+          owner_id: 2,
+          occupied: false,
+          occupant_id: null,
+          address: 'Beehive, Pipitea, Wellington',
+          lat: -41.278342,
+          lng: 174.7754181
+        },
+        {
+          id: 12,
+          name: 'Wellington Central Prime Location',
+          price: 10.99,
+          owner_id: 2,
+          occupied: false,
+          occupant_id: null,
+          address: '33 Lambton Quay, Pipitea, Wellington',
+          lat: -41.2791202,
+          lng: 174.7768321
+        },
+        {
+          id: 13,
+          name: 'Xero Wellington',
+          price: 8.62,
+          owner_id: 2,
+          occupied: false,
+          occupant_id: null,
+          address: '33 Lambton Quay, Pipitea, Wellington',
+          lat: -41.2914363,
+          lng: 174.7788587
         }
       ])
     })
