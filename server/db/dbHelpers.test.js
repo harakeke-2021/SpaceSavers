@@ -55,50 +55,54 @@ describe('getUserById', () => {
     return db.getUserById(3, testDb)
       .then(user => {
         expect(user.id).toBe(3)
-        expect(user.name).toBe('Paul')
-        expect(user.email).toBe('paul@example.com')
+        expect(user.name).toBe('Anna')
+        expect(user.email).toBe('anna@example.com')
         return null
       })
   })
 })
 
-describe('addPark', () => {
-  it('adds a new park', () => {
-    const newPark = {
-      name: 'Test park 5',
-      address: '5 test address',
-      lat: -36.8646253,
-      lng: 174.7672811,
-      price: 5,
-      occupied: false,
-      occupantId: null
-    }
+// describe('addPark', () => {
+//   it('adds a new park', (done) => {
+//     const newPark = {
+//       name: 'Test park 5',
+//       address: '5 test address',
+//       lat: -36.8646253,
+//       lng: 174.7672811,
+//       price: 5,
+//       occupied: false
+//     }
+//     const user = {
+//       id: 2
+//     }
 
-    return db.addPark(newPark, 3, testDb)
-      .then((ids) => {
-        expect(ids[0]).toBe(3)
-        return null
-      })
-  })
-})
+//     db.addPark(newPark, user, testDb, (parks) => {
+//       expect(parks).toHaveLength(3)
+//       expect(parks[2].ownerId).toBe(2)
+//       done()
+//     })
+//   })
+// })
 
-describe('editPark', () => {
-  it('edit correct park', () => {
-    const updatePark = {
-      id: 1,
-      name: 'Test park changed',
-      price: 5
-    }
-
-    return db.editPark(updatePark, 1, testDb)
-      .then((park) => {
-        expect(park.id).toBe(1)
-        expect(park.name).toBe('Test park changed')
-        expect(park.price).toBe(5)
-        return null
-      })
-  })
-})
+// describe('updatePark', () => {
+//   it('update correct park', () => {
+//     const updatePark = {
+//       id: 1,
+//       name: 'Test park changed',
+//       price: 5
+//     }
+//     const user = {
+//       id: 1
+//     }
+//     return db.updatePark(updatePark, user, testDb)
+//       .then((park) => {
+//         expect(park.id).toBe(1)
+//         expect(park.name).toBe('Test park changed')
+//         expect(park.price).toBe(5)
+//         return null
+//       })
+//   })
+// })
 
 describe('deletePark', () => {
   it('deletePark db function', () => {
@@ -107,11 +111,7 @@ describe('deletePark', () => {
     return db.deletePark(1, user, testDb)
       .then(() => {
         return db.getAllParks(testDb)
-          .then((parks) => {
-            expect(parks).toHaveLength(1)
-          })
+          .then(parks => expect(parks).toHaveLength(1))
       })
   })
 })
-
-

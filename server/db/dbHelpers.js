@@ -75,7 +75,6 @@ function getParkById (parkId, db = connection) {
     .where('id', parkId)
     .select(
       'id',
-      'username',
       'name',
       'owner_id as ownerId',
       'address',
