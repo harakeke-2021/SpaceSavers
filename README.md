@@ -1,37 +1,30 @@
 # Space Saver
 
-## Code of Conduct
+INTRODUCTION: 
+Its a Auckland anniversary. It's a hot summers day and you
+want to head to the beach, So does everyone else. You get to the
+beach and you think gee whiz im going to be walking for km
+to find a park anywhere near.
 
-Safe space
-Everybody’s voice is heard
-Constant communication 
+SpaceSaver
 
-Expectations of hours:
-Weekdays: 8.30am - 5pm 
-weekend: 9am -2pm
+You're heading to watch the Allblacks play at eden park. 
+So is every other Kiwi in auckland and you know you aren't going
+to be able to find a park anywhere near and if you do its going
+to cost you an arm and a leg.
 
-Conflict resolution: 
-Try and incorporate everybody's perspective/ consider perspectives 
-Daily standup & check in, giving kind feedback 
+SpaceSaver
+
+We here at SpaceSaver want to give property owners the chance
+to earn a bit of money and offer up their parking spot when
+they're not using it.
+
+We here at SpaceSaver want to give the general populace the 
+chance to park closer to their destination without paying
+extortionate prices. 
 
 Agile roles & rituals: 
 Daily standups, impromptu standups, check-in & check-out , mid-day check-in 
-
-Survival plan:
-Snacks, music, taking a decent lunch break to avoid burnout. 
-
-Get Help?
-Time box when blocked 30 mins
-Ask a team a member if available or ask facilitators 
-
-When I’m stress I need:
-Pete: food, water, fresh air, break away from desk, a reset
-Clinton: quiet time, break away from desk, fresh air
-Peter: powers through but should take a break
-Anna: step away, talk it through with someone else, snack 
-
-
-Deployed: using heroku 
 
 Tech:
 Framer motion, animations 
@@ -51,7 +44,5 @@ Peter: Backend lead
 Definition of done:
 Passing tests
 Peer reviewed 
-
-test
 
 
