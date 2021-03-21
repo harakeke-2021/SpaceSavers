@@ -42,7 +42,8 @@ function AddressBar (props) {
           className='border-gray-200 focus:border-blue-500 focus:bg-white focus:ring-0 shadow-sm rounded-lg w-72 flex-1'
         />
         <button
-          className=' py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+          className='py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600
+                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
         >
               Find My Park
         </button>
