@@ -1,5 +1,7 @@
 # Space Saver
 
+![](./images/homepage.png)
+
 Its a Auckland anniversary. It's a hot summers day and you want to head to the beach, So does everyone else. You get to the beach and you think gee whiz im going to be walking for km to find a park anywhere near.
 
 SpaceSaver
