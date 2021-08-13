@@ -1,87 +1,47 @@
-# Space Saver
-![](./images/homepage.png)
+<h1 align='center'>
+    Space Savers
+</h1>
 
+<p align='center'>
+    <a>How to use</a> •
+    <a>How to use</a> • 
+    <a>How to use</a> 
+</p>
 
-Enspiral Dev Academy Final Project
-Team built web app focused on bringing provision and simplicity to parking for commuters
-The following technologies were utilized 
+<p align='center'>
+Space Saver is an application that allows owners of property to rent out their space as parking spots for customers. Customers book available parking spots in a vicinity of their choice for a specified time and cost per hour allotted to by the owner of the parking spot.
+</p>
 
+## Methodologies
 
-## TECHNOLOGIES 
+##  Technologies 
+<p align='center'>
+Language: JavaScript 
+<br>
+Frontend: Tailwind • React • Redux 
+<br>
+Database: SQLite3 • Knex.js
+<br>
+Apis: Google Maps API
+<br>
+Node.JS • Express.JS • SuperAgent.JS 
+<br>
+Testing:
+Playwright •
+Jest.js 
+</p>
 
- - JavaScript 
- - React
- - Redux
- - SQLite3
- - GOOGLE MAPS API
- - Knex.js
- - Node.JS
- - Express.JS
- - SuperAgent.JS
- - Tailwind
- - Playwright
- - Jest.js
+## How to use
 
-## PRESENTATION
+```bash
 
- Click on the link provided to view a presentation of the final product.
- 
- LINK: https://www.youtube.com/watch?v=EokYrULrYoQ
+# Clone the repo
+git clone https://github.com/clintonphilathong/SpaceSavers.git
 
-## INTRODUCTION
+# Go into the repo
+cd SpaceSavers
 
-Its a Auckland anniversary. It's a hot summers day and you want to head to the beach, So does everyone else. You get to the beach and you think gee whiz im going to be walking for km to find a park anywhere near.
+# Install dependencies
+npm install
 
-SpaceSaver
-
-You're heading to watch the Allblacks play at eden park. So is every other Kiwi in auckland and you know you aren't going to be able to find a park anywhere near and if you do its going to cost you an arm and a leg.
-
-SpaceSaver
-
-We here at SpaceSaver want to give property owners the chance to earn a bit of money and offer up their parking spot when they're not using it.
-
-We here at SpaceSaver want to give the general populace the chance to park closer to their destination without paying extortionate prices.
-
-
-## ScreenShots 
-
-Authentication/ Log on Screen . . .
-
-![Authentication](server/public/images/ScreenShots/Authentication.png)
-
-GeoLocation/ Search Area function . . .
-
-![GeoLocation](server/public/images/ScreenShots/GeoLocation%20Searching.png)
-
-
-Owner Dashboard . .
-
-![parker](server/public/images/ScreenShots/Parker%20DashBoard.png)
-
-Parker Dashboard . . .
-
-![Owner](server/public/images/ScreenShots/Owner%20Dash.png)
-
-
-Add Park / Edit || Delete Park . . . 
-
-![add park](server/public/images/ScreenShots/Add%20Park.png)
-![edit delete](server/public/images/ScreenShots/Edit%20Delete%20Park.png)
-
-## Team Roles
-Clinton: Frontend lead & animation
-Pete: Vibes master & Product lead
-Anna: Git lead & styling 
-Peter: Backend lead
-
- 
-## Git flow:
-Main => Dev => Feature branches 
-Peer review before pushing to dev 
-Code review before pushing to main 
-
-## Definition of done:
-Passing tests
-Peer reviewed 
-
-
+```
